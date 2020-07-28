@@ -1,0 +1,54 @@
+package LightSeal
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+
+public constant ABILITY_LIGHTSEAL_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_HEAL = 10
+@configurable constant LEVEL_HEAL = 5
+@configurable constant BASE_CD = 60.
+@configurable constant LEVEL_CD = 5.
+@configurable constant BASE_MANACOST = 100
+@configurable constant LEVEL_MANACOST = 40
+@configurable constant BASE_AREA = 100.
+@configurable constant LEVEL_AREA = 20.
+@configurable constant DURATION = 6.
+@configurable constant TICK_RATE = .25
+
+@compiletime function generateAbilityLightSeal()
+    let tgen = new AbilityTooltipGenerator("Creates an area of pure light, healing friendly units inside of it periodically.")
+    tgen.addProperty("Heal amount", lvl -> (BASE_HEAL + lvl * LEVEL_HEAL).toString())
+    tgen.addProperty("Area", lvl -> (BASE_AREA + lvl * LEVEL_AREA).toString())
+    tgen.addConstantProperty("Duration", DURATION.toString())
+    
+    new ChannelAbilityPreset(ABILITY_LIGHTSEAL_ID, 5, true, tgen)
+        ..presetTargetTypes(Targettype.POINT)
+        ..tooltipStartListen()
+        ..presetCooldown(lvl -> BASE_CD - lvl * LEVEL_CD)
+        ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
+        ..setName("Light Seal")
+        ..tooltipStopListen()
+        ..presetButtonPosNormal(1, 2)
+        ..presetButtonPosResearch(1, 0)
+        ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNBlessedCircle.blp")
+
+init
+    EventListener.onPointCast(ABILITY_LIGHTSEAL_ID) (unit caster, vec2 target) ->
+        let lvl = caster.getAbilityLevel(ABILITY_LIGHTSEAL_ID)
+        let fx = addEffect("Effects\\HolyAura.mdx", target)
+        fx.setScale(1.2 + lvl*0.12)
+        fx.setHeight(2.)
+        doAfter(DURATION) -> 
+            fx.destr()
+        doPeriodicallyTimed(TICK_RATE, DURATION) (CallbackCounted cb) ->
+            forUnitsInRange(target, BASE_AREA + lvl * LEVEL_AREA) (unit u) ->
+                let healAmount = (BASE_HEAL + lvl * LEVEL_HEAL)
+                u.setHP(u.getHP() + healAmount)

@@ -1,0 +1,58 @@
+package DivineArmor
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+
+public constant ABILITY_DIVINEARMOR_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_HEAL = 150
+@configurable constant LEVEL_HEAL = 80
+@configurable constant BASE_CD = 20.
+@configurable constant LEVEL_CD = 2.
+@configurable constant BASE_MANACOST = 30
+@configurable constant LEVEL_MANACOST = 20
+@configurable constant BASE_HEAL_RANGE = 200.
+@configurable constant LEVEL_HEAL_RANGE = 50.
+@configurable constant DURATION = 5.
+@configurable constant ARMOR = 10
+
+@compiletime function generateAbilityDivineArmor()
+    let tgen = new AbilityTooltipGenerator("Gives the hero extra armor for a short amount of time. At the end of the duration, the hero and nearby units get healed for a small amount.")
+    tgen.addProperty("Heal amount", lvl -> (BASE_HEAL + lvl * LEVEL_HEAL).toString())
+    tgen.addProperty("Heal range", lvl -> (BASE_HEAL_RANGE + lvl * LEVEL_HEAL_RANGE).toString())
+    tgen.addConstantProperty("Armor", ARMOR.toString())
+    tgen.addConstantProperty("Duration", DURATION.toString())
+    
+    new ChannelAbilityPreset(ABILITY_DIVINEARMOR_ID, 5, true, tgen)
+        ..presetTargetTypes(Targettype.NONE)
+        ..tooltipStartListen()
+        ..presetCooldown(lvl -> BASE_CD - lvl * LEVEL_CD)
+        ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
+        ..setName("Divine Armor")
+        ..tooltipStopListen()
+        ..presetButtonPosNormal(0, 2)
+        ..presetButtonPosResearch(0, 0)
+        ..presetIcon(Icons.bTNDivineIntervention)
+
+init
+    EventListener.onCast(ABILITY_DIVINEARMOR_ID) (unit caster) ->
+        let lvl = caster.getAbilityLevel(ABILITY_DIVINEARMOR_ID)
+        caster.setArmor(caster.getArmor() + ARMOR)
+        doPeriodicallyTimed(0.01, 0.3) (CallbackCounted cb) ->
+            caster.setScale(1 + (31 - cb.getCount())*0.01)
+        doAfter(DURATION) ->
+            caster.setArmor(caster.getArmor() - ARMOR)
+            doPeriodicallyTimed(0.01, 0.3) (CallbackCounted cb) ->
+                caster.setScale(1 + (cb.getCount() - 1)*0.01)
+            forUnitsInRange(caster.getPos(), BASE_HEAL_RANGE + lvl * LEVEL_HEAL_RANGE) (unit u) ->
+                if u.getOwner().getTeam() == caster.getOwner().getTeam()
+                    let healAmount = (BASE_HEAL + lvl * LEVEL_HEAL)
+                    u.setHP(u.getHP() + healAmount)
+                    flashEffect("Effects\\HealGreen.mdx", u.getPos(), .5)

@@ -1,0 +1,8 @@
+package Main
+
+import DivineArmor
+import Lightbringer
+import AbilityIds
+
+init
+    let lightbringer = CreateUnitAtLoc(playerFromIndex(0), HERO_LIGHTBRINGER_ID, Location(110, 100), 0)

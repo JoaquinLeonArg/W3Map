@@ -1,0 +1,50 @@
+package Knockback
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+import DamageEvent
+import Knockback3
+
+public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_FORCE = 60.
+@configurable constant LEVEL_FORCE = 10.
+@configurable constant BASE_DAMAGE = 50.
+@configurable constant LEVEL_DAMAGE = 50.
+@configurable constant BASE_CHANCE = .05
+@configurable constant LEVEL_CHANCE = .05
+
+@compiletime function generateAbilityKnockback()
+    let tgen = new AbilityTooltipGenerator("The hero has a chance to knockback the enemies he attacks, dealing extra damage and pushing them.")
+    tgen.addProperty("Force", lvl -> (BASE_FORCE + lvl * LEVEL_FORCE).toString())
+    tgen.addProperty("Damage", lvl -> (BASE_DAMAGE + lvl * LEVEL_DAMAGE).toString())
+    tgen.addProperty("Chance", lvl -> ((BASE_CHANCE.toInt() + lvl * LEVEL_CHANCE.toInt())*100).toString() + "%")
+    
+    new AbilityDefinitionHardenedSkin(ABILITY_KNOCKBACK_ID)
+        ..registerTooltipGenerator(tgen)
+        ..presetChancetoReduceDamage(lvl -> 0) // Disable hardened skin
+        ..setRequirements("") // Disable hardened skin
+        ..presetButtonPosNormal(2, 2)
+        ..presetButtonPosResearch(2, 0)
+        ..tooltipStartListen()
+        ..setLevels(5)
+        ..setName("Knockback")
+        ..tooltipStopListen()
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASSanctifiedEnchantment.blp")
+        
+init
+    DamageEvent.addListener() -> 
+        let source = DamageEvent.getSource()
+        let target = DamageEvent.getTarget()
+        let lvl = source.getAbilityLevel(ABILITY_KNOCKBACK_ID)
+        if source.hasAbility(ABILITY_KNOCKBACK_ID) and DamageEvent.getType() == DamageType.ATTACK
+            if GetRandomReal(0, 1) < BASE_CHANCE + lvl * LEVEL_CHANCE
+                Knockback3.add(target, target.getPos() + source.getPos().normalizedPointerTo(target.getPos()) * (BASE_FORCE + lvl * LEVEL_FORCE), 500)
+                DamageEvent.addAmount(BASE_DAMAGE + lvl * LEVEL_DAMAGE)

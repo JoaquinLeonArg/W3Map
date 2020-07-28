@@ -1,0 +1,48 @@
+package Lightbringer
+
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import UnitIds
+import Icons
+import DivineArmor
+import LightSeal
+import Knockback
+
+public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_HP = 450
+@configurable constant BASE_MANA = 100
+@configurable constant BASE_AGI = 8
+@configurable constant BASE_INT = 14
+@configurable constant BASE_STR = 16
+@configurable constant LEVEL_AGI = .5
+@configurable constant LEVEL_INT = 2.5
+@configurable constant LEVEL_STR = 2.
+@configurable constant BASE_SPEED = 120
+
+
+@compiletime function gen()
+	new HeroDefinition(HERO_LIGHTBRINGER_ID, UnitIds.paladin)
+		..setIconGameInterface(Icons.bTNFootman)
+		..setIconScoreScreen("")
+		..setModelFile("Heroes\\FelOrcGeneral.mdx")
+		..setCollisionSize(0)
+		..setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory))
+		..setHeroAbilities(commaList(ABILITY_DIVINEARMOR_ID, ABILITY_LIGHTSEAL_ID, ABILITY_KNOCKBACK_ID))
+		..setHotkey("")
+		..setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev"))
+		..setProperNamesUsed(6)
+		..setName("|cff084294Strong Escaper")
+		..setHitPointsMaximumBase(BASE_HP)
+		..setManaMaximum(BASE_MANA)
+		..setStartingAgility(BASE_AGI)
+		..setStartingIntelligence(BASE_INT)
+		..setStartingStrength(BASE_STR)
+		..setAgilityPerLevel(LEVEL_AGI)
+		..setIntelligencePerLevel(LEVEL_INT)
+		..setStrengthPerLevel(LEVEL_STR)
+		..setSpeedBase(BASE_SPEED)
+		..hideHeroDeathMsg(true)
+	
