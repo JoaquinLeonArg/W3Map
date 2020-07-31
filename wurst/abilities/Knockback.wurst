@@ -15,9 +15,9 @@ public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
 
 // Stats
 @configurable constant BASE_FORCE = 60.
-@configurable constant LEVEL_FORCE = 10.
-@configurable constant BASE_DAMAGE = 50.
-@configurable constant LEVEL_DAMAGE = 50.
+@configurable constant LEVEL_FORCE = 30.
+@configurable constant BASE_DAMAGE = 30.
+@configurable constant LEVEL_DAMAGE = 30.
 @configurable constant BASE_CHANCE = .05
 @configurable constant LEVEL_CHANCE = .05
 
@@ -25,7 +25,7 @@ public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
     let tgen = new AbilityTooltipGenerator("The hero has a chance to knockback the enemies he attacks, dealing extra damage and pushing them.")
     tgen.addProperty("Force", lvl -> (BASE_FORCE + lvl * LEVEL_FORCE).toString())
     tgen.addProperty("Damage", lvl -> (BASE_DAMAGE + lvl * LEVEL_DAMAGE).toString())
-    tgen.addProperty("Chance", lvl -> ((BASE_CHANCE.toInt() + lvl * LEVEL_CHANCE.toInt())*100).toString() + "%")
+    tgen.addProperty("Chance", lvl -> ((BASE_CHANCE + lvl * LEVEL_CHANCE)*100).toInt().toString() + "%")
     
     new AbilityDefinitionHardenedSkin(ABILITY_KNOCKBACK_ID)
         ..registerTooltipGenerator(tgen)
@@ -37,9 +37,11 @@ public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
         ..setLevels(5)
         ..setName("Knockback")
         ..tooltipStopListen()
-        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASSanctifiedEnchantment.blp")
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASFistOfApocalypse.blp")
+        ..setLevelSkipRequirement(1)
         
 init
+    // On damage trigger
     DamageEvent.addListener() -> 
         let source = DamageEvent.getSource()
         let target = DamageEvent.getTarget()

@@ -1,0 +1,27 @@
+package Sturdy
+
+import AbilityTooltipGenerator
+
+public constant ABILITY_STURDY_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_STR = 5
+@configurable constant LEVEL_STR = 10
+
+@compiletime function generateAbilitySturdy()
+    let tgen = new AbilityTooltipGenerator("Adds extra strength to the hero.")
+    
+    new AbilityDefinitionAttributeModifierSkill(ABILITY_STURDY_ID)
+    ..registerTooltipGenerator(tgen)
+    ..presetButtonPosNormal(1, 2)
+    ..presetButtonPosResearch(1, 0)
+    ..tooltipStartListen()
+    ..setLevels(5)
+    ..setName("Sturdy")
+    ..presetStrengthBonus(lvl -> BASE_STR + lvl * LEVEL_STR)
+    ..tooltipStopListen()
+    ..presetAgilityBonus(lvl -> 0)
+    ..presetIntelligenceBonus(lvl -> 0)
+    ..presetHideButton(lvl -> false)
+    ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASMastercraftShield.blp")
+    ..setLevelSkipRequirement(1)

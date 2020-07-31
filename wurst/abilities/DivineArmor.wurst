@@ -40,8 +40,10 @@ public constant ABILITY_DIVINEARMOR_ID = compiletime(ABIL_ID_GEN.next())
         ..presetButtonPosNormal(0, 2)
         ..presetButtonPosResearch(0, 0)
         ..presetIcon(Icons.bTNDivineIntervention)
+        ..setLevelSkipRequirement(1)
 
 init
+    // On cast trigger
     EventListener.onCast(ABILITY_DIVINEARMOR_ID) (unit caster) ->
         let lvl = caster.getAbilityLevel(ABILITY_DIVINEARMOR_ID)
         caster.setArmor(caster.getArmor() + ARMOR)
@@ -55,4 +57,4 @@ init
                 if u.getOwner().getTeam() == caster.getOwner().getTeam()
                     let healAmount = (BASE_HEAL + lvl * LEVEL_HEAL)
                     u.setHP(u.getHP() + healAmount)
-                    flashEffect("Effects\\HealGreen.mdx", u.getPos(), .5)
+                    flashEffect("Effects\\HealGreen.mdx", u.getPos(), .5) // TODO: attach this to the target so if it moves it follows him. Purely visual.

@@ -2,7 +2,15 @@ package Main
 
 import DivineArmor
 import Lightbringer
+import UberGolem
 import AbilityIds
+import UnitSpawning
 
 init
-    let lightbringer = CreateUnitAtLoc(playerFromIndex(0), HERO_LIGHTBRINGER_ID, Location(110, 100), 0)
+    let lightbringer = createUnit(0, HERO_LIGHTBRINGER_ID, 110, 100)
+    let ubergolem = createUnit(0, HERO_UBERGOLEM_ID, 100, 100)
+    for i = 0 to 9
+        let u = CreateUnitByName(playerFromIndex(1), "Archer",  500*Cos(PI2*i/10), 500*Sin(PI2*i/10), 0)
+        u.setArmor(200)
+    lightbringer.addLevels(18, true)
+    ubergolem.addLevels(18, true)

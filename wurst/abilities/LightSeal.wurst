@@ -12,7 +12,7 @@ import Abilities
 public constant ABILITY_LIGHTSEAL_ID = compiletime(ABIL_ID_GEN.next())
 
 // Stats
-@configurable constant BASE_HEAL = 10
+@configurable constant BASE_HEAL = .2
 @configurable constant LEVEL_HEAL = 5
 @configurable constant BASE_CD = 60.
 @configurable constant LEVEL_CD = 5.
@@ -22,12 +22,14 @@ public constant ABILITY_LIGHTSEAL_ID = compiletime(ABIL_ID_GEN.next())
 @configurable constant LEVEL_AREA = 20.
 @configurable constant DURATION = 6.
 @configurable constant TICK_RATE = .25
+@configurable constant RANGE = 600.
 
 @compiletime function generateAbilityLightSeal()
     let tgen = new AbilityTooltipGenerator("Creates an area of pure light, healing friendly units inside of it periodically.")
     tgen.addProperty("Heal amount", lvl -> (BASE_HEAL + lvl * LEVEL_HEAL).toString())
     tgen.addProperty("Area", lvl -> (BASE_AREA + lvl * LEVEL_AREA).toString())
     tgen.addConstantProperty("Duration", DURATION.toString())
+    tgen.addConstantProperty("Cast range", RANGE.toString())
     
     new ChannelAbilityPreset(ABILITY_LIGHTSEAL_ID, 5, true, tgen)
         ..presetTargetTypes(Targettype.POINT)
@@ -36,11 +38,14 @@ public constant ABILITY_LIGHTSEAL_ID = compiletime(ABIL_ID_GEN.next())
         ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
         ..setName("Light Seal")
         ..tooltipStopListen()
+        ..presetCastRange(lvl -> RANGE)
         ..presetButtonPosNormal(1, 2)
         ..presetButtonPosResearch(1, 0)
         ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNBlessedCircle.blp")
+        ..setLevelSkipRequirement(1)
 
 init
+    // On cast trigger
     EventListener.onPointCast(ABILITY_LIGHTSEAL_ID) (unit caster, vec2 target) ->
         let lvl = caster.getAbilityLevel(ABILITY_LIGHTSEAL_ID)
         let fx = addEffect("Effects\\HolyAura.mdx", target)

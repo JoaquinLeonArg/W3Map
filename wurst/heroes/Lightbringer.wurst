@@ -1,15 +1,18 @@
 package Lightbringer
 
 import AbilityTooltipGenerator
-import ClosureEvents
-import ClosureForGroups
 import UnitIds
 import Icons
 import DivineArmor
 import LightSeal
-import Knockback
+import PureMind
+import SanctumAura
+import AngelicGuard
 
 public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
+
+@compiletime function genHero()
+	new HeroLightBringer()
 
 // Stats
 @configurable constant BASE_HP = 450
@@ -19,30 +22,32 @@ public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
 @configurable constant BASE_STR = 16
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
-@configurable constant LEVEL_STR = 2.
+@configurable constant LEVEL_STR = 10.
 @configurable constant BASE_SPEED = 120
 
+class HeroLightBringer extends HeroDefinition
+	construct()
+		super(HERO_LIGHTBRINGER_ID, UnitIds.paladin)
+		this.setIconGameInterface(Icons.bTNHeroPaladin)
+		this.setIconScoreScreen("")
+		this.setModelFile("Heroes\\FelOrcGeneral.mdx")
+		this.setCollisionSize(100)
+		this.setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory, ABILITY_PUREMIND_ID))
+		this.setHeroAbilities(commaList(ABILITY_DIVINEARMOR_ID, ABILITY_LIGHTSEAL_ID, ABILITY_SANCTUMAURA_ID, ABILITY_ANGELICGUARD_ID))
+		this.setHotkey("")
+		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev")) // TODO: Set names
+		this.setProperNamesUsed(6)
+		this.setName("|cff084294Strong Escaper") //TODO: Set hero name
+		this.setHitPointsMaximumBase(BASE_HP)
+		this.setManaMaximum(BASE_MANA)
+		this.setStartingAgility(BASE_AGI)
+		this.setStartingIntelligence(BASE_INT)
+		this.setStartingStrength(BASE_STR)
+		this.setAgilityPerLevel(LEVEL_AGI)
+		setIntelligencePerLevel(LEVEL_INT)
+		setStrengthPerLevel(LEVEL_STR)
+		setSpeedBase(BASE_SPEED)
+		hideHeroDeathMsg(true)
 
-@compiletime function gen()
-	new HeroDefinition(HERO_LIGHTBRINGER_ID, UnitIds.paladin)
-		..setIconGameInterface(Icons.bTNFootman)
-		..setIconScoreScreen("")
-		..setModelFile("Heroes\\FelOrcGeneral.mdx")
-		..setCollisionSize(0)
-		..setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory))
-		..setHeroAbilities(commaList(ABILITY_DIVINEARMOR_ID, ABILITY_LIGHTSEAL_ID, ABILITY_KNOCKBACK_ID))
-		..setHotkey("")
-		..setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev"))
-		..setProperNamesUsed(6)
-		..setName("|cff084294Strong Escaper")
-		..setHitPointsMaximumBase(BASE_HP)
-		..setManaMaximum(BASE_MANA)
-		..setStartingAgility(BASE_AGI)
-		..setStartingIntelligence(BASE_INT)
-		..setStartingStrength(BASE_STR)
-		..setAgilityPerLevel(LEVEL_AGI)
-		..setIntelligencePerLevel(LEVEL_INT)
-		..setStrengthPerLevel(LEVEL_STR)
-		..setSpeedBase(BASE_SPEED)
-		..hideHeroDeathMsg(true)
+init
 	

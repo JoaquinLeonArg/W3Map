@@ -1,0 +1,53 @@
+package Shop
+
+string array Icon
+string array Text
+
+function OnClick()
+    print("Hola")
+
+function OnSearch() returns boolean
+    return FindIndex(Text[TasButtonListData], TasButtonListText) >= 0
+
+function OnUpdate()
+    var dataIndex = TasButtonListData
+    var frameHandle = GetHandleId(TasButtonListFrame)
+    BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, StringHash("Icon")), Icon[dataIndex], 0, false)
+    BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, StringHash("Text")), Text[dataIndex])
+
+    BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, StringHash("ToolTipFrameIcon")), Icon[dataIndex], 0, false)
+    BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, StringHash("ToolTipFrameName")), Text[dataIndex])
+
+function createFrame()
+    let frame = BlzCreateFrameByType("FRAME", "", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "",0)
+    let objectIndex = CreateTasButtonList(3, frame, function OnClick, function OnUpdate, function OnSearch, null)
+
+    BlzFrameSetSize(frame, 0.23, 0.001)
+    BlzFrameSetAbsPoint(frame, FRAMEPOINT_TOP, 0.6, 0.5)
+
+    Icon[1] = "ReplaceableTextures\\CommandButtons\\BTNPriest"
+    Text[1] = "Custom A"
+    Icon[2] = "ReplaceableTextures\\CommandButtons\\BTNSlow"
+    Text[2] = "Custom B"
+    Icon[3] = "ReplaceableTextures\\CommandButtons\\BTNInvisibility"
+    Text[3] = "Custom C"
+    Icon[4] = "ReplaceableTextures\\CommandButtons\\BTNBanish"
+    Text[4] = "Custom D"
+    Icon[5] = "ReplaceableTextures\\CommandButtons\\BTNCrystalBall"
+    Text[5] = "Custom E"
+    Icon[6] = "ReplaceableTextures\\CommandButtons\\BTNBoots"
+    Text[6] = "Custom F"
+    Icon[7] = "ReplaceableTextures\\CommandButtons\\BTNTalisman"
+    Text[7] = "Custom G"
+
+    TasButtonListAddData(objectIndex, 1)
+    TasButtonListAddData(objectIndex, 2)
+    TasButtonListAddData(objectIndex, 3)
+    TasButtonListAddData(objectIndex, 4)
+    TasButtonListAddData(objectIndex, 5)
+    TasButtonListAddData(objectIndex, 6)
+
+    UpdateTasButtonList(objectIndex)
+    
+init
+    // createFrame() TODO: Fix this mess later

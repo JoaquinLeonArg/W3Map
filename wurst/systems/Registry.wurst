@@ -1,0 +1,18 @@
+package Registry
+
+import HashMap
+import HashList
+
+class Registry
+    static HashMap<int, HashList<unit>> abilityToUnitsMap = new HashMap<int, HashList<unit>> // AbilityId -> HashList<unit>, units affected by buff with ID BuffId
+
+    static function registerUnitAbility(unit u, int abilityId)
+        if not abilityToUnitsMap.has(abilityId)
+            abilityToUnitsMap.put(abilityId, new HashList<unit>)
+        if not abilityToUnitsMap.get(abilityId).has(u)
+            abilityToUnitsMap.get(abilityId).add(u)
+
+    static function getUnitAbilityList(int abilityId) returns HashList<unit>
+        if abilityToUnitsMap.has(abilityId)
+            return abilityToUnitsMap.get(abilityId)
+        return new HashList<unit>

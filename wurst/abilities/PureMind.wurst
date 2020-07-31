@@ -1,0 +1,47 @@
+package PureMind
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+import HashList
+import MapBounds
+import Registry
+
+public constant ABILITY_PUREMIND_ID = compiletime(ABIL_ID_GEN.next())
+
+var units = new HashList<unit>
+
+// Stats
+@configurable constant STR_PERC = .05
+
+@compiletime function generateAbilityPureMind()
+    let tgen = new AbilityTooltipGenerator("The hero recovers mana each second equal to a percentage of it's strength.")
+    tgen.addConstantProperty("Amount", (STR_PERC*100).toInt().toString() + "%")
+    
+    new AbilityDefinitionHardenedSkin(ABILITY_PUREMIND_ID)
+        ..registerTooltipGenerator(tgen)
+        ..presetChancetoReduceDamage(lvl -> 0) // Disable hardened skin
+        ..setRequirements("") // Disable hardened skin
+        ..tooltipStartListen()
+        ..setName("Pure Mind")
+        ..tooltipStopListen()
+        ..presetButtonPosNormal(1, 1)
+        ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNBlessedCircle.blp")
+
+public function registerUnitPureMind(unit u)
+    Registry.registerUnitAbility(u, ABILITY_PUREMIND_ID)
+
+init
+    // Apply mana regen each second.
+    doPeriodically(1) (CallbackPeriodic cb) ->
+        for u in Registry.getUnitAbilityList(ABILITY_PUREMIND_ID)
+            if u.hasAbility(ABILITY_PUREMIND_ID)
+                let amount = u.getStr(true) * STR_PERC
+                u.addMana(amount)
+
+        

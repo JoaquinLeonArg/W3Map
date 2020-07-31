@@ -1,0 +1,64 @@
+package UberGolem
+
+import AbilityTooltipGenerator
+import UnitIds
+import Icons
+import Knockback
+import Punch
+import Sturdy
+import HashMap
+
+public constant HERO_UBERGOLEM_ID = compiletime(HERO_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_HP = 450
+@configurable constant BASE_MANA = 100
+@configurable constant BASE_AGI = 8
+@configurable constant BASE_INT = 14
+@configurable constant BASE_STR = 16
+@configurable constant LEVEL_AGI = .5
+@configurable constant LEVEL_INT = 2.5
+@configurable constant LEVEL_STR = 2.
+@configurable constant BASE_SPEED = 120
+
+var something = new HashMap<int, int>
+
+@compiletime function genHero()
+	new HeroUberGolem(HERO_UBERGOLEM_ID, UnitIds.paladin)
+	
+class HeroUberGolem extends HeroDefinition
+	construct(int newId, int origId)
+		super(newId, origId)
+		this.setIconGameInterface(Icons.bTNArmorGolem)
+		this.setIconScoreScreen("")
+		this.setModelFile("Heroes\\UberGolem.mdx")
+		this.setCollisionSize(100)
+		this.setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory))
+		this.setHeroAbilities(commaList(ABILITY_STURDY_ID, ABILITY_KNOCKBACK_ID, ABILITY_PUNCH_ID))
+		this.setHotkey("")
+		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev"))
+		this.setProperNamesUsed(6)
+		this.setName("|cff084294Strong Escaper")
+		this.setHitPointsMaximumBase(BASE_HP)
+		this.setManaMaximum(BASE_MANA)
+		this.setStartingAgility(BASE_AGI)
+		this.setStartingIntelligence(BASE_INT)
+		this.setStartingStrength(BASE_STR)
+		this.setAgilityPerLevel(LEVEL_AGI)
+		this.setIntelligencePerLevel(LEVEL_INT)
+		this.setStrengthPerLevel(LEVEL_STR)
+		this.setSpeedBase(BASE_SPEED)
+		this.hideHeroDeathMsg(true)
+
+init
+	/*EventListener.add(EVENT_PLAYER_UNIT_DAMAGED) ->
+		let u = GetTriggerUnit()
+		let id = u.getHandleId()
+		if u.getTypeId() == HERO_UBERGOLEM_ID
+			print(u.getName())
+			print(id)
+			if something.has(id)
+				something.put(id, something.get(id) + 1)
+			else
+				something.put(id, 1)
+			print(something.get(id))*/

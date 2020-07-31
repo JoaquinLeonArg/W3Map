@@ -1,0 +1,52 @@
+package Punch
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+import Knockback3
+import DamageEvent
+
+public constant ABILITY_PUNCH_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_DAMAGE = 500.
+@configurable constant LEVEL_DAMAGE = 300.
+@configurable constant BASE_CD = 60.
+@configurable constant LEVEL_CD = 10.
+@configurable constant BASE_MANACOST = 300
+@configurable constant LEVEL_MANACOST = 100
+@configurable constant FORCE = 800.
+
+@compiletime function generateAbilityPunch()
+    let tgen = new AbilityTooltipGenerator("The hero punches an enemy, dealing damage and pushing the target back.")
+    tgen.addConstantProperty("Force", FORCE.toInt().toString())
+    tgen.addProperty("Damage", lvl -> (BASE_DAMAGE + lvl * LEVEL_DAMAGE).toInt().toString())
+    
+    new ChannelAbilityPreset(ABILITY_PUNCH_ID, 3, true, tgen)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..presetTargetsAllowed(lvl -> "Enemy")
+        ..tooltipStartListen()
+        ..presetCooldown(lvl -> BASE_CD - lvl * LEVEL_CD)
+        ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
+        ..setName("Holy punch!")
+        ..tooltipStopListen()
+        ..presetButtonPosNormal(3, 2)
+        ..presetButtonPosResearch(3, 0)
+        ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNHolyFist.blp")
+        ..setLevelSkipRequirement(1)
+        ..presetCastRange(lvl -> 10)
+        ..setLevelSkipRequirement(4)
+        ..setRequiredLevel(10)
+
+init
+    // On cast trigger
+    EventListener.onTargetCast(ABILITY_PUNCH_ID) (unit caster, unit target) ->
+        let lvl = caster.getAbilityLevel(ABILITY_PUNCH_ID)
+        flashEffect(Abilities.purgeBuffTarget, target.getPos())
+        Knockback3.add(target, target.getPos() + caster.getPos().normalizedPointerTo(target.getPos()) * FORCE, 1000)
+        UnitDamageTarget(caster, target, BASE_DAMAGE + lvl * LEVEL_DAMAGE, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_DIVINE, WEAPON_TYPE_METAL_HEAVY_BASH)

@@ -1,0 +1,62 @@
+package AngelicGuard
+
+import ChannelAbilityPreset
+import Icons
+import AbilityTooltipGenerator
+import ClosureEvents
+import ClosureForGroups
+import ClosureTimers
+import Effect
+import Abilities
+
+public constant ABILITY_ANGELICGUARD_ID = compiletime(ABIL_ID_GEN.next())
+
+// Stats
+@configurable constant BASE_CD = 100.
+@configurable constant LEVEL_CD = 20.
+@configurable constant BASE_DURATION = 3.
+@configurable constant LEVEL_DURATION = 2.
+@configurable constant BASE_MANACOST = 500
+@configurable constant LEVEL_MANACOST = 100
+@configurable constant RANGE = 600.
+
+@compiletime function generateAbilityAngelicGuard()
+    let tgen = new AbilityTooltipGenerator("Blesses target ally, reviving it after 10 seconds with full HP and Mana if it dies.")
+    tgen.addProperty("Duration", lvl -> (BASE_DURATION + lvl * LEVEL_DURATION).toString())
+    tgen.addConstantProperty("Cast range", RANGE.toString())
+    
+    new ChannelAbilityPreset(ABILITY_ANGELICGUARD_ID, 3, true, tgen)
+        ..presetTargetTypes(Targettype.UNIT)
+        ..tooltipStartListen()
+        ..presetCooldown(lvl -> BASE_CD - lvl * LEVEL_CD)
+        ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
+        ..setName("Angelic guard")
+        ..tooltipStopListen()
+        ..presetCastRange(lvl -> RANGE)
+        ..presetButtonPosNormal(3, 2)
+        ..presetButtonPosResearch(3, 0)
+        ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNShackle.blp")
+        ..setLevelSkipRequirement(4)
+        ..setRequiredLevel(10)
+
+init
+    // On cast trigger
+    EventListener.onTargetCast(ABILITY_ANGELICGUARD_ID) (unit caster, unit target) ->
+        let lvl = caster.getAbilityLevel(ABILITY_ANGELICGUARD_ID)
+        let eff = addEffect(Abilities.divineShieldTarget, target, "origin")
+        var done = false
+        let eventListener = EventListener.add(EVENT_PLAYER_UNIT_DEATH) -> 
+            let u = GetTriggerUnit()
+            if u == target and not done
+                eff.destr()
+                done = true
+                doAfter(10) ->
+                    u.revive(u.getPos(), true)
+        doAfter(BASE_DURATION + lvl * LEVEL_DURATION) -> 
+            destroy eventListener
+            if not done
+                eff.destr()
+        
+            
+
+        
