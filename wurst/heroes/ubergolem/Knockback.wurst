@@ -1,17 +1,9 @@
 package Knockback
 
-import ChannelAbilityPreset
-import Icons
 import AbilityTooltipGenerator
-import ClosureEvents
-import ClosureForGroups
-import ClosureTimers
-import Effect
-import Abilities
 import DamageEvent
 import Knockback3
-
-public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
+import Constants
 
 // Stats
 @configurable constant BASE_FORCE = 60.

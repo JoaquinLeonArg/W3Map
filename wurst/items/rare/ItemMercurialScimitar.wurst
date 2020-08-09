@@ -1,0 +1,50 @@
+package ItemMercurialScimitar
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+
+// Internals
+constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ABILITY_EVASION_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ABILITY_SPEED_ID = compiletime(ABIL_ID_GEN.next())
+
+@configurable constant GOLD_COST = 250
+@configurable constant LUMBER_COST = 0
+@configurable constant CURSED = false
+@configurable constant EXTRA_DAMAGE = 50
+@configurable constant EVASION_CHANCE = .15
+@configurable constant EXTRA_SPEED = 20.
+@configurable constant RARITY = Rarity.RARE
+
+@compiletime function generateItemMercurialScimitar()
+    let tgen = new ItemTooltipGenerator("Mercurial Scimitar", RARITY)
+        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("+" + EXTRA_SPEED.toString() + " movement speed")
+        ..addItemProperty("+" + (EVASION_CHANCE*100).toInt().toString() + "% chance evade enemy hits")
+        ..setShortDescription("Something something")
+
+    new ItemDefinition(ITEM_MERCURIALSCIMITAR_ID, AbilityIds.itemAttackDamageGain)
+        ..setName(tgen.generateItemName())
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNMercurialScimtar.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID, HELPER_ABILITY_EVASION_ID, HELPER_ABILITY_SPEED_ID))
+
+@compiletime function helperAbilityExtraDamage()
+    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
+        ..setAttackBonus(1, EXTRA_DAMAGE)
+
+@compiletime function helperAbilityCrit()
+    new AbilityDefinitionDemonHunterEvasion(HELPER_ABILITY_EVASION_ID)
+        ..setChancetoEvade(1, EVASION_CHANCE)
+
+@compiletime function helperAbilitySpeed()
+    new AbilityDefinitionItemSpeed(HELPER_ABILITY_SPEED_ID)
+        ..setMovementSpeedIncrease(1, EXTRA_SPEED)

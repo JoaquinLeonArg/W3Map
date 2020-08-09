@@ -1,0 +1,28 @@
+package Util
+
+import ClosureForGroups
+import Constants
+
+public function countSurroundingUnits(unit source, real radius, bool allied, bool enemy) returns int
+    var count = 0
+    forUnitsInRange(source.getPos(), radius) (unit u) ->
+        if (u.isAllyOf(source) and allied) or (u.isEnemyOf(source) and enemy)
+            count += 1
+    return count
+
+public function countPlayingPlayers() returns int
+    var playerCount = 0
+    for i=0 to GetPlayers()
+        if playerFromIndex(i).getSlotState() == PLAYER_SLOT_STATE_PLAYING
+            playerCount++
+    return playerCount
+
+public function unit.isInRect(rect r) returns boolean
+    let pos = this.getPos()
+    return pos.x > r.getMinX() and pos.x < r.getMaxX() and pos.y > r.getMinY() and pos.y < r.getMaxY()
+
+public function item.getGoldCost() returns int
+    return GetItemLevel(this) div GOLD_SHOP_OFFSET
+
+public function item.getLumberCost() returns int
+    return GetItemLevel(this) mod GOLD_SHOP_OFFSET

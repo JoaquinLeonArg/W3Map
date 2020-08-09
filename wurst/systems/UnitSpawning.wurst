@@ -1,10 +1,5 @@
 package UnitSpawning
 
-import PureMind
-import SanctumAura
-
 public function createUnit(int playerIndex, int unitId, real x, real y) returns unit
     let u = CreateUnitAtLoc(playerFromIndex(playerIndex), unitId, Location(x, y), 0)
-    registerUnitPureMind(u)
-    registerUnitSanctumAura(u)
     return u

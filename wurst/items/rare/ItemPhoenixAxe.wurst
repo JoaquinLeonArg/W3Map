@@ -1,0 +1,43 @@
+package ItemPhoenixAxe
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+
+// Internals
+constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ABILITY_CLEAVE_ID = compiletime(ABIL_ID_GEN.next())
+
+@configurable constant GOLD_COST = 280
+@configurable constant LUMBER_COST = 0
+@configurable constant CURSED = false
+@configurable constant EXTRA_DAMAGE = 35
+@configurable constant CLEAVE_MULT = .4
+@configurable constant RARITY = Rarity.RARE
+
+@compiletime function generateItemPhoenixAxe()
+    let tgen = new ItemTooltipGenerator("Phoenix axe", RARITY)
+        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("+" + (CLEAVE_MULT*100).toInt().toString() + "% cleave damage")
+        ..setShortDescription("Something something")
+
+    new ItemDefinition(ITEM_PHOENIXAXE_ID, AbilityIds.itemAttackDamageGain)
+        ..setName(tgen.generateItemName())
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNPhoenixAxe64.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID, HELPER_ABILITY_CLEAVE_ID))
+
+@compiletime function helperAbilityExtraDamage()
+    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
+        ..setAttackBonus(1, EXTRA_DAMAGE)
+
+@compiletime function helperAbilityCleave()
+    new AbilityDefinitionPitLordCleavingAttack(HELPER_ABILITY_CLEAVE_ID)
+        ..setDistributedDamageFactor(1, CLEAVE_MULT)

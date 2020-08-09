@@ -1,0 +1,21 @@
+package Regions
+
+import HashList
+
+public abstract class Regions
+    static HashList<rect> spawnPoints
+    static rect store
+    static rect leaveStore
+    static rect treeOfLife
+
+    static function initialize()
+        store = Rect(1000, -5600, 3120, -6670)
+        leaveStore = Rect(2000, -6100, 2100, -6200)
+        treeOfLife = Rect(2520, -10, 2540, 10)
+        
+
+init
+    CreateTrigger()..registerRectEnterEventSource(Regions.leaveStore)..addAction() -> // Store exit circle.
+        let u = GetTriggerUnit()
+        u.setPos(100, 100)
+        

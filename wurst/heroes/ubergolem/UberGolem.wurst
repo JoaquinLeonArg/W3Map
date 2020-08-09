@@ -3,12 +3,7 @@ package UberGolem
 import AbilityTooltipGenerator
 import UnitIds
 import Icons
-import Knockback
-import Punch
-import Sturdy
-import HashMap
-
-public constant HERO_UBERGOLEM_ID = compiletime(HERO_ID_GEN.next())
+import Constants
 
 // Stats
 @configurable constant BASE_HP = 450
@@ -19,9 +14,7 @@ public constant HERO_UBERGOLEM_ID = compiletime(HERO_ID_GEN.next())
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
 @configurable constant LEVEL_STR = 2.
-@configurable constant BASE_SPEED = 120
-
-var something = new HashMap<int, int>
+@configurable constant BASE_SPEED = 180
 
 @compiletime function genHero()
 	new HeroUberGolem(HERO_UBERGOLEM_ID, UnitIds.paladin)
@@ -32,9 +25,9 @@ class HeroUberGolem extends HeroDefinition
 		this.setIconGameInterface(Icons.bTNArmorGolem)
 		this.setIconScoreScreen("")
 		this.setModelFile("Heroes\\UberGolem.mdx")
-		this.setCollisionSize(100)
-		this.setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory))
-		this.setHeroAbilities(commaList(ABILITY_STURDY_ID, ABILITY_KNOCKBACK_ID, ABILITY_PUNCH_ID))
+		this.setCollisionSize(10)
+		this.setNormalAbilities(commaList(/*GHOST_VIS_ID,*/ AbilityIds.inventory, ABILITY_FORTITUDE_ID))
+		this.setHeroAbilities(commaList(ABILITY_CRUSHTHEFLOOR_ID, ABILITY_STURDY_ID, ABILITY_KNOCKBACK_ID, ABILITY_PUNCH_ID))
 		this.setHotkey("")
 		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev"))
 		this.setProperNamesUsed(6)

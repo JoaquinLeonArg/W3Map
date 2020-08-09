@@ -1,0 +1,47 @@
+package Lightbringer
+
+import AbilityTooltipGenerator
+import UnitIds
+import Icons
+import Constants
+
+@compiletime function genHero()
+	new HeroLightBringer()
+
+// Stats
+@configurable constant BASE_HP = 450
+@configurable constant BASE_MANA = 100
+@configurable constant BASE_AGI = 8
+@configurable constant BASE_INT = 14
+@configurable constant BASE_STR = 16
+@configurable constant LEVEL_AGI = .5
+@configurable constant LEVEL_INT = 2.5
+@configurable constant LEVEL_STR = 10.
+@configurable constant BASE_SPEED = 200
+
+class HeroLightBringer extends HeroDefinition
+	construct()
+		super(HERO_LIGHTBRINGER_ID, UnitIds.paladin)
+		this.setIconGameInterface(Icons.bTNHeroPaladin)
+		this.setIconScoreScreen("")
+		this.setModelFile("Heroes\\FelOrcGeneral.mdx")
+		this.setCollisionSize(10)
+		this.setNormalAbilities(commaList(AbilityIds.inventory, ABILITY_PUREMIND_ID, ABILITY_GETMAPPOS_ID))
+		this.setHeroAbilities(commaList(ABILITY_DIVINEARMOR_ID, ABILITY_LIGHTSEAL_ID, ABILITY_SANCTUMAURA_ID, ABILITY_ANGELICGUARD_ID))
+		this.setHotkey("")
+		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev")) // TODO: Set names
+		this.setProperNamesUsed(6)
+		this.setName("|cff084294Strong Escaper") //TODO: Set hero name
+		this.setHitPointsMaximumBase(BASE_HP)
+		this.setManaMaximum(BASE_MANA)
+		this.setStartingAgility(BASE_AGI)
+		this.setStartingIntelligence(BASE_INT)
+		this.setStartingStrength(BASE_STR)
+		this.setAgilityPerLevel(LEVEL_AGI)
+		setIntelligencePerLevel(LEVEL_INT)
+		setStrengthPerLevel(LEVEL_STR)
+		setSpeedBase(BASE_SPEED)
+		hideHeroDeathMsg(true)
+
+init
+	

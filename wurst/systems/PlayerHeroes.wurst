@@ -1,0 +1,18 @@
+package PlayerHeroes
+
+import HashMap
+
+abstract class PlayerHeroes
+    private static HashMap<player, unit> heroMap = new HashMap<player, unit>
+    private static HashMap<unit, player> playerMap = new HashMap<unit, player>
+
+    static function getHeroFromPlayer(player p) returns unit
+        return heroMap.get(p)
+
+    static function getPlayerFromHero(unit h) returns player
+        return playerMap.get(h)
+
+    static function add(unit h)
+        let p = h.getOwner()
+        heroMap.put(p, h)
+        playerMap.put(h, p)

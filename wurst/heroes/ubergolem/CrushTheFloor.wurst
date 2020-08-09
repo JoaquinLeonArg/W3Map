@@ -1,0 +1,29 @@
+package CrushTheFloor
+
+import AbilityTooltipGenerator
+import Constants
+
+// Stats
+@configurable constant BASE_DMG = 5.
+@configurable constant LEVEL_DMG = 10.
+@configurable constant BASE_CD = 60.
+@configurable constant LEVEL_CD = 10.
+@configurable constant BASE_MANACOST = 300
+@configurable constant LEVEL_MANACOST = 100
+
+@compiletime function generateAbilitySturdy()
+    let tgen = new AbilityTooltipGenerator("Deals damage to all enemy units around the hero.")
+    
+    new AbilityDefinitionTaurenChieftainWarStomp(ABILITY_CRUSHTHEFLOOR_ID)
+    ..registerTooltipGenerator(tgen)
+    ..presetButtonPosNormal(0, 2)
+    ..presetButtonPosResearch(0, 0)
+    ..tooltipStartListen()
+    ..setLevels(5)
+    ..presetManaCost(lvl -> BASE_MANACOST + lvl * LEVEL_MANACOST)
+    ..presetDamage(lvl -> BASE_DMG + lvl * LEVEL_DMG)
+    ..presetAreaofEffect(lvl -> 1000)
+    ..setName("Crush the floor")
+    ..tooltipStopListen()
+    ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNIronFist.blp")
+    ..setLevelSkipRequirement(1)

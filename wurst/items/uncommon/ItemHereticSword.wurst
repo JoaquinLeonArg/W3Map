@@ -1,0 +1,46 @@
+package ItemHereticSword
+
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+
+// Internals
+constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ABILITY_CRIT_ID = compiletime(ABIL_ID_GEN.next())
+
+@configurable constant GOLD_COST = 100
+@configurable constant LUMBER_COST = 0
+@configurable constant CURSED = false
+@configurable constant EXTRA_DAMAGE = 16
+@configurable constant CRIT_CHANCE = .2
+@configurable constant CRIT_MULT = .3
+@configurable constant RARITY = Rarity.UNCOMMON
+
+@compiletime function generateItemWoodenSword()
+    let tgen = new ItemTooltipGenerator("Heretic sword", RARITY)
+        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("+" + (CRIT_CHANCE*100).toInt().toString() + "% chance to deal " + (CRIT_MULT*100).toInt().toString() + "% extra damage")
+        ..setShortDescription("Some item description")
+
+    new ItemDefinition(ITEM_HERETICSWORD_ID, AbilityIds.itemAttackDamageGain)
+        ..setName(tgen.generateItemName())
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNTier3Sword.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID, HELPER_ABILITY_CRIT_ID))
+
+@compiletime function helperAbilityExtraDamage()
+    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
+        ..setAttackBonus(1, EXTRA_DAMAGE)
+
+@compiletime function helperAbilityCrit()
+    new AbilityDefinitionCriticalStrikecreep(HELPER_ABILITY_CRIT_ID)
+        ..setDamageMultiplier(1, CRIT_MULT)
+        ..setChancetoCriticalStrike(1, CRIT_CHANCE)

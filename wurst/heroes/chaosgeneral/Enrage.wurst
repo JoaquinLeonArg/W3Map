@@ -1,0 +1,83 @@
+package Enrage
+
+import AbilityTooltipGenerator
+import ClosureEvents
+import Constants
+import ClosureTimers
+import HashMap
+import DamageEvent
+import BuffObjEditing
+import Icons
+import Abilities
+
+// TODO: Fix this shit. The buff dissapears at random intervals when cast multiple times / before it expires / after used / etc
+
+// Internals
+constant HELPER_ATTACKSPEED_ID = compiletime(ABIL_ID_GEN.next())
+HashMap<unit, int> units = new HashMap<unit, int>()
+HashMap<unit, effect> fx = new HashMap<unit, effect>
+HashMap<unit, CallbackSingle> cbs = new HashMap<unit, CallbackSingle>
+
+// Stats
+@configurable constant BASE_ASPD = 400.
+@configurable constant LEVEL_ASPD = 10.
+@configurable constant BASE_HITS = 4
+@configurable constant LEVEL_HITS = 0
+@configurable constant DURATION = 10.
+
+@compiletime function generateAbilityEnrage()
+    let tgen = new AbilityTooltipGenerator("The hero attacks very quickly for an amount of attacks.")
+    tgen.addProperty("Attack speed", lvl -> (BASE_ASPD + lvl * LEVEL_ASPD).toString())
+    
+    new ChannelAbilityPreset(ABILITY_ENRAGE_ID, 5, true, tgen)
+        ..presetButtonPosNormal(2, 2)
+        ..presetButtonPosResearch(2, 0)
+        ..tooltipStartListen()
+        ..setLevels(5)
+        ..setName("Enrage")
+        ..tooltipStopListen()
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASFistOfApocalypse.blp")
+        ..setLevelSkipRequirement(1)
+
+@compiletime function generateHelperAttackSpeed()
+    new AbilityDefinitionAttackSpeedIncreaseGreater(HELPER_ATTACKSPEED_ID)
+        ..setLevels(5)
+        ..setHeroAbility(true)
+        ..presetDurationHero(lvl -> DURATION)
+        ..presetAttackSpeedIncrease(lvl -> BASE_ASPD + lvl * LEVEL_ASPD)
+
+function removeEffect(unit u)
+    if units.has(u)
+        units.remove(u)
+    if fx.has(u)
+        fx.get(u).destr()
+        fx.remove(u)
+    u.removeAbility(HELPER_ATTACKSPEED_ID)
+
+init
+    // On cast trigger
+    EventListener.onCast(ABILITY_ENRAGE_ID) (unit caster) ->
+        let lvl = caster.getAbilityLevel(ABILITY_ENRAGE_ID)
+        removeEffect(caster)
+        caster.addAbility(HELPER_ATTACKSPEED_ID, lvl)
+        units.put(caster, BASE_HITS + lvl * LEVEL_HITS)
+        fx.put(caster, caster.addEffect(Abilities.divineShieldTarget, "origin"))
+        let callback = doAfter(DURATION) -> 
+            removeEffect(caster)
+        cbs.put(caster, callback)
+            
+    
+    // On damage trigger
+    DamageEvent.addListener() ->
+        let source = DamageEvent.getSource()
+        if units.has(source) // If this unit is registered as having the ability active
+            let damageType = DamageEvent.getType()
+            if damageType == ATTACK // Check unit dealing damage has ability and damage is auto attack
+                let target = DamageEvent.getTarget()
+                let lvl = source.getAbilityLevel(ABILITY_KNOCKBACK_ID)
+                let remainingHits = units.get(source)
+                units.put(source, remainingHits - 1)
+                if remainingHits == 0
+                    removeEffect(source)
+                    cbs.get(source)
+

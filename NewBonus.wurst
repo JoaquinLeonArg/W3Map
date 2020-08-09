@@ -1,0 +1,402 @@
+package NewBonus
+
+//import 
+
+    /* ----------------------- NewBonus Expanded v1.9 by Chopinski ----------------------- */
+    //! novjass
+        /*Since ObjectMerger is broken and we still have no means to edit
+        bonus values (green values) i decided to create a light weight
+        Bonus library that works in the same way that the original Bonus Mod
+        by Earth Fury did. NewBonus requires patch 1.31+.
+    
+        How it works?
+        By using the new Object API recently introduced to warcraft, we can now
+        modify an ability field, so when giving an unit a bonus, we add a specific
+        ability to that unit, if it do not have it already, and change that ability
+        bonus value to the desired value. Retrieving the amount is also trivial, by
+        just reading that field value.
+    
+        How to Import?
+        Importing bonus mod is really simple. Just copy the 9 abilities with the
+        prefix "NewBonus" from the Object Editor into your map and match their new raw
+        code to the bonus types in the global block below. create a trigger called
+        NewBonus, convert it to custom text and paste this code there. You done!
+    
+        API:
+        function GetUnitBonus (unit u, integer bonus_type) returns integer
+           	->) returns the specified bonus amount for the unit
+           	-> Example: amount = GetUnitBonus(GetTriggerUnit(), BONUS_AGILITY)
+
+        function SetUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+           	-> the specified bonus type to amount for the unit
+           	-> Example: SetUnitBonus(GetTriggerUnit(), BONUS_DAMAGE, 100)
+ 
+        function RemoveUnitBonus (unit u, integer bonus_type) returns nothing
+           	-> Removes the Specified bonus type from unit
+           	-> Example: RemoveUnitBonus(GetTriggerUnit(), BONUS_AGILITY)
+ 
+        function AddUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+           	-> Add the specified amount for the specified bonus tyte for unit
+           	-> Example: AddUnitBonus(GetTriggerUnit(), BONUS_DAMAGE, 100)
+
+        function GetUnitBonusReal (unit u, integer bonus_type) returns real
+        	->) returns the specified bonus amount for the unit
+        	-> Example: amount = GetUnitBonusReal(GetTriggerUnit(), BONUS_HEALTH_REGEN)
+
+    	function SetUnitBonusReal (unit u, integer bonus_type, real amount) returns nothing
+        	-> the specified bonus type to amount for the unit
+        	-> Example: SetUnitBonusReal(GetTriggerUnit(), BONUS_ATTACK_SPEED, 0.15)
+
+    	function RemoveUnitBonusReal (unit u, real bonus_type) returns nothing
+        	-> Removes the Specified bonus type from unit
+        	-> Example: RemoveUnitBonusReal(GetTriggerUnit(), BONUS_MANA_REGEN)
+
+    	function AddUnitBonusReal (unit u, integer bonus_type, real amount) returns real
+        	-> Add the specified amount for the specified bonus tyte for unit
+        	-> Example: AddUnitBonusReal(GetTriggerUnit(), BONUS_LIFE_STEAL, 0.33)
+    
+        Added in version 1.5:
+            Upper and Lower limit to max bonus amount to 2147483647 and -2147483648
+            to avoid over/under flowing the integer fields. AddUnitBonus() 
+            now) returns the amount of bonus that was actually setted. In case of no over/under flow, 
+            it) returns the amount passed, in case of over/under flow it) returns the amount that 
+            was allowed to be setted. It is still up to the user to the functions without
+            passing integers that already over/under flown.
+        
+        Added in version 1.7
+            - Fixed a bug when Adding Health/Mana bonus not keeping the unit Health/Mana Percentage
+            - Added the funcitons: They manipuilate real bonuses values correctly.
+                - GetUnitBonusReal() 
+                - SetUnitBonusReal() 
+                - RemoveUnitBonusReal() 
+                - AddUnitBonusReal()
+            - Refactored the LinkBonusToItem() to use the On Drop event instead of a periodic timer to check the link
+            - Included an Expanded version of NewBonus and NewBonusUtils that take advangtage of the Damage Inteface System and Cooldown Reduction System
+            - Renamed 4 bonus types for better readability.
+            - Removed the "Ex" from the end of the API functions
+    
+        Credits to Earth Fury for the original Bonus idea*/
+    //! endnovjass
+    /* ----------------------------------- END ---------------------------------- */
+
+
+//The bonus types
+public constant integer BONUS_DAMAGE                  = 1
+public constant integer BONUS_ARMOR                   = 2
+public constant integer BONUS_AGILITY                 = 3
+public constant integer BONUS_STRENGTH                = 4
+public constant integer BONUS_INTELLIGENCE            = 5
+public constant integer BONUS_HEALTH                  = 6
+public constant integer BONUS_MANA                    = 7
+public constant integer BONUS_MOVEMENT_SPEED          = 8
+public constant integer BONUS_SIGHT_RANGE             = 9
+public constant integer BONUS_HEALTH_REGEN            = 10
+public constant integer BONUS_MANA_REGEN              = 11
+public constant integer BONUS_ATTACK_SPEED            = 12
+public constant integer BONUS_MAGIC_RESISTANCE        = 13
+//expanded bonus types not linked to abilities
+public constant integer BONUS_EVASION_CHANCE          = 14
+public constant integer BONUS_MISS_CHANCE             = 15
+public constant integer BONUS_CRITICAL_CHANCE         = 16
+public constant integer BONUS_CRITICAL_DAMAGE         = 17
+public constant integer BONUS_SPELL_POWER_FLAT        = 18
+public constant integer BONUS_SPELL_POWER_PERCENT     = 19
+public constant integer BONUS_LIFE_STEAL              = 20
+public constant integer BONUS_SPELL_VAMP              = 21
+/*public constant integer BONUS_COOLDOWN_REDUCTION      = 22
+public constant integer BONUS_COOLDOWN_REDUCTION_FLAT = 23
+public constant integer BONUS_COOLDOWN_OFF        = 24*/
+        
+//The abilities codes for each bonus
+//When pasting the abilities over to your map
+//their raw code should match the bonus here
+constant integer DAMAGE_ABILITY           = 'Z001'
+constant integer ARMOR_ABILITY            = 'Z002'
+constant integer STATS_ABILITY            = 'Z003'
+constant integer HEALTH_ABILITY           = 'Z004'
+constant integer MANA_ABILITY             = 'Z005'
+constant integer HEALTHREGEN_ABILITY      = 'Z006'
+constant integer MANAREGEN_ABILITY        = 'Z007'
+constant integer ATTACKSPEED_ABILITY      = 'Z008'
+constant integer MOVEMENTSPEED_ABILITY    = 'Z009'
+constant integer SIGHT_RANGE_ABILITY      = 'Z00A'
+constant integer MAGIC_RESISTANCE_ABILITY = 'Z00B'
+        
+//The abilities fields that are modified. For the sake of readability
+constant abilityintegerlevelfield DAMAGE_FIELD           = ABILITY_ILF_ATTACK_BONUS
+constant abilityintegerlevelfield ARMOR_FIELD            = ABILITY_ILF_DEFENSE_BONUS_IDEF
+constant abilityintegerlevelfield AGILITY_FIELD          = ABILITY_ILF_AGILITY_BONUS
+constant abilityintegerlevelfield STRENGTH_FIELD         = ABILITY_ILF_STRENGTH_BONUS_ISTR
+constant abilityintegerlevelfield INTELLIGENCE_FIELD     = ABILITY_ILF_INTELLIGENCE_BONUS
+constant abilityintegerlevelfield HEALTH_FIELD           = ABILITY_ILF_MAX_LIFE_GAINED
+constant abilityintegerlevelfield MANA_FIELD             = ABILITY_ILF_MAX_MANA_GAINED
+constant abilityintegerlevelfield MOVEMENTSPEED_FIELD    = ABILITY_ILF_MOVEMENT_SPEED_BONUS
+constant abilityintegerlevelfield SIGHT_RANGE_FIELD      = ABILITY_ILF_SIGHT_RANGE_BONUS
+constant abilityreallevelfield    HEALTHREGEN_FIELD      = ABILITY_RLF_AMOUNT_OF_HIT_POINTS_REGENERATED
+constant abilityreallevelfield    MANAREGEN_FIELD        = ABILITY_RLF_AMOUNT_REGENERATED
+constant abilityreallevelfield    ATTACKSPEED_FIELD      = ABILITY_RLF_ATTACK_SPEED_INCREASE_ISX1
+constant abilityreallevelfield    MAGIC_RESISTANCE_FIELD = ABILITY_RLF_DAMAGE_REDUCTION_ISR2
+
+public abstract class NewBonus
+    //SetUnitAbilityBonusI() and SetUnitAbilityBonusR are necessary to manage abilities that have integer fields and real fields
+    //but the return is normalized to reals
+    static function SetUnitAbilityBonusI (unit u, integer abilCode, abilityintegerlevelfield field, integer amount) returns integer
+        if GetUnitAbilityLevel(u, abilCode) == 0
+            UnitAddAbility(u, abilCode)
+            UnitMakeAbilityPermanent(u, true, abilCode)
+        
+    
+        //Increasing and Decreasing is necessary since the abilities do not get updated just by changing
+        //it's fields values. In the future, if Blizzard decides to patch it, it could be removed.
+        if BlzSetAbilityIntegerLevelField(BlzGetUnitAbility(u, abilCode), field, 0, amount)
+            IncUnitAbilityLevel(u, abilCode)
+            DecUnitAbilityLevel(u, abilCode)
+        
+    
+        return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, abilCode), field, 0)
+    
+
+    static function SetUnitAbilityBonusR (unit u, integer abilCode, abilityreallevelfield field, real amount) returns real
+        if GetUnitAbilityLevel(u, abilCode) == 0
+            UnitAddAbility(u, abilCode)
+            UnitMakeAbilityPermanent(u, true, abilCode)
+        
+    
+        if BlzSetAbilityRealLevelField(BlzGetUnitAbility(u, abilCode), field, 0, amount)
+            IncUnitAbilityLevel(u, abilCode)
+            DecUnitAbilityLevel(u, abilCode)
+        
+    
+        return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, abilCode), field, 0)
+    
+
+    static function GetUnitBonus (unit u, integer bonus_type) returns integer
+        switch bonus_type
+            case BONUS_DAMAGE
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, DAMAGE_ABILITY), DAMAGE_FIELD, 0)
+            case BONUS_ARMOR
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, ARMOR_ABILITY), ARMOR_FIELD, 0)
+            case BONUS_HEALTH
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, HEALTH_ABILITY), HEALTH_FIELD, 0)
+            case BONUS_MANA
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, MANA_ABILITY), MANA_FIELD, 0)
+            case BONUS_AGILITY
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, STATS_ABILITY), AGILITY_FIELD, 0)
+            case BONUS_STRENGTH
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, STATS_ABILITY), STRENGTH_FIELD, 0)
+            case BONUS_INTELLIGENCE
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, STATS_ABILITY), INTELLIGENCE_FIELD, 0)
+            case BONUS_MOVEMENT_SPEED
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, MOVEMENTSPEED_ABILITY), MOVEMENTSPEED_FIELD, 0)
+            case BONUS_SIGHT_RANGE
+                return BlzGetAbilityIntegerLevelField(BlzGetUnitAbility(u, SIGHT_RANGE_ABILITY), SIGHT_RANGE_FIELD, 0)
+            default
+                DisplayTimedTextToPlayer(Player(0), 0, 0, 10, "Invalid Bonus Type")
+        
+        
+        return -1
+    
+
+    static function SetUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+        real p
+        switch bonus_type
+            case BONUS_DAMAGE
+                return SetUnitAbilityBonusI(u, DAMAGE_ABILITY, DAMAGE_FIELD, amount)
+            case BONUS_ARMOR
+                return SetUnitAbilityBonusI(u, ARMOR_ABILITY, ARMOR_FIELD, amount)
+            case BONUS_HEALTH
+                p = GetUnitLifePercent(u)
+                BlzSetUnitMaxHP(u, (BlzGetUnitMaxHP(u) + amount - GetUnitBonus(u, bonus_type)))
+                SetUnitLifePercentBJ(u, p)
+                return SetUnitAbilityBonusI(u, HEALTH_ABILITY, HEALTH_FIELD, amount)
+            case BONUS_MANA
+                p = GetUnitManaPercent(u)
+                BlzSetUnitMaxMana(u, (BlzGetUnitMaxMana(u) + amount - GetUnitBonus(u, bonus_type)))
+                SetUnitManaPercentBJ(u, p)
+                return SetUnitAbilityBonusI(u, MANA_ABILITY, MANA_FIELD, amount)
+            case BONUS_AGILITY
+                return SetUnitAbilityBonusI(u, STATS_ABILITY, AGILITY_FIELD, amount)
+            case BONUS_STRENGTH
+                return SetUnitAbilityBonusI(u, STATS_ABILITY, STRENGTH_FIELD, amount)
+            case BONUS_INTELLIGENCE
+                return SetUnitAbilityBonusI(u, STATS_ABILITY, INTELLIGENCE_FIELD, amount)
+            case BONUS_MOVEMENT_SPEED
+                return SetUnitAbilityBonusI(u, MOVEMENTSPEED_ABILITY, MOVEMENTSPEED_FIELD, amount)
+            case BONUS_SIGHT_RANGE
+                BlzSetUnitRealField(u, UNIT_RF_SIGHT_RADIUS, (BlzGetUnitRealField(u, UNIT_RF_SIGHT_RADIUS) + amount - GetUnitBonus(u, bonus_type)))
+                return SetUnitAbilityBonusI(u, SIGHT_RANGE_ABILITY, SIGHT_RANGE_FIELD, amount)
+            default
+                DisplayTimedTextToPlayer(Player(0), 0, 0, 10, "Invalid Bonus Type")
+        return -1
+    
+
+    static function AddUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+        var current_amount = GetUnitBonus(u, bonus_type)
+        var amount_temp = 0
+
+        // Added in version 1.5 to avoid overflow/underflow of the field value
+        if amount > 0 and current_amount > 2147483647 - amount //Overflow
+            amount_temp = 2147483647 - current_amount
+        else
+            if amount < 0 and current_amount < -2147483648 - amount //Underflow
+                amount_temp = -2147483648 - current_amount
+        
+
+        SetUnitBonus(u, bonus_type, (current_amount + amount_temp))
+
+        return amount_temp
+    
+
+    // Funtions that handle the real bonus types
+
+    static function GetUnitBonusR (unit u, integer bonus_type) returns real
+        switch bonus_type
+            case BONUS_HEALTH_REGEN
+                return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, HEALTHREGEN_ABILITY), HEALTHREGEN_FIELD, 0)
+            case BONUS_MANA_REGEN
+                return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, MANAREGEN_ABILITY), MANAREGEN_FIELD, 0)
+            case BONUS_ATTACK_SPEED
+                return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, ATTACKSPEED_ABILITY), ATTACKSPEED_FIELD, 0)
+            case BONUS_MAGIC_RESISTANCE
+                return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, MAGIC_RESISTANCE_ABILITY), MAGIC_RESISTANCE_FIELD, 0)
+            case BONUS_EVASION_CHANCE
+                return GetUnitEvasionChance(u)
+            case BONUS_MISS_CHANCE
+                return GetUnitMissChance(u)
+            case BONUS_CRITICAL_CHANCE
+                return GetUnitCriticalChance(u)
+            case BONUS_CRITICAL_DAMAGE
+                return GetUnitCriticalMultiplier(u)
+            case BONUS_SPELL_POWER_FLAT
+                return GetUnitSpellPowerFlat(u)
+            case BONUS_SPELL_POWER_PERCENT
+                return GetUnitSpellPowerPercent(u)
+            case BONUS_LIFE_STEAL
+                return GetUnitLifeSteal(u)
+            case BONUS_SPELL_VAMP
+                return GetUnitSpellVamp(u)
+            /*case BONUS_COOLDOWN_REDUCTION
+                return GetUnitCooldownReduction(u)
+            case BONUS_COOLDOWN_REDUCTION_FLAT
+                return GetUnitCooldownReductionFlat(u)
+            case BONUS_COOLDOWN_OFFSET
+                return GetUnitCooldownOffset(u)*/
+            default
+                DisplayTimedTextToPlayer(Player(0), 0, 0, 10, "Invalid Bonus Type")
+        
+        return -1.0
+    
+
+    static function SetUnitBonusR (unit u, integer bonus_type, real amount)
+        switch bonus_type
+            case BONUS_HEALTH_REGEN
+                SetUnitAbilityBonusR(u, HEALTHREGEN_ABILITY, HEALTHREGEN_FIELD, amount)
+            case BONUS_MANA_REGEN
+                SetUnitAbilityBonusR(u, MANAREGEN_ABILITY, MANAREGEN_FIELD, amount)
+            case BONUS_ATTACK_SPEED
+                SetUnitAbilityBonusR(u, ATTACKSPEED_ABILITY, ATTACKSPEED_FIELD, amount)
+            case BONUS_MAGIC_RESISTANCE
+                SetUnitAbilityBonusR(u, MAGIC_RESISTANCE_ABILITY, MAGIC_RESISTANCE_FIELD, amount)
+            case BONUS_EVASION_CHANCE
+                SetUnitEvasionChance(u, amount)
+            case BONUS_MISS_CHANCE
+                SetUnitMissChance(u, amount)
+            case BONUS_CRITICAL_CHANCE
+                SetUnitCriticalChance(u, amount)
+            case BONUS_CRITICAL_DAMAGE
+                SetUnitCriticalMultiplier(u, amount)
+            case BONUS_SPELL_POWER_FLAT
+                SetUnitSpellPowerFlat(u, amount)
+            case BONUS_SPELL_POWER_PERCENT
+                SetUnitSpellPowerPercent(u, amount)
+            case BONUS_LIFE_STEAL
+                SetUnitLifeSteal(u, amount)
+            case BONUS_SPELL_VAMP
+                SetUnitSpellVamp(u, amount)
+            
+            /*case BONUS_COOLDOWN_REDUCTION
+                SetUnitCooldownReduction(u, amount)
+            case BONUS_COOLDOWN_REDUCTION_FLAT
+                SetUnitCooldownReductionFlat(u, amount)
+            case BONUS_COOLDOWN_OFFSET
+                SetUnitCooldownOffset(u, amount)*/
+            default
+                DisplayTimedTextToPlayer(Player(0), 0, 0, 10, "Invalid Bonus Type")
+        
+    
+
+    static function AddUnitBonusR (unit u, integer bonus_type, real amount)
+        switch bonus_type
+            case BONUS_HEALTH_REGEN
+                SetUnitBonusR(u, bonus_type, GetUnitBonusR(u, bonus_type) + amount)
+            case BONUS_MANA_REGEN
+                SetUnitBonusR(u, bonus_type, GetUnitBonusR(u, bonus_type) + amount)
+            case BONUS_ATTACK_SPEED
+                SetUnitBonusR(u, bonus_type, GetUnitBonusR(u, bonus_type) + amount)
+            case BONUS_MAGIC_RESISTANCE
+                SetUnitBonusR(u, bonus_type, GetUnitBonusR(u, bonus_type) + amount)
+            case BONUS_EVASION_CHANCE
+                UnitAddEvasionChance(u, amount)
+            case BONUS_MISS_CHANCE
+                UnitAddMissChance(u, amount)
+            case BONUS_CRITICAL_CHANCE
+                UnitAddCriticalStrike(u, amount, 0)
+            case BONUS_CRITICAL_DAMAGE
+                UnitAddCriticalStrike(u, 0, amount)
+            case BONUS_SPELL_POWER_FLAT
+                UnitAddSpellPowerFlat(u, amount)
+            case BONUS_SPELL_POWER_PERCENT
+                UnitAddSpellPowerPercent(u, amount)
+            case BONUS_LIFE_STEAL
+                UnitAddLifeSteal(u, amount)
+            case BONUS_SPELL_VAMP
+                UnitAddSpellVamp(u, amount)
+            // TODO: Add support for cooldown reduction library
+            /*case BONUS_COOLDOWN_REDUCTION
+                UnitAddCooldownReduction(u, amount)
+            case BONUS_COOLDOWN_REDUCTION_FLAT
+                UnitAddCooldownReductionFlat(u, amount)
+            case BONUS_COOLDOWN_OFFSET
+                UnitAddCooldownOffset(u, amount)*/
+            default
+                DisplayTimedTextToPlayer(Player(0), 0, 0, 10, "Invalid Bonus Type")
+        
+        
+        /* -------------------------------------------------------------------------- */
+        /*                               JASS Public API                              */
+        /* -------------------------------------------------------------------------- */
+   
+
+public function GetUnitBonus (unit u, integer bonus_type) returns integer
+    return NewBonus.GetUnitBonus(u, bonus_type)
+
+
+public function SetUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+    return NewBonus.SetUnitBonus(u, bonus_type, amount)
+
+
+public function RemoveUnitBonus (unit u, integer bonus_type)
+    NewBonus.SetUnitBonus(u, bonus_type, 0)
+
+
+public function AddUnitBonus (unit u, integer bonus_type, integer amount) returns integer
+    return NewBonus.AddUnitBonus(u, bonus_type, amount)
+
+
+// Extra functions for manipulating the real bonus types
+
+public function GetUnitBonusReal (unit u, integer bonus_type) returns real
+    return NewBonus.GetUnitBonusR(u, bonus_type)
+
+
+public function SetUnitBonusReal (unit u, integer bonus_type, real amount)
+    NewBonus.SetUnitBonusR(u, bonus_type, amount)
+
+
+public function RemoveUnitBonusReal (unit u, integer bonus_type)
+    NewBonus.SetUnitBonusR(u, bonus_type, 0)
+
+
+public function AddUnitBonusReal (unit u, integer bonus_type, real amount) returns real
+    NewBonus.AddUnitBonusR(u, bonus_type, amount)
+    return amount

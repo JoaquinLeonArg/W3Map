@@ -1,0 +1,37 @@
+package ItemSturdySword
+
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+
+// Internals
+constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+
+@configurable constant GOLD_COST = 50
+@configurable constant LUMBER_COST = 0
+@configurable constant CURSED = false
+@configurable constant EXTRA_DAMAGE = 24
+@configurable constant RARITY = Rarity.COMMON
+
+@compiletime function generateItemTrainingSword()
+    let tgen = new ItemTooltipGenerator("Sturdy sword", RARITY)
+        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..setShortDescription("Some item description")
+
+    new ItemDefinition(ITEM_STURDYSWORD_ID, AbilityIds.itemAttackDamageGain)
+        ..setName(tgen.generateItemName())
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNTier2Sword.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID))
+
+@compiletime function helperAbilityExtraDamage()
+    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
+        ..setAttackBonus(1, EXTRA_DAMAGE)

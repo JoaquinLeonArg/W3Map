@@ -1,15 +1,11 @@
 package DivineArmor
 
-import ChannelAbilityPreset
 import Icons
 import AbilityTooltipGenerator
 import ClosureEvents
 import ClosureForGroups
 import ClosureTimers
-import Effect
-import Abilities
-
-public constant ABILITY_DIVINEARMOR_ID = compiletime(ABIL_ID_GEN.next())
+import Constants
 
 // Stats
 @configurable constant BASE_HEAL = 150

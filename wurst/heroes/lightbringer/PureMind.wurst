@@ -1,20 +1,13 @@
 package PureMind
 
-import ChannelAbilityPreset
-import Icons
 import AbilityTooltipGenerator
-import ClosureEvents
-import ClosureForGroups
 import ClosureTimers
-import Effect
-import Abilities
 import HashList
-import MapBounds
-import Registry
+import OnUnitEnterLeave
+import Constants
 
-public constant ABILITY_PUREMIND_ID = compiletime(ABIL_ID_GEN.next())
-
-var units = new HashList<unit>
+// Internals
+HashList<unit> units = new HashList<unit>
 
 // Stats
 @configurable constant STR_PERC = .05
@@ -33,13 +26,19 @@ var units = new HashList<unit>
         ..presetButtonPosNormal(1, 1)
         ..presetIcon("ReplaceableTextures\\CommandButtons\\BTNBlessedCircle.blp")
 
-public function registerUnitPureMind(unit u)
-    Registry.registerUnitAbility(u, ABILITY_PUREMIND_ID)
-
 init
+    // Unit registration
+    onEnter() ->
+        let u = getEnterLeaveUnit()
+        if u.getTypeId() == HERO_LIGHTBRINGER_ID and not units.has(u)
+            units.add(u)
+    onLeave() ->
+        let u = getEnterLeaveUnit()
+        units.remove(u)
+
     // Apply mana regen each second.
     doPeriodically(1) (CallbackPeriodic cb) ->
-        for u in Registry.getUnitAbilityList(ABILITY_PUREMIND_ID)
+        for u in units
             if u.hasAbility(ABILITY_PUREMIND_ID)
                 let amount = u.getStr(true) * STR_PERC
                 u.addMana(amount)

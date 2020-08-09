@@ -1,0 +1,48 @@
+package Waves
+
+import HashList
+import Constants
+import CreepStatLeveling
+import ClosureTimers
+import Orders
+import Regions
+
+class Wave
+    HashList<int> unitCount = new HashList<int>
+    HashList<int> unitId = new HashList<int>
+
+    construct()
+
+    function addUnits(int unitId, int count)
+        this.unitId.add(unitId)
+        this.unitCount.add(count)
+    
+    function spawnWave(vec2 position, int difficulty, int lvl)
+        for i=0 to this.unitId.size()
+            let units = CreateNUnitsAtLoc(unitCount.get(i), unitId.get(i), playerFromIndex(PLAYER_COMPUTER_ID), Location(position.x, position.y), 0)
+            for u in units
+                CreepStatsApplier.applyStatsToUnit(u, lvl + difficulty * 3)
+
+public class Waves
+    static private HashList<Wave> waves
+    static private int currentWave = 0
+    static private int wavesCount = 30
+
+    static function initialize()
+        waves = new HashList<Wave>
+        waves.add(
+            new Wave()..addUnits(CREEP_GRUNT_ID, 4),
+            new Wave()..addUnits(CREEP_GRUNT_ID, 2)..addUnits(CREEP_ARCHER_ID, 2)
+        )
+            
+    static function spawnNextWave(vec2 position, int difficulty)
+        if currentWave < wavesCount
+            let random_wave = GetRandomInt(0, waves.size() - 1)
+            waves.get(random_wave).spawnWave(position, difficulty, currentWave)
+            currentWave++
+
+init
+    doPeriodically(2) (CallbackPeriodic cb) ->
+        for u in GetUnitsOfPlayerAll(playerFromIndex(PLAYER_COMPUTER_ID))
+            if u.getCurrentOrder() != Orders.attack
+                u.issuePointOrderById(Orders.attack, Regions.treeOfLife.getCenter())

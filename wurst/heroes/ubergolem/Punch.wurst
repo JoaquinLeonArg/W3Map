@@ -1,17 +1,10 @@
 package Punch
 
-import ChannelAbilityPreset
-import Icons
 import AbilityTooltipGenerator
 import ClosureEvents
-import ClosureForGroups
-import ClosureTimers
-import Effect
 import Abilities
 import Knockback3
-import DamageEvent
-
-public constant ABILITY_PUNCH_ID = compiletime(ABIL_ID_GEN.next())
+import Constants
 
 // Stats
 @configurable constant BASE_DAMAGE = 500.

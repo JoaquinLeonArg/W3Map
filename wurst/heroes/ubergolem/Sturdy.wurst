@@ -1,8 +1,7 @@
 package Sturdy
 
 import AbilityTooltipGenerator
-
-public constant ABILITY_STURDY_ID = compiletime(ABIL_ID_GEN.next())
+import Constants
 
 // Stats
 @configurable constant BASE_STR = 5

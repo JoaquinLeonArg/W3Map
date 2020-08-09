@@ -1,0 +1,47 @@
+package Infoboard
+
+import ClosureTimers
+import Util
+import Icons
+
+public abstract class Infoboard
+    static multiboard mboard
+    static int playerCount
+
+    static function initialize()
+        doAfter(1) -> 
+            // Sizes
+            mboard = CreateMultiboardBJ(4, countPlayingPlayers() + 5, "Info")
+            mboard.setColumnWidth(0, .1)
+            mboard.setColumnWidth(1, .05)
+            mboard.setColumnWidth(2, .05)
+            mboard.setColumnWidth(3, .05)
+            
+            // Header and footer
+            for x=0 to 4
+                mboard.getItem(0, x).setStyle(true, false)
+                for y=countPlayingPlayers() + 2 to countPlayingPlayers() + 5
+                    mboard.getItem(y, x).setStyle(true, false)
+
+            mboard.setItemValue(0, 0, "Player")
+            mboard.setItemValue(0, 1, "Gold")
+            mboard.setItemValue(0, 2, "Wood")
+            mboard.setItemValue(0, 3, "Score")
+
+            mboard.setItemValue(countPlayingPlayers() + 3, 0, "Wave:")
+            mboard.setItemValue(countPlayingPlayers() + 4, 0, "Next in:")
+
+            // Player data
+            for y=0 to countPlayingPlayers()
+                for x=0 to 4
+                    mboard.getItem(y + 1, x).setStyle(true, true)
+                mboard.setItemIcon(y + 1, 0, Icons.bTNMedivh)
+                mboard.setItemValue(y + 1, 0, playerFromIndex(y).getName())
+                mboard.setItemValueColor(y + 1, 0, playerFromIndex(y).getColor().toColor().withAlpha(255))
+                mboard.setItemValue(y + 1, 1, "0")
+                mboard.setItemIcon(y + 1, 1, Icons.bTNChestOfGold)
+                mboard.setItemValue(y + 1, 2, "0")
+                mboard.setItemIcon(y + 1, 2, Icons.bTNBundleOfLumber)
+                mboard.setItemValue(y + 1, 3, "0")
+                mboard.setItemIcon(y + 1, 3, Icons.bTNGuldanSkull)
+            mboard.show()

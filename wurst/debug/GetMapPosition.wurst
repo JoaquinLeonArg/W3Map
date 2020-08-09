@@ -1,0 +1,22 @@
+package GetMapPosition
+
+import Constants
+import AbilityTooltipGenerator
+import ClosureEvents
+import Icons
+
+@compiletime function generateAbilityLightSeal()
+    new ChannelAbilityPreset(ABILITY_GETMAPPOS_ID, 1, true)
+            ..presetTargetTypes(Targettype.POINT)
+            ..presetCooldown(lvl -> 0)
+            ..presetManaCost(lvl -> 0)
+            ..presetCastRange(lvl -> 99999)
+            ..setName("Get Map Position")
+            ..presetButtonPosNormal(2, 1)
+            ..presetIcon(Icons.bTNMarksmanship)
+
+init
+    // On cast trigger
+    EventListener.onPointCast(ABILITY_GETMAPPOS_ID) (unit caster, vec2 target) ->
+        print("Position: " + target.toString())
+        caster.setPos(target)

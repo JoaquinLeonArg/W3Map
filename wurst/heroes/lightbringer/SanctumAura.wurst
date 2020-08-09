@@ -1,0 +1,60 @@
+package SanctumAura
+
+import AbilityTooltipGenerator
+import ClosureTimers
+import Constants
+import OnUnitEnterLeave
+import HashList
+
+// Internals
+HashList<unit> units = new HashList<unit>
+
+// Stats
+@configurable constant BASE_MIS_HEALTH_PERC = .0
+@configurable constant LEVEL_MIS_HEALTH_PERC = .01
+@configurable constant RANGE = 300.
+@configurable constant COOLDOWN = 3.
+
+@compiletime function generateAbilitySanctumAura()
+    let tgen = new AbilityTooltipGenerator("Restores life to surrounding allied units periodically.")
+    tgen.addProperty("Missing life restored", lvl -> ((BASE_MIS_HEALTH_PERC + lvl * LEVEL_MIS_HEALTH_PERC)*100).toInt().toString() + "%")
+    tgen.addConstantProperty("Range", RANGE.toInt().toString())
+    tgen.addConstantProperty("Cooldown", COOLDOWN.toInt().toString())
+    
+    new AbilityDefinitionHardenedSkin(ABILITY_SANCTUMAURA_ID)
+        ..registerTooltipGenerator(tgen)
+        ..presetChancetoReduceDamage(lvl -> 0) // Disable hardened skin
+        ..setRequirements("") // Disable hardened skin
+        ..presetButtonPosNormal(2, 2)
+        ..presetButtonPosResearch(2, 0)
+        ..tooltipStartListen()
+        ..setLevels(5)
+        ..setName("Sanctify")
+        ..tooltipStopListen()
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASHolyRestorationAura.blp")
+        ..setLevelSkipRequirement(1)
+
+init
+    // Unit registration
+    onEnter() ->
+        let u = getEnterLeaveUnit()
+        if u.getTypeId() == HERO_LIGHTBRINGER_ID and not units.has(u)
+            units.add(u)
+    onLeave() ->
+        let u = getEnterLeaveUnit()
+        units.remove(u)
+
+    // Ability effect
+    doPeriodically(COOLDOWN) (CallbackPeriodic cb) ->
+        for u in units
+            if u.hasAbility(ABILITY_SANCTUMAURA_ID) and u.isAlive()
+                let areaEffect = addEffect("Effects\\SoulArmorDivine", u.getPos())
+                areaEffect.setScale(4.)
+                areaEffect.setAlpha(15)
+                doAfter(.5) -> 
+                    areaEffect.destr()
+                let lvl = u.getAbilityLevel(ABILITY_SANCTUMAURA_ID)
+                let perc_heal = BASE_MIS_HEALTH_PERC + lvl * LEVEL_MIS_HEALTH_PERC
+                for t in GetUnitsInRangeOfLocAll(RANGE, u.getLoc())
+                    if t.getOwner().isAllyOf(u.getOwner()) and u != t // Only heal allies and not self
+                        t.addHP(t.getMissingHP() * perc_heal)

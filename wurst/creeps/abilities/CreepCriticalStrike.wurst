@@ -1,0 +1,26 @@
+package CreepCriticalStrike
+
+import AbilityTooltipGenerator
+import Constants
+import Icons
+
+// Stats
+@configurable constant CHANCE = .25
+@configurable constant BASE_DAMAGE_MULT = 1.1
+@configurable constant LEVEL_DAMAGE_MULT = .1
+
+@compiletime function generateAbilityPureMind()
+    let tgen = new AbilityTooltipGenerator("Chance to deal extra damage when attacking.")
+    
+    new AbilityDefinitionBladeMasterCriticalStrike(CREEP_ABILITY_CRITICALSTRIKE_ID)
+        ..registerTooltipGenerator(tgen)
+        ..tooltipStartListen()
+        ..setName("Critical strike")
+        ..presetChancetoCriticalStrike(lvl -> CHANCE)
+        ..presetDamageMultiplier(lvl -> BASE_DAMAGE_MULT + lvl * LEVEL_DAMAGE_MULT)
+        ..tooltipStopListen()
+        ..setLevels(100)
+        ..presetButtonPosNormal(0, 2)
+        ..presetIcon(Icons.pASBTNCriticalStrike)
+
+        

@@ -1,0 +1,54 @@
+package ItemDarkBlade
+
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+
+// Internals
+constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ABILITY_ANIMATEDEAD_ID = compiletime(ABIL_ID_GEN.next())
+
+@configurable constant GOLD_COST = 120
+@configurable constant LUMBER_COST = 5
+@configurable constant CURSED = false
+@configurable constant EXTRA_DAMAGE = 24
+@configurable constant RAISED_UNITS = 2
+@configurable constant DURATION = 10.
+@configurable constant COOLDOWN = 20.
+@configurable constant MANA_COST = 50
+@configurable constant RARITY = Rarity.UNCOMMON
+
+@compiletime function generateItemDarkBlade()
+    let tgen = new ItemTooltipGenerator("Dark blade", RARITY)
+        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("Active effect: ", "Raises " + RAISED_UNITS.toString() +
+            " nearby corpses that are invulnerable that fight for you for " + DURATION.toInt().toString() + " seconds.")
+        ..setShortDescription("Used by necromantic warrior. Be careful.")
+
+    new ItemDefinition(ITEM_DARKBLADE_ID, AbilityIds.itemAnimateDead)
+        ..setName(tgen.generateItemName())
+        ..setActivelyUsed(true)
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNTier4Sword.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID, HELPER_ABILITY_ANIMATEDEAD_ID))
+        ..setCooldownGroup(AbilityIds.animateDead.toString()) // TODO: Cooldown not showing
+
+@compiletime function helperAbilityExtraDamage()
+    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
+        ..setAttackBonus(1, EXTRA_DAMAGE)
+
+@compiletime function helperAbilityAnimateDead()
+    new AbilityDefinitionAnimateDead(HELPER_ABILITY_ANIMATEDEAD_ID)
+        ..setNumberofCorpsesRaised(1, RAISED_UNITS)
+        ..setRaisedUnitsAreInvulnerable(1, true)
+        ..setDurationNormal(1, DURATION)
+        ..setManaCost(1, MANA_COST)
+        ..setCooldown(1, COOLDOWN)

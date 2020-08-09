@@ -1,0 +1,66 @@
+package Shops
+
+import Constants
+import ClosureTimers
+import PlayerHeroes
+import Util
+
+@configurable constant ROWS_PER_PAGE = 10
+@configurable constant PERC_WIDTH = 0.24
+@configurable constant PERC_HEIGHT = 0.21
+@configurable constant X_OFFSET = 0.9
+@configurable constant Y_OFFSET = 0.18
+
+public abstract class Shop
+    //private static HashMap<player, bool> visibility
+    framehandle background
+    framehandle container
+    int tasObjectIndex
+    rect activeZone
+
+    construct(rect activeZone, code onClick)
+        if not BlzLoadTOCFile("TasButtonList.toc")
+            print("Error loading Shop UI :c")
+        this.background = BlzCreateFrame("QuestButtonBaseTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0) // Background frame
+        this.container = BlzCreateFrameByType("FRAME", "", this.background, "", 0) // Shop container frame
+
+        BlzFrameSetSize(this.container, PERC_WIDTH, 0.001)
+        BlzFrameSetSize(this.background, PERC_WIDTH + .07, PERC_HEIGHT + .07)
+        BlzFrameSetPoint(this.container, FRAMEPOINT_BOTTOMLEFT, this.background, FRAMEPOINT_TOPLEFT, -.039, .018) // Magic numbers, don't touch!
+        BlzFrameSetAbsPoint(this.background, FRAMEPOINT_BOTTOMRIGHT, X_OFFSET, Y_OFFSET)
+
+        this.tasObjectIndex = CreateTasButtonListV3(ROWS_PER_PAGE, this.container, onClick, null, null, null)
+
+        BlzFrameSetVisible(BlzGetFrameByName("FrameListSlider", this.tasObjectIndex), false)
+        
+        this.addListData()
+
+        UpdateTasButtonList(this.tasObjectIndex)
+        doPeriodically(1) (CallbackPeriodic cb) -> // Update the shop every second
+            UpdateTasButtonList(this.tasObjectIndex)
+            this.update()
+
+        this.background.hide()
+        this.activeZone = activeZone
+
+    function showShop(player p)
+        this.background.show(p)
+
+    function hideShop(player p)
+        this.background.hide(p)
+        //h = PlayerHeroes.getHeroFromPlayer(p)
+
+    function update()
+        for playerIndex=0 to GetPlayers()
+            let p = playerFromIndex(playerIndex)
+            let h = PlayerHeroes.getHeroFromPlayer(p)
+            if h != null
+                if h.isInRect(this.activeZone)
+                    this.showShop(p)
+                else
+                    this.hideShop(p)
+
+    abstract function addListData()
+        // TasButtonListAddData(this.tasObjectIndex, ITEM_WOODENSWORD_ID)
+
+        

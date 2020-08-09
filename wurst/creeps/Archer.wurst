@@ -1,0 +1,24 @@
+package Archer
+
+import UnitObjEditing
+import CreepStatLeveling
+import UnitIds
+import Constants
+
+@compiletime function genCreep()
+    new CreepArcher()
+
+// Stats
+public class CreepArcherStats extends CreepStats
+    construct()
+        this.attackSpeed = lvl -> 2.5 - lvl * .06
+        this.damage = lvl -> 14 + lvl * 4
+        this.hp = lvl -> 100 + lvl * 25
+        this.armor = lvl -> 1. + lvl * .05
+
+public class CreepArcher extends UnitDefinition
+    construct()
+        super(CREEP_ARCHER_ID, UnitIds.archer)
+
+init
+    CreepStatsApplier.register(CREEP_ARCHER_ID, new CreepArcherStats())

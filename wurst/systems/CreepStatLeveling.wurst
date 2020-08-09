@@ -1,0 +1,42 @@
+package CreepStatLeveling
+
+import HashMap
+import HashList
+
+interface LevelFunction<T>
+    function atLevel(int lvl) returns T
+
+public class CreepStats
+    LevelFunction<int> damage = (lvl) -> 12 + lvl * 3
+    LevelFunction<int> damageRolls = (lvl) -> 3
+    LevelFunction<int> damageSides = (lvl) -> 2 + lvl * 1
+    LevelFunction<int> hp = (lvl) -> 200 + lvl * 50
+    LevelFunction<int> mana = (lvl) -> 0
+    LevelFunction<real> moveSpeed = (lvl) -> 400. + lvl * 5.
+    LevelFunction<real> attackSpeed = (lvl) -> 3. - lvl * .05
+    LevelFunction<real> armor = (lvl) -> 2. + lvl * .5
+    HashList<int> abilities = new HashList<int>
+
+public abstract class CreepStatsApplier
+    private static HashMap<int, CreepStats> idToStatsMap = new HashMap<int, CreepStats>
+    
+    static function register(int unitId, CreepStats creepStats)
+        idToStatsMap.put(unitId, creepStats)
+
+    static function applyStatsToUnit(unit u, int lvl)
+        let unitId = u.getTypeId()
+        if idToStatsMap.has(unitId)
+            let stats = idToStatsMap.get(unitId)
+            u.applyStats(stats, lvl)
+
+function unit.applyStats(CreepStats stats, int lvl)
+    this.setBaseDamage(stats.damage.atLevel(lvl), 0)
+    this.setDiceNumber(stats.damageRolls.atLevel(lvl), 0)
+    this.setDiceSides(stats.damageSides.atLevel(lvl), 0)
+    this.setMaxHP(stats.hp.atLevel(lvl))
+    this.setMaxMana(stats.mana.atLevel(lvl))
+    this.setMoveSpeed(stats.moveSpeed.atLevel(lvl))
+    this.setAttackCooldown(stats.attackSpeed.atLevel(lvl), 0)
+    this.setArmor(stats.armor.atLevel(lvl))
+    for abilityId in stats.abilities
+        this.addPermanentAbility(abilityId, lvl)

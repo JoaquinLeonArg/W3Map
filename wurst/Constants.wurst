@@ -1,0 +1,67 @@
+package Constants
+
+import ObjectIdGenerator
+
+// Misc
+public constant PLAYER_COMPUTER_ID = 1
+public constant GOLD_SHOP_OFFSET = 10000
+
+// Difficulties
+public constant EASY = 0
+public constant NORMAL = 1
+public constant HARD = 2
+
+// Item rarity
+public enum Rarity
+    COMMON
+    UNCOMMON
+    RARE
+    LEGENDARY
+
+public constant COMMON_WEIGHT = 1.
+public constant UNCOMMON_WEIGHT = .5
+public constant RARE_WEIGHT = .15
+public constant LEGENDARY_WEIGHT = .05
+
+// Abilities
+    // Lightbringer
+public constant ABILITY_ANGELICGUARD_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_SANCTUMAURA_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_PUREMIND_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_LIGHTSEAL_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_DIVINEARMOR_ID = compiletime(ABIL_ID_GEN.next())
+    // Ubergolem
+public constant ABILITY_FORTITUDE_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_PUNCH_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_CRUSHTHEFLOOR_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_STURDY_ID = compiletime(ABIL_ID_GEN.next())
+public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
+    // Chaosgeneral
+public constant ABILITY_ENRAGE_ID = compiletime(ABIL_ID_GEN.next())
+
+// Heroes
+public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
+public constant HERO_UBERGOLEM_ID = compiletime(HERO_ID_GEN.next())
+public constant HERO_CHAOSGENERAL_ID = compiletime(HERO_ID_GEN.next())
+
+// Items
+    // Attack
+public constant ITEM_TRAININGSWORD_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_STURDYSWORD_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_HERETICSWORD_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_DARKBLADE_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_MERCURIALSCIMITAR_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_PHOENIXAXE_ID = compiletime(ITEM_ID_GEN.next())
+
+// Buildings
+public constant BUILDING_SHOP_ID = compiletime(UNIT_ID_GEN.next())
+
+// Creeps
+public constant CREEP_GRUNT_ID = compiletime(UNIT_ID_GEN.next())
+public constant CREEP_ARCHER_ID = compiletime(UNIT_ID_GEN.next())
+
+// Creep abilities
+public constant CREEP_ABILITY_CRITICALSTRIKE_ID = compiletime(ABIL_ID_GEN.next())
+
+// Debug
+public constant ABILITY_GETMAPPOS_ID = compiletime(ABIL_ID_GEN.next())

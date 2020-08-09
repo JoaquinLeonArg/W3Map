@@ -1,0 +1,33 @@
+package Fortitude
+
+import AbilityTooltipGenerator
+import ClosureTimers
+import Constants
+
+// Stats
+@configurable constant RANGE = 200.
+@configurable constant ARMOR_PER_UNIT = .5
+
+@compiletime function generateAbilityFortitude()
+    let tgen = new AbilityTooltipGenerator("The hero gains bonus armor for each enemy unit in the area.")
+    tgen.addConstantProperty("Range", RANGE.toInt().toString())
+    tgen.addConstantProperty("Armor per unit", ARMOR_PER_UNIT.toInt().toString())
+    
+    new AbilityDefinitionHardenedSkin(ABILITY_FORTITUDE_ID)
+        ..registerTooltipGenerator(tgen)
+        ..presetChancetoReduceDamage(lvl -> 0) // Disable hardened skin
+        ..setRequirements("") // Disable hardened skin
+        ..presetButtonPosNormal(1, 1)
+        ..tooltipStartListen()
+        ..setLevels(1)
+        ..setName("Fortitude")
+        ..tooltipStopListen()
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASMastercraftShield.blp")
+        ..setLevelSkipRequirement(1)
+
+init
+    // TODO: Register and unregiter units with this ability
+    doPeriodically(.5) (CallbackPeriodic cb) ->
+        // TODO: Calculate armor and apply it
+
+        

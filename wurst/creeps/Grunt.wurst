@@ -1,0 +1,21 @@
+package Grunt
+
+import UnitObjEditing
+import CreepStatLeveling
+import UnitIds
+import Constants
+
+@compiletime function genCreep()
+    new CreepGrunt()
+
+// Stats
+public class CreepGruntStats extends CreepStats
+    construct()
+        this.abilities.add(CREEP_ABILITY_CRITICALSTRIKE_ID)
+
+public class CreepGrunt extends UnitDefinition
+    construct()
+        super(CREEP_GRUNT_ID, UnitIds.grunt)
+
+init
+    CreepStatsApplier.register(CREEP_GRUNT_ID, new CreepGruntStats())

@@ -18,14 +18,21 @@
 - BTNHolyRestorationAura ─ [The Panda](https://www.hiveworkshop.com/threads/btnholyrestorationaura.261770)
 - BTNShackle ─ [KelThuzad](https://www.hiveworkshop.com/threads/btnshackle.84482)
 - BTNMastercraftShield ─ [PrinceYaser](https://www.hiveworkshop.com/threads/btnmastercraftshield.305290/#resource-78533)
+- BTNIronFist ─ [zbc](https://www.hiveworkshop.com/threads/btnironfist.224414)
+- Tier 1 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier1sword.233576)
+- Tier 2 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier2sword.233577)
+- Tier 3 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier3sword.233578)
+- Tier 4 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier4sword.233579)
+- Mercurial Scimitar ─ [Novart](https://www.hiveworkshop.com/threads/btnmercurialscimtar)
 
 ### Models:
 
-- Holy SFX Pack ─ [Daelin](https://www.hiveworkshop.com/threads/holy-armor.48321/)
-- Blood Ritual ─ [The_Spellweaver](https://www.hiveworkshop.com/threads/blood-ritual.320192/)
-- Voidlump ─ [Mythic](https://www.hiveworkshop.com/threads/voidfall.319861/)
-- Soul Armor ─ [Mythic](https://www.hiveworkshop.com/threads/soul-armor.321141/)
+- Holy SFX Pack ─ [Daelin](https://www.hiveworkshop.com/threads/holy-armor.48321)
+- Blood Ritual ─ [The_Spellweaver](https://www.hiveworkshop.com/threads/blood-ritual.320192)
+- Voidlump ─ [Mythic](https://www.hiveworkshop.com/threads/voidfall.319861)
+- Soul Armor ─ [Mythic](https://www.hiveworkshop.com/threads/soul-armor.321141)
 
 ### Scripts:
 
-- TasButtonList ─ [Tasyen](https://www.hiveworkshop.com/threads/tasbuttonlist.325141/)
+- TasButtonList ─ [Tasyen](https://www.hiveworkshop.com/threads/tasbuttonlist.325141)
+- DamageInterface ─ [chopinski](https://www.hiveworkshop.com/threads/damage-interface-v1-6.324257)

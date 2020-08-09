@@ -1,0 +1,32 @@
+package WeaponShop
+
+import PlayerHeroes
+import Shops
+import Constants
+import Util
+
+function onClick()
+    let pl = GetTriggerPlayer()
+    let itemId = TasButtonListData
+    let ite = CreateItem(itemId, 0, 0)
+    let goldCost = ite.getGoldCost()
+    let lumberCost = ite.getLumberCost()
+    RemoveItem(ite)
+    let hero = PlayerHeroes.getHeroFromPlayer(pl)
+    if hero != null and not hero.isInventoryFull() and pl.getGold() >= goldCost and pl.getLumber() >= lumberCost
+        hero.addItemById(itemId)
+        pl.setGold(pl.getGold() - goldCost)
+        pl.setLumber(pl.getLumber() - lumberCost)
+
+public class WeaponsShop extends Shop
+
+    construct()
+        super(Rect(1344, -6688, 1728, -7008), function onClick)
+
+    override function addListData()
+        TasButtonListAddData(this.tasObjectIndex, ITEM_TRAININGSWORD_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_STURDYSWORD_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_HERETICSWORD_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_DARKBLADE_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_MERCURIALSCIMITAR_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_PHOENIXAXE_ID)

@@ -1,0 +1,60 @@
+package ItemTooltipGenerator
+
+import Constants
+import HashMap
+import HashList
+
+@configurable constant TITLE_COLOR = "|cff5bb6f3"
+
+public class ItemTooltipGenerator
+    private static HashMap<Rarity, string> rarityStrings = new HashMap<Rarity, string>
+        ..put(Rarity.COMMON, "Common")
+        ..put(Rarity.UNCOMMON, "Uncommon")
+        ..put(Rarity.RARE, "Rare")
+        ..put(Rarity.LEGENDARY, "Legendary")
+    private static HashMap<Rarity, string> rarityColors = new HashMap<Rarity, string>
+        ..put(Rarity.COMMON, "|cffb3ffaa")
+        ..put(Rarity.UNCOMMON, "|cff5353ff")
+        ..put(Rarity.RARE, "|cffe07bff")
+        ..put(Rarity.LEGENDARY, "|cffdd6c49")
+    private HashList<string> itemProperties = new HashList<string>
+    private string itemName
+    private Rarity itemRarity
+    private string shortDescription
+
+    construct(string itemName, Rarity itemRarity) // TODO: Make this call the other constructor
+        this.itemName = itemName
+        this.itemRarity = itemRarity
+        this.shortDescription = ""
+
+    construct (string itemName, Rarity itemRarity, string shortDescription)
+        this.itemName = itemName
+        this.itemRarity = itemRarity
+        this.shortDescription = shortDescription
+
+    /*private function generateItemHeader() returns string
+        return rarityColors.get(this.itemRarity) + rarityStrings.get(this.itemRarity) + " item|r|n|n"*/
+
+    private function itemRarityString() returns string
+        return rarityColors.get(this.itemRarity) + rarityStrings.get(this.itemRarity) + " item|r"
+
+    function generateItemDescription() returns string
+        string result = ""
+        result += this.itemRarityString() + "|n|n"
+        for property in this.itemProperties
+            result += property
+        result += "|n|cff5f5f5f" + this.shortDescription + "|r"
+        return result
+
+    function generateItemName() returns string
+        return this.itemName
+    
+    function addItemProperty(string propertyName, string value)
+        this.itemProperties.add(TITLE_COLOR + propertyName + "|r: " + value + "|n")
+
+    function addItemProperty(string property)
+        this.itemProperties.add(TITLE_COLOR + property + "|r|n")
+
+    function setShortDescription(string shortDescription)
+        this.shortDescription = shortDescription
+    

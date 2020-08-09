@@ -1,18 +1,12 @@
-package Lightbringer
+package ChaosGeneral
 
 import AbilityTooltipGenerator
 import UnitIds
 import Icons
-import DivineArmor
-import LightSeal
-import PureMind
-import SanctumAura
-import AngelicGuard
-
-public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
+import Constants
 
 @compiletime function genHero()
-	new HeroLightBringer()
+	new HeroChaosGeneral()
 
 // Stats
 @configurable constant BASE_HP = 450
@@ -23,17 +17,17 @@ public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
 @configurable constant LEVEL_STR = 10.
-@configurable constant BASE_SPEED = 120
+@configurable constant BASE_SPEED = 215
 
-class HeroLightBringer extends HeroDefinition
+class HeroChaosGeneral extends HeroDefinition
 	construct()
-		super(HERO_LIGHTBRINGER_ID, UnitIds.paladin)
-		this.setIconGameInterface(Icons.bTNHeroPaladin)
+		super(HERO_CHAOSGENERAL_ID, UnitIds.paladin)
+		this.setIconGameInterface(Icons.bTNOrcWarlockRed)
 		this.setIconScoreScreen("")
 		this.setModelFile("Heroes\\FelOrcGeneral.mdx")
-		this.setCollisionSize(100)
-		this.setNormalAbilities(commaList(GHOST_VIS_ID, AbilityIds.inventory, ABILITY_PUREMIND_ID))
-		this.setHeroAbilities(commaList(ABILITY_DIVINEARMOR_ID, ABILITY_LIGHTSEAL_ID, ABILITY_SANCTUMAURA_ID, ABILITY_ANGELICGUARD_ID))
+		this.setCollisionSize(10)
+		this.setNormalAbilities(commaList(/*GHOST_VIS_ID,*/ AbilityIds.inventory, ABILITY_GETMAPPOS_ID))
+		this.setHeroAbilities(commaList(ABILITY_ENRAGE_ID))
 		this.setHotkey("")
 		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev")) // TODO: Set names
 		this.setProperNamesUsed(6)
@@ -48,6 +42,4 @@ class HeroLightBringer extends HeroDefinition
 		setStrengthPerLevel(LEVEL_STR)
 		setSpeedBase(BASE_SPEED)
 		hideHeroDeathMsg(true)
-
-init
 	
