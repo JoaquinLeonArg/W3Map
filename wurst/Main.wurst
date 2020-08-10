@@ -1,36 +1,21 @@
 package Main
 
-import UnitSpawning
 import Constants
 import Waves
 import ClosureTimers
-import Regions
 import Infoboard
 import PlayerHeroes
-import WeaponShop
 
 init
     // Debug
-    let chaosgeneral = createUnit(0, HERO_CHAOSGENERAL_ID, 900, 400)
-    let lightbringer = createUnit(0, HERO_LIGHTBRINGER_ID, 700, 400)
-    let ubergolem = createUnit(0, HERO_UBERGOLEM_ID, 500, 400)
-    lightbringer.addLevels(18, true)
-    ubergolem.addLevels(18, true)
-    chaosgeneral.addLevels(18, true)
+    let chaosgeneral = CreateUnitAtLoc(playerFromIndex(0), HERO_CHAOSGENERAL_ID, Location(500, 400), 0)
+    chaosgeneral.addLevels(5, true)
     PlayerHeroes.add(chaosgeneral)
 
     // Waves stuff
     Waves.initialize()
-    doPeriodically(10) (CallbackPeriodic cb) ->
+    doPeriodically(20) (CallbackPeriodic cb) ->
         Waves.spawnNextWave(vec2(-1000, -1000), EASY)
-
-    // Map units and regions
-    Regions.initialize()
 
     // Multiboard
     Infoboard.initialize()
-    
-    // Shops
-    new WeaponsShop()
-
-        

@@ -1,9 +1,11 @@
-package WeaponShop
+package WeaponsShop
 
 import PlayerHeroes
-import Shops
+import Shop
 import Constants
 import Util
+import ClosureEvents
+import Unit
 
 function onClick()
     let pl = GetTriggerPlayer()
@@ -19,14 +21,15 @@ function onClick()
         pl.setLumber(pl.getLumber() - lumberCost)
 
 public class WeaponsShop extends Shop
-
     construct()
-        super(Rect(1344, -6688, 1728, -7008), function onClick)
+        super(function onClick)
 
     override function addListData()
         TasButtonListAddData(this.tasObjectIndex, ITEM_TRAININGSWORD_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_SHORTSWORD_ID)
         TasButtonListAddData(this.tasObjectIndex, ITEM_STURDYSWORD_ID)
         TasButtonListAddData(this.tasObjectIndex, ITEM_HERETICSWORD_ID)
         TasButtonListAddData(this.tasObjectIndex, ITEM_DARKBLADE_ID)
         TasButtonListAddData(this.tasObjectIndex, ITEM_MERCURIALSCIMITAR_ID)
         TasButtonListAddData(this.tasObjectIndex, ITEM_PHOENIXAXE_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_HEAVYSWORD_ID)

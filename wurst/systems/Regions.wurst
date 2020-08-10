@@ -1,21 +1,42 @@
 package Regions
 
 import HashList
+import PlayerHeroes
+import Shops
+import Shop
 
 public abstract class Regions
     static HashList<rect> spawnPoints
-    static rect store
-    static rect leaveStore
-    static rect treeOfLife
+    static rect attackPoint = Rect(1920, -128, 2176, 128)
+    static rect shop = Rect(1024, -7008, 3072, -5664)
+    static rect leaveShop = Rect(1984, -5888, 2112, -6016)
+    static rect weaponShop = Rect(1344, -7008, 1728, -6688)
+    static rect miscShop = Rect(2720, -6592, 3040, -6208)
 
-    static function initialize()
-        store = Rect(1000, -5600, 3120, -6670)
-        leaveStore = Rect(2000, -6100, 2100, -6200)
-        treeOfLife = Rect(2520, -10, 2540, 10)
-        
+function onStoreEnter(Shop shop)
+    let u = GetTriggerUnit()
+    let p = PlayerHeroes.getPlayerFromHero(u)
+    if p != null
+        shop.showShop(p)
+
+function onStoreLeave(Shop shop)
+    let u = GetTriggerUnit()
+    let p = PlayerHeroes.getPlayerFromHero(u)
+    if p != null
+        shop.hideShop(p)
 
 init
-    CreateTrigger()..registerRectEnterEventSource(Regions.leaveStore)..addAction() -> // Store exit circle.
+    CreateTrigger()..registerRectEnterEventSource(Regions.leaveShop)..addAction() -> // Shop exit circle.
         let u = GetTriggerUnit()
         u.setPos(100, 100)
+
+    CreateTrigger()..registerRectEnterEventSource(Regions.weaponShop)..addAction() -> // Weapons shop
+        onStoreEnter(Shops.weaponsShop)
+    CreateTrigger()..registerRectLeaveEventSource(Regions.weaponShop)..addAction() -> // Weapons shop
+        onStoreLeave(Shops.weaponsShop)
+
+    CreateTrigger()..registerRectEnterEventSource(Regions.miscShop)..addAction() -> // Misc shop
+        onStoreEnter(Shops.miscShop)
+    CreateTrigger()..registerRectLeaveEventSource(Regions.miscShop)..addAction() -> // Misc shop
+        onStoreLeave(Shops.miscShop)
         

@@ -1,4 +1,4 @@
-package UnitSpawning
+package JungleSpawning
 
 public function createUnit(int playerIndex, int unitId, real x, real y) returns unit
     let u = CreateUnitAtLoc(playerFromIndex(playerIndex), unitId, Location(x, y), 0)

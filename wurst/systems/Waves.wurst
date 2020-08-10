@@ -45,4 +45,4 @@ init
     doPeriodically(2) (CallbackPeriodic cb) ->
         for u in GetUnitsOfPlayerAll(playerFromIndex(PLAYER_COMPUTER_ID))
             if u.getCurrentOrder() != Orders.attack
-                u.issuePointOrderById(Orders.attack, Regions.treeOfLife.getCenter())
+                u.issuePointOrderById(Orders.attack, Regions.attackPoint.getCenter())

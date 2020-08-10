@@ -1,0 +1,80 @@
+package ItemMinorManaVial
+
+import Constants
+import ItemObjEditing
+import ObjectIdGenerator
+import ObjectIds
+import AbilityObjEditing
+import ItemTooltipGenerator
+import ClosureEvents
+import EventHelper
+import Regions
+
+@configurable constant GOLD_COST = 50
+@configurable constant LUMBER_COST = 0
+@configurable constant CURSED = false
+@configurable constant MANA_AMOUNT = 30
+@configurable constant CHARGES = 3
+@configurable constant COOLDOWN = 3.
+@configurable constant RARITY = Rarity.COMMON
+
+// Internals
+constant HELPER_ABILITY_MANA_ID = compiletime(ABIL_ID_GEN.next())
+constant HELPER_ITEM_EMPTY_ID = compiletime(ITEM_ID_GEN.next())
+
+@compiletime function generateItemMinorManaVial()
+    let tgen = new ItemTooltipGenerator("Minor mana vial", RARITY)
+        ..addItemProperty("Active effect: ", "Restores " + MANA_AMOUNT.toString() + " mana points")
+        ..setShortDescription("A refillable small vial.")
+
+    new ItemDefinition(ITEM_MINORMANAVIAL_ID, 'afac')
+        ..setName(tgen.generateItemName())
+        ..setActivelyUsed(true)
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setNumberofCharges(CHARGES)
+        ..setPerishable(false)
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNblueAApotionGS.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+        ..setAbilities(commaList(HELPER_ABILITY_MANA_ID))
+        ..setCooldownGroup(HELPER_ABILITY_MANA_ID.toString())
+
+@compiletime function helperItemEmpty()
+    let tgen = new ItemTooltipGenerator("Minor mana vial (EMPTY)", RARITY)
+        ..setShortDescription("It's empty, refill it at the shop for free.")
+
+    new ItemDefinition(HELPER_ITEM_EMPTY_ID, 'afac')
+        ..setName(tgen.generateItemName())
+        ..setTooltipExtended(tgen.generateItemDescription())
+        ..setTooltipBasic(tgen.generateItemName())
+        ..setDescription(tgen.generateItemDescription())
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNnoAApotionGS.blp")
+        ..setGoldCost(GOLD_COST)
+        ..setLumberCost(LUMBER_COST)
+        ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
+
+@compiletime function helperAbilityMana()
+    new AbilityDefinitionItemManaRestoreLesser(HELPER_ABILITY_MANA_ID)
+        ..setManaPointsGained(1, MANA_AMOUNT)
+        ..setCooldown(1, COOLDOWN)
+
+init
+    EventListener.add(EVENT_PLAYER_UNIT_USE_ITEM) ->
+        let i = GetManipulatedItem()
+        let u = GetTriggerUnit()
+        if i.getTypeId() == ITEM_MINORMANAVIAL_ID and i.getCharges() == 0
+            let slot = u.getItemSlot(i)
+            u.removeItemFromSlot(slot)
+            u.addItemToSlot(HELPER_ITEM_EMPTY_ID, slot)
+
+    CreateTrigger()..registerRectEnterEventSource(Regions.shop)..addAction() -> // Refill at shop
+        let u = GetTriggerUnit()
+        for i in u.inventory()
+            if i.getTypeId() == HELPER_ITEM_EMPTY_ID or i.getTypeId() == ITEM_MINORMANAVIAL_ID
+                let slot = u.getItemSlot(i)
+                RemoveItem(u.removeItemFromSlot(slot))
+                u.addItemToSlot(ITEM_MINORMANAVIAL_ID, slot)
+        

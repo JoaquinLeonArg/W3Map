@@ -6,22 +6,20 @@ import ObjectIdGenerator
 import ObjectIds
 import AbilityObjEditing
 import ItemTooltipGenerator
-
-// Internals
-constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
+import ClosureEvents
 
 @configurable constant GOLD_COST = 50
 @configurable constant LUMBER_COST = 0
 @configurable constant CURSED = false
-@configurable constant EXTRA_DAMAGE = 24
+@configurable constant EXTRA_DAMAGE = 24.
 @configurable constant RARITY = Rarity.COMMON
 
-@compiletime function generateItemTrainingSword()
+@compiletime function generateItemSturdySword()
     let tgen = new ItemTooltipGenerator("Sturdy sword", RARITY)
-        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("+" + EXTRA_DAMAGE.toInt().toString() + " attack damage")
         ..setShortDescription("Some item description")
 
-    new ItemDefinition(ITEM_STURDYSWORD_ID, AbilityIds.itemAttackDamageGain)
+    new ItemDefinition(ITEM_STURDYSWORD_ID, 'afac')
         ..setName(tgen.generateItemName())
         ..setTooltipExtended(tgen.generateItemDescription())
         ..setTooltipBasic(tgen.generateItemName())
@@ -30,8 +28,10 @@ constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
         ..setGoldCost(GOLD_COST)
         ..setLumberCost(LUMBER_COST)
         ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
-        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID))
 
-@compiletime function helperAbilityExtraDamage()
-    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
-        ..setAttackBonus(1, EXTRA_DAMAGE)
+init
+    EventListener.add(EVENT_PLAYER_UNIT_PICKUP_ITEM) ->
+        let u = GetManipulatingUnit()
+        let i = GetManipulatedItem()
+        if i.getTypeId() == ITEM_STURDYSWORD_ID
+            LinkBonusToItem(u, BONUS_DAMAGE, EXTRA_DAMAGE, i)

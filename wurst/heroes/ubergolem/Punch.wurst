@@ -43,3 +43,4 @@ init
         flashEffect(Abilities.purgeBuffTarget, target.getPos())
         Knockback3.add(target, target.getPos() + caster.getPos().normalizedPointerTo(target.getPos()) * FORCE, 1000)
         UnitDamageTarget(caster, target, BASE_DAMAGE + lvl * LEVEL_DAMAGE, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_DIVINE, WEAPON_TYPE_METAL_HEAVY_BASH)
+        

@@ -1,4 +1,4 @@
-package Shops
+package Shop
 
 import Constants
 import ClosureTimers
@@ -16,9 +16,8 @@ public abstract class Shop
     framehandle background
     framehandle container
     int tasObjectIndex
-    rect activeZone
 
-    construct(rect activeZone, code onClick)
+    construct(code onClick)
         if not BlzLoadTOCFile("TasButtonList.toc")
             print("Error loading Shop UI :c")
         this.background = BlzCreateFrame("QuestButtonBaseTemplate", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0, 0) // Background frame
@@ -38,10 +37,8 @@ public abstract class Shop
         UpdateTasButtonList(this.tasObjectIndex)
         doPeriodically(1) (CallbackPeriodic cb) -> // Update the shop every second
             UpdateTasButtonList(this.tasObjectIndex)
-            this.update()
 
         this.background.hide()
-        this.activeZone = activeZone
 
     function showShop(player p)
         this.background.show(p)
@@ -50,17 +47,5 @@ public abstract class Shop
         this.background.hide(p)
         //h = PlayerHeroes.getHeroFromPlayer(p)
 
-    function update()
-        for playerIndex=0 to GetPlayers()
-            let p = playerFromIndex(playerIndex)
-            let h = PlayerHeroes.getHeroFromPlayer(p)
-            if h != null
-                if h.isInRect(this.activeZone)
-                    this.showShop(p)
-                else
-                    this.hideShop(p)
-
     abstract function addListData()
         // TasButtonListAddData(this.tasObjectIndex, ITEM_WOODENSWORD_ID)
-
-        

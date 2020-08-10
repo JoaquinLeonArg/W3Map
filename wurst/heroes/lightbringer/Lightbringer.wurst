@@ -17,7 +17,7 @@ import Constants
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
 @configurable constant LEVEL_STR = 10.
-@configurable constant BASE_SPEED = 200
+@configurable constant BASE_SPEED = 250
 
 class HeroLightBringer extends HeroDefinition
 	construct()

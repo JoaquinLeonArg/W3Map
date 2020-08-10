@@ -38,6 +38,8 @@ public constant ABILITY_STURDY_ID = compiletime(ABIL_ID_GEN.next())
 public constant ABILITY_KNOCKBACK_ID = compiletime(ABIL_ID_GEN.next())
     // Chaosgeneral
 public constant ABILITY_ENRAGE_ID = compiletime(ABIL_ID_GEN.next())
+    // Other / Unused
+public constant ABILITY_PASSIVEREGEN_ID = compiletime(ABIL_ID_GEN.next())
 
 // Heroes
 public constant HERO_LIGHTBRINGER_ID = compiletime(HERO_ID_GEN.next())
@@ -47,11 +49,16 @@ public constant HERO_CHAOSGENERAL_ID = compiletime(HERO_ID_GEN.next())
 // Items
     // Attack
 public constant ITEM_TRAININGSWORD_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_SHORTSWORD_ID = compiletime(ITEM_ID_GEN.next())
 public constant ITEM_STURDYSWORD_ID = compiletime(ITEM_ID_GEN.next())
 public constant ITEM_HERETICSWORD_ID = compiletime(ITEM_ID_GEN.next())
 public constant ITEM_DARKBLADE_ID = compiletime(ITEM_ID_GEN.next())
 public constant ITEM_MERCURIALSCIMITAR_ID = compiletime(ITEM_ID_GEN.next())
 public constant ITEM_PHOENIXAXE_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_HEAVYSWORD_ID = compiletime(ITEM_ID_GEN.next())
+    // Misc
+public constant ITEM_MINORHEALTHVIAL_ID = compiletime(ITEM_ID_GEN.next())
+public constant ITEM_MINORMANAVIAL_ID = compiletime(ITEM_ID_GEN.next())
 
 // Buildings
 public constant BUILDING_SHOP_ID = compiletime(UNIT_ID_GEN.next())

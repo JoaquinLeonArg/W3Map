@@ -1,0 +1,8 @@
+package Commands
+
+init
+    for playerIndex=0 to GetPlayers()
+        CreateTrigger()..registerPlayerChatEvent(playerFromIndex(playerIndex), "-cam", false)..addAction() ->
+            let distance = GetEventPlayerChatString().ltrim("-cam ").toInt()
+            if distance > 1000 and distance < 4000
+                SetCameraFieldForPlayer(GetTriggerPlayer(), CAMERA_FIELD_TARGET_DISTANCE, distance.toReal(), 2)

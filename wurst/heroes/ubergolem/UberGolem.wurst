@@ -14,7 +14,7 @@ import Constants
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
 @configurable constant LEVEL_STR = 2.
-@configurable constant BASE_SPEED = 180
+@configurable constant BASE_SPEED = 220
 
 @compiletime function genHero()
 	new HeroUberGolem(HERO_UBERGOLEM_ID, UnitIds.paladin)

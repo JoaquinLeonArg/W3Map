@@ -1,0 +1,9 @@
+package Shops
+
+import WeaponsShop
+import MiscShop
+import Shop
+
+public abstract class Shops
+    static Shop weaponsShop = new WeaponsShop()
+    static Shop miscShop = new MiscShop()

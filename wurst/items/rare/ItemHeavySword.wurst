@@ -1,4 +1,5 @@
-package ItemMercurialScimitar
+package ItemHeavySword
+
 import Constants
 import ItemObjEditing
 import ObjectIdGenerator
@@ -11,23 +12,25 @@ import ClosureEvents
 @configurable constant LUMBER_COST = 0
 @configurable constant CURSED = false
 @configurable constant EXTRA_DAMAGE = 50.
-@configurable constant EVASION_CHANCE = 10.
-@configurable constant EXTRA_SPEED = 20.
+@configurable constant EXTRA_AS = -.4
+@configurable constant EXTRA_CRIT_CHANCE = 40.
+@configurable constant EXTRA_CRIT_DAMAGE = 4.
 @configurable constant RARITY = Rarity.RARE
 
-@compiletime function generateItemMercurialScimitar()
-    let tgen = new ItemTooltipGenerator("Mercurial Scimitar", RARITY)
+@compiletime function generateItemHeavySword()
+    let tgen = new ItemTooltipGenerator("Heavy Sword", RARITY)
         ..addItemProperty("+" + EXTRA_DAMAGE.toInt().toString() + " attack damage")
-        ..addItemProperty("+" + EXTRA_SPEED.toInt().toString() + " movement speed")
-        ..addItemProperty("+" + (EVASION_CHANCE).toInt().toString() + "% chance evade enemy hits")
+        ..addItemProperty((EXTRA_AS*100).toInt().toString() + "% attack speed")
+        ..addItemProperty("+" + (EXTRA_CRIT_CHANCE).toInt().toString() + "% critical attack chance")
+        ..addItemProperty("+" + (EXTRA_CRIT_DAMAGE*100).toInt().toString() + "% critical attack damage")
         ..setShortDescription("Something something")
 
-    new ItemDefinition(ITEM_MERCURIALSCIMITAR_ID, 'afac')
+    new ItemDefinition(ITEM_HEAVYSWORD_ID, 'afac')
         ..setName(tgen.generateItemName())
         ..setTooltipExtended(tgen.generateItemDescription())
         ..setTooltipBasic(tgen.generateItemName())
         ..setDescription(tgen.generateItemDescription())
-        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNMercurialScimtar.blp")
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNTier6Sword.blp")
         ..setGoldCost(GOLD_COST)
         ..setLumberCost(LUMBER_COST)
         ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
@@ -36,7 +39,8 @@ init
     EventListener.add(EVENT_PLAYER_UNIT_PICKUP_ITEM) ->
         let u = GetManipulatingUnit()
         let i = GetManipulatedItem()
-        if i.getTypeId() == ITEM_MERCURIALSCIMITAR_ID
+        if i.getTypeId() == ITEM_HEAVYSWORD_ID
             LinkBonusToItem(u, BONUS_DAMAGE, EXTRA_DAMAGE, i)
-            LinkBonusToItem(u, BONUS_EVASION_CHANCE, EVASION_CHANCE, i)
-            LinkBonusToItem(u, BONUS_MOVEMENT_SPEED, EXTRA_SPEED, i)
+            LinkBonusToItem(u, BONUS_ATTACK_SPEED, EXTRA_AS, i)
+            LinkBonusToItem(u, BONUS_CRITICAL_CHANCE, EXTRA_CRIT_CHANCE, i)
+            LinkBonusToItem(u, BONUS_CRITICAL_DAMAGE, EXTRA_CRIT_DAMAGE, i)

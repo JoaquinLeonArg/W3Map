@@ -9,7 +9,7 @@ boolean evade= false
         // Custom value (UnitUserData), a unit Handle Id, and more
         // Additionaly you can see the CacheResponse method below
         // to have an idea and comment the members you want cached or not
-constant boolean DamageInterface__CACHE_EXTRA= true
+constant boolean DamageInterface___CACHE_EXTRA= true
 //endglobals from DamageInterface
 //globals from RegisterPlayerUnitEvent:
 constant boolean LIBRARY_RegisterPlayerUnitEvent=true
@@ -47,23 +47,23 @@ framehandle TasButtonListFrame= null
 
     // System 
 hashtable TasButtonList_Hash= InitHashtable()
-integer TasButtonList__Counter= 0
-trigger TasButtonList__SyncTrigger= CreateTrigger()
-trigger TasButtonList__ButtonTrigger= CreateTrigger()
-trigger TasButtonList__SearchTrigger= CreateTrigger()
-trigger TasButtonList__ButtonScrollTrigger= CreateTrigger()
-trigger TasButtonList__SliderTrigger= CreateTrigger()
-integer TasButtonList__HASH_TOOL_TIP= StringHash("ToolTipFrame")
-integer TasButtonList__HASH_TOOL_TIP_ICON= StringHash("ToolTipFrameIcon")
-integer TasButtonList__HASH_TOOL_TIP_NAME= StringHash("ToolTipFrameName")
-integer TasButtonList__HASH_TOOL_TIP_SEP= StringHash("ToolTipFrameSeperator")
-integer TasButtonList__HASH_TOOL_TIP_TEXT= StringHash("ToolTipFrameText")
-integer TasButtonList__HASH_ICON= StringHash("Icon")
-integer TasButtonList__HASH_TEXT= StringHash("Text")
-integer TasButtonList__HASH_ICON_GOLD= StringHash("IconGold")
-integer TasButtonList__HASH_TEXT_GOLD= StringHash("TextGold")
-integer TasButtonList__HASH_ICON_LUMBER= StringHash("IconLumber")
-integer TasButtonList__HASH_TEXT_LUMBER= StringHash("TextLumber")
+integer TasButtonList___Counter= 0
+trigger TasButtonList___SyncTrigger= CreateTrigger()
+trigger TasButtonList___ButtonTrigger= CreateTrigger()
+trigger TasButtonList___SearchTrigger= CreateTrigger()
+trigger TasButtonList___ButtonScrollTrigger= CreateTrigger()
+trigger TasButtonList___SliderTrigger= CreateTrigger()
+integer TasButtonList___HASH_TOOL_TIP= StringHash("ToolTipFrame")
+integer TasButtonList___HASH_TOOL_TIP_ICON= StringHash("ToolTipFrameIcon")
+integer TasButtonList___HASH_TOOL_TIP_NAME= StringHash("ToolTipFrameName")
+integer TasButtonList___HASH_TOOL_TIP_SEP= StringHash("ToolTipFrameSeperator")
+integer TasButtonList___HASH_TOOL_TIP_TEXT= StringHash("ToolTipFrameText")
+integer TasButtonList___HASH_ICON= StringHash("Icon")
+integer TasButtonList___HASH_TEXT= StringHash("Text")
+integer TasButtonList___HASH_ICON_GOLD= StringHash("IconGold")
+integer TasButtonList___HASH_TEXT_GOLD= StringHash("TextGold")
+integer TasButtonList___HASH_ICON_LUMBER= StringHash("IconLumber")
+integer TasButtonList___HASH_TEXT_LUMBER= StringHash("TextLumber")
 
     // ButtonLists
 framehandle array TasButtonListSlider
@@ -119,17 +119,17 @@ constant integer BONUS_SPELL_VAMP= 21
             //The abilities codes for each bonus
             //When pasting the abilities over to your map
             //their raw code should match the bonus here
-constant integer NewBonus__DAMAGE_ABILITY= 'Z001'
-constant integer NewBonus__ARMOR_ABILITY= 'Z002'
-constant integer NewBonus__STATS_ABILITY= 'Z003'
-constant integer NewBonus__HEALTH_ABILITY= 'Z004'
-constant integer NewBonus__MANA_ABILITY= 'Z005'
-constant integer NewBonus__HEALTHREGEN_ABILITY= 'Z006'
-constant integer NewBonus__MANAREGEN_ABILITY= 'Z007'
-constant integer NewBonus__ATTACKSPEED_ABILITY= 'Z008'
-constant integer NewBonus__MOVEMENTSPEED_ABILITY= 'Z009'
-constant integer NewBonus__SIGHT_RANGE_ABILITY= 'Z00A'
-constant integer NewBonus__MAGIC_RESISTANCE_ABILITY= 'Z00B'
+constant integer NewBonus__DAMAGE_ABILITY= 'A003'
+constant integer NewBonus__ARMOR_ABILITY= 'A001'
+constant integer NewBonus__STATS_ABILITY= 'A000'
+constant integer NewBonus__HEALTH_ABILITY= 'A004'
+constant integer NewBonus__MANA_ABILITY= 'A006'
+constant integer NewBonus__HEALTHREGEN_ABILITY= 'A009'
+constant integer NewBonus__MANAREGEN_ABILITY= 'A00A'
+constant integer NewBonus__ATTACKSPEED_ABILITY= 'A002'
+constant integer NewBonus__MOVEMENTSPEED_ABILITY= 'A007'
+constant integer NewBonus__SIGHT_RANGE_ABILITY= 'A008'
+constant integer NewBonus__MAGIC_RESISTANCE_ABILITY= 'A005'
         
             //The abilities fields that are modified. For the sake of readability
 constant abilityintegerlevelfield NewBonus__DAMAGE_FIELD= ABILITY_ILF_ATTACK_BONUS
@@ -150,11 +150,13 @@ constant abilityreallevelfield NewBonus__MAGIC_RESISTANCE_FIELD= ABILITY_RLF_DAM
 constant boolean LIBRARY_NewBonusUtils=true
 //endglobals from NewBonusUtils
     // Generated
-rect gg_rct_Region_000= null
-rect gg_rct_Region_000_Copy= null
-rect gg_rct_Region_000_Copy_2= null
-rect gg_rct_Region_000_Copy_3= null
-rect gg_rct_Region_000_Copy_4= null
+rect gg_rct_WeaponsShop= null
+rect gg_rct_MagicShop= null
+rect gg_rct_DefenseShop= null
+rect gg_rct_GeneralShop= null
+rect gg_rct_RecipesShop= null
+rect gg_rct_LeaveShop= null
+rect gg_rct_AttackPoint= null
 
 trigger l__library_init
 
@@ -199,81 +201,81 @@ integer s__DamageI_sIdx
 integer s__DamageI_tIdx
 integer s__DamageI_sId
 integer s__DamageI_tId
-constant integer si__Evasion__Evasion=2
-integer si__Evasion__Evasion_F=0
-integer si__Evasion__Evasion_I=0
-integer array si__Evasion__Evasion_V
-constant real s__Evasion__Evasion_text_size= 0.019
-trigger s__Evasion__Evasion_Evasion__Evasion= CreateTrigger()
-timer s__Evasion__Evasion_t= CreateTimer()
-integer s__Evasion__Evasion_didx= - 1
-integer array s__Evasion__Evasion_data
-unit s__Evasion__Evasion_EvasionSource
-unit s__Evasion__Evasion_EvasionTarget
-real s__Evasion__Evasion_EvadedDamage
-real array s__Evasion__Evasion_EvasionChance
-real array s__Evasion__Evasion_MissChance
-integer array s__Evasion__Evasion_NeverMiss
-unit array s__Evasion__Evasion_u
-real array s__Evasion__Evasion_amount
-real array s__Evasion__Evasion_ticks
-boolean array s__Evasion__Evasion_evasion
-constant integer si__LifeSteal__LifeSteal=3
-integer si__LifeSteal__LifeSteal_F=0
-integer si__LifeSteal__LifeSteal_I=0
-integer array si__LifeSteal__LifeSteal_V
-timer s__LifeSteal__LifeSteal_t= CreateTimer()
-string s__LifeSteal__LifeSteal_sfx= "Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl"
-integer s__LifeSteal__LifeSteal_didx= - 1
-integer array s__LifeSteal__LifeSteal_data
-real array s__LifeSteal__LifeSteal_LifeSteal__LifeSteal
-unit array s__LifeSteal__LifeSteal_u
-real array s__LifeSteal__LifeSteal_amount
-real array s__LifeSteal__LifeSteal_ticks
-constant integer si__SpellPower__SpellPower=4
-integer si__SpellPower__SpellPower_F=0
-integer si__SpellPower__SpellPower_I=0
-integer array si__SpellPower__SpellPower_V
-trigger s__SpellPower__SpellPower_SpellPower__SpellPower= CreateTrigger()
-timer s__SpellPower__SpellPower_t= CreateTimer()
-integer s__SpellPower__SpellPower_didx= - 1
-integer array s__SpellPower__SpellPower_data
-real array s__SpellPower__SpellPower_Flat
-real array s__SpellPower__SpellPower_Percent
-unit array s__SpellPower__SpellPower_u
-real array s__SpellPower__SpellPower_amount
-real array s__SpellPower__SpellPower_ticks
-boolean array s__SpellPower__SpellPower_flat
-constant integer si__SpellVamp__SpellVamp=5
-integer si__SpellVamp__SpellVamp_F=0
-integer si__SpellVamp__SpellVamp_I=0
-integer array si__SpellVamp__SpellVamp_V
-timer s__SpellVamp__SpellVamp_t= CreateTimer()
-integer s__SpellVamp__SpellVamp_didx= - 1
-integer array s__SpellVamp__SpellVamp_data
-real array s__SpellVamp__SpellVamp_SpellVamp__SpellVamp
-unit array s__SpellVamp__SpellVamp_u
-real array s__SpellVamp__SpellVamp_amount
-real array s__SpellVamp__SpellVamp_ticks
-constant integer si__CriticalStrike__CriticalStrike=6
-integer si__CriticalStrike__CriticalStrike_F=0
-integer si__CriticalStrike__CriticalStrike_I=0
-integer array si__CriticalStrike__CriticalStrike_V
-constant real s__CriticalStrike__CriticalStrike_text_size= 0.019
-trigger s__CriticalStrike__CriticalStrike_Critical= CreateTrigger()
-timer s__CriticalStrike__CriticalStrike_t= CreateTimer()
-integer s__CriticalStrike__CriticalStrike_didx= - 1
-integer array s__CriticalStrike__CriticalStrike_data
-unit s__CriticalStrike__CriticalStrike_CriticalSource
-unit s__CriticalStrike__CriticalStrike_CriticalTarget
-real s__CriticalStrike__CriticalStrike_CriticalDamage
-real array s__CriticalStrike__CriticalStrike_CriticalChance
-real array s__CriticalStrike__CriticalStrike_CriticalMultiplier
-unit array s__CriticalStrike__CriticalStrike_u
-real array s__CriticalStrike__CriticalStrike_chance
-real array s__CriticalStrike__CriticalStrike_multiplier
-real array s__CriticalStrike__CriticalStrike_ticks
-integer array s__CriticalStrike__CriticalStrike_types
+constant integer si__Evasion___Evasion=2
+integer si__Evasion___Evasion_F=0
+integer si__Evasion___Evasion_I=0
+integer array si__Evasion___Evasion_V
+constant real s__Evasion___Evasion_text_size= 0.019
+trigger s__Evasion___Evasion_Evasion___Evasion= CreateTrigger()
+timer s__Evasion___Evasion_t= CreateTimer()
+integer s__Evasion___Evasion_didx= - 1
+integer array s__Evasion___Evasion_data
+unit s__Evasion___Evasion_EvasionSource
+unit s__Evasion___Evasion_EvasionTarget
+real s__Evasion___Evasion_EvadedDamage
+real array s__Evasion___Evasion_EvasionChance
+real array s__Evasion___Evasion_MissChance
+integer array s__Evasion___Evasion_NeverMiss
+unit array s__Evasion___Evasion_u
+real array s__Evasion___Evasion_amount
+real array s__Evasion___Evasion_ticks
+boolean array s__Evasion___Evasion_evasion
+constant integer si__LifeSteal___LifeSteal=3
+integer si__LifeSteal___LifeSteal_F=0
+integer si__LifeSteal___LifeSteal_I=0
+integer array si__LifeSteal___LifeSteal_V
+timer s__LifeSteal___LifeSteal_t= CreateTimer()
+string s__LifeSteal___LifeSteal_sfx= "Abilities\\Spells\\Undead\\VampiricAura\\VampiricAuraTarget.mdl"
+integer s__LifeSteal___LifeSteal_didx= - 1
+integer array s__LifeSteal___LifeSteal_data
+real array s__LifeSteal___LifeSteal_LifeSteal___LifeSteal
+unit array s__LifeSteal___LifeSteal_u
+real array s__LifeSteal___LifeSteal_amount
+real array s__LifeSteal___LifeSteal_ticks
+constant integer si__SpellPower___SpellPower=4
+integer si__SpellPower___SpellPower_F=0
+integer si__SpellPower___SpellPower_I=0
+integer array si__SpellPower___SpellPower_V
+trigger s__SpellPower___SpellPower_SpellPower___SpellPower= CreateTrigger()
+timer s__SpellPower___SpellPower_t= CreateTimer()
+integer s__SpellPower___SpellPower_didx= - 1
+integer array s__SpellPower___SpellPower_data
+real array s__SpellPower___SpellPower_Flat
+real array s__SpellPower___SpellPower_Percent
+unit array s__SpellPower___SpellPower_u
+real array s__SpellPower___SpellPower_amount
+real array s__SpellPower___SpellPower_ticks
+boolean array s__SpellPower___SpellPower_flat
+constant integer si__SpellVamp___SpellVamp=5
+integer si__SpellVamp___SpellVamp_F=0
+integer si__SpellVamp___SpellVamp_I=0
+integer array si__SpellVamp___SpellVamp_V
+timer s__SpellVamp___SpellVamp_t= CreateTimer()
+integer s__SpellVamp___SpellVamp_didx= - 1
+integer array s__SpellVamp___SpellVamp_data
+real array s__SpellVamp___SpellVamp_SpellVamp___SpellVamp
+unit array s__SpellVamp___SpellVamp_u
+real array s__SpellVamp___SpellVamp_amount
+real array s__SpellVamp___SpellVamp_ticks
+constant integer si__CriticalStrike___CriticalStrike=6
+integer si__CriticalStrike___CriticalStrike_F=0
+integer si__CriticalStrike___CriticalStrike_I=0
+integer array si__CriticalStrike___CriticalStrike_V
+constant real s__CriticalStrike___CriticalStrike_text_size= 0.019
+trigger s__CriticalStrike___CriticalStrike_Critical= CreateTrigger()
+timer s__CriticalStrike___CriticalStrike_t= CreateTimer()
+integer s__CriticalStrike___CriticalStrike_didx= - 1
+integer array s__CriticalStrike___CriticalStrike_data
+unit s__CriticalStrike___CriticalStrike_CriticalSource
+unit s__CriticalStrike___CriticalStrike_CriticalTarget
+real s__CriticalStrike___CriticalStrike_CriticalDamage
+real array s__CriticalStrike___CriticalStrike_CriticalChance
+real array s__CriticalStrike___CriticalStrike_CriticalMultiplier
+unit array s__CriticalStrike___CriticalStrike_u
+real array s__CriticalStrike___CriticalStrike_chance
+real array s__CriticalStrike___CriticalStrike_multiplier
+real array s__CriticalStrike___CriticalStrike_ticks
+integer array s__CriticalStrike___CriticalStrike_types
 constant integer si__NewBonus=7
 integer si__NewBonus_F=0
 integer si__NewBonus_I=0
@@ -329,32 +331,32 @@ function s__DamageI_deallocate takes integer this returns nothing
     set si__DamageI_F=this
 endfunction
 
-//Generated allocator of Evasion__Evasion
-function s__Evasion__Evasion__allocate takes nothing returns integer
- local integer this=si__Evasion__Evasion_F
+//Generated allocator of Evasion___Evasion
+function s__Evasion___Evasion__allocate takes nothing returns integer
+ local integer this=si__Evasion___Evasion_F
     if (this!=0) then
-        set si__Evasion__Evasion_F=si__Evasion__Evasion_V[this]
+        set si__Evasion___Evasion_F=si__Evasion___Evasion_V[this]
     else
-        set si__Evasion__Evasion_I=si__Evasion__Evasion_I+1
-        set this=si__Evasion__Evasion_I
+        set si__Evasion___Evasion_I=si__Evasion___Evasion_I+1
+        set this=si__Evasion___Evasion_I
     endif
     if (this>8190) then
         return 0
     endif
 
-    set si__Evasion__Evasion_V[this]=-1
+    set si__Evasion___Evasion_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of Evasion__Evasion
-function s__Evasion__Evasion_deallocate takes integer this returns nothing
+//Generated destructor of Evasion___Evasion
+function s__Evasion___Evasion_deallocate takes integer this returns nothing
     if this==null then
         return
-    elseif (si__Evasion__Evasion_V[this]!=-1) then
+    elseif (si__Evasion___Evasion_V[this]!=-1) then
         return
     endif
-    set si__Evasion__Evasion_V[this]=si__Evasion__Evasion_F
-    set si__Evasion__Evasion_F=this
+    set si__Evasion___Evasion_V[this]=si__Evasion___Evasion_F
+    set si__Evasion___Evasion_F=this
 endfunction
 
 //Generated allocator of NewBonus
@@ -388,116 +390,116 @@ function sc__NewBonus_deallocate takes integer this returns nothing
     set si__NewBonus_F=this
 endfunction
 
-//Generated allocator of CriticalStrike__CriticalStrike
-function s__CriticalStrike__CriticalStrike__allocate takes nothing returns integer
- local integer this=si__CriticalStrike__CriticalStrike_F
+//Generated allocator of CriticalStrike___CriticalStrike
+function s__CriticalStrike___CriticalStrike__allocate takes nothing returns integer
+ local integer this=si__CriticalStrike___CriticalStrike_F
     if (this!=0) then
-        set si__CriticalStrike__CriticalStrike_F=si__CriticalStrike__CriticalStrike_V[this]
+        set si__CriticalStrike___CriticalStrike_F=si__CriticalStrike___CriticalStrike_V[this]
     else
-        set si__CriticalStrike__CriticalStrike_I=si__CriticalStrike__CriticalStrike_I+1
-        set this=si__CriticalStrike__CriticalStrike_I
+        set si__CriticalStrike___CriticalStrike_I=si__CriticalStrike___CriticalStrike_I+1
+        set this=si__CriticalStrike___CriticalStrike_I
     endif
     if (this>8190) then
         return 0
     endif
 
-    set si__CriticalStrike__CriticalStrike_V[this]=-1
+    set si__CriticalStrike___CriticalStrike_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of CriticalStrike__CriticalStrike
-function s__CriticalStrike__CriticalStrike_deallocate takes integer this returns nothing
+//Generated destructor of CriticalStrike___CriticalStrike
+function s__CriticalStrike___CriticalStrike_deallocate takes integer this returns nothing
     if this==null then
         return
-    elseif (si__CriticalStrike__CriticalStrike_V[this]!=-1) then
+    elseif (si__CriticalStrike___CriticalStrike_V[this]!=-1) then
         return
     endif
-    set si__CriticalStrike__CriticalStrike_V[this]=si__CriticalStrike__CriticalStrike_F
-    set si__CriticalStrike__CriticalStrike_F=this
+    set si__CriticalStrike___CriticalStrike_V[this]=si__CriticalStrike___CriticalStrike_F
+    set si__CriticalStrike___CriticalStrike_F=this
 endfunction
 
-//Generated allocator of SpellVamp__SpellVamp
-function s__SpellVamp__SpellVamp__allocate takes nothing returns integer
- local integer this=si__SpellVamp__SpellVamp_F
+//Generated allocator of SpellVamp___SpellVamp
+function s__SpellVamp___SpellVamp__allocate takes nothing returns integer
+ local integer this=si__SpellVamp___SpellVamp_F
     if (this!=0) then
-        set si__SpellVamp__SpellVamp_F=si__SpellVamp__SpellVamp_V[this]
+        set si__SpellVamp___SpellVamp_F=si__SpellVamp___SpellVamp_V[this]
     else
-        set si__SpellVamp__SpellVamp_I=si__SpellVamp__SpellVamp_I+1
-        set this=si__SpellVamp__SpellVamp_I
+        set si__SpellVamp___SpellVamp_I=si__SpellVamp___SpellVamp_I+1
+        set this=si__SpellVamp___SpellVamp_I
     endif
     if (this>8190) then
         return 0
     endif
 
-    set si__SpellVamp__SpellVamp_V[this]=-1
+    set si__SpellVamp___SpellVamp_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of SpellVamp__SpellVamp
-function s__SpellVamp__SpellVamp_deallocate takes integer this returns nothing
+//Generated destructor of SpellVamp___SpellVamp
+function s__SpellVamp___SpellVamp_deallocate takes integer this returns nothing
     if this==null then
         return
-    elseif (si__SpellVamp__SpellVamp_V[this]!=-1) then
+    elseif (si__SpellVamp___SpellVamp_V[this]!=-1) then
         return
     endif
-    set si__SpellVamp__SpellVamp_V[this]=si__SpellVamp__SpellVamp_F
-    set si__SpellVamp__SpellVamp_F=this
+    set si__SpellVamp___SpellVamp_V[this]=si__SpellVamp___SpellVamp_F
+    set si__SpellVamp___SpellVamp_F=this
 endfunction
 
-//Generated allocator of SpellPower__SpellPower
-function s__SpellPower__SpellPower__allocate takes nothing returns integer
- local integer this=si__SpellPower__SpellPower_F
+//Generated allocator of SpellPower___SpellPower
+function s__SpellPower___SpellPower__allocate takes nothing returns integer
+ local integer this=si__SpellPower___SpellPower_F
     if (this!=0) then
-        set si__SpellPower__SpellPower_F=si__SpellPower__SpellPower_V[this]
+        set si__SpellPower___SpellPower_F=si__SpellPower___SpellPower_V[this]
     else
-        set si__SpellPower__SpellPower_I=si__SpellPower__SpellPower_I+1
-        set this=si__SpellPower__SpellPower_I
+        set si__SpellPower___SpellPower_I=si__SpellPower___SpellPower_I+1
+        set this=si__SpellPower___SpellPower_I
     endif
     if (this>8190) then
         return 0
     endif
 
-    set si__SpellPower__SpellPower_V[this]=-1
+    set si__SpellPower___SpellPower_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of SpellPower__SpellPower
-function s__SpellPower__SpellPower_deallocate takes integer this returns nothing
+//Generated destructor of SpellPower___SpellPower
+function s__SpellPower___SpellPower_deallocate takes integer this returns nothing
     if this==null then
         return
-    elseif (si__SpellPower__SpellPower_V[this]!=-1) then
+    elseif (si__SpellPower___SpellPower_V[this]!=-1) then
         return
     endif
-    set si__SpellPower__SpellPower_V[this]=si__SpellPower__SpellPower_F
-    set si__SpellPower__SpellPower_F=this
+    set si__SpellPower___SpellPower_V[this]=si__SpellPower___SpellPower_F
+    set si__SpellPower___SpellPower_F=this
 endfunction
 
-//Generated allocator of LifeSteal__LifeSteal
-function s__LifeSteal__LifeSteal__allocate takes nothing returns integer
- local integer this=si__LifeSteal__LifeSteal_F
+//Generated allocator of LifeSteal___LifeSteal
+function s__LifeSteal___LifeSteal__allocate takes nothing returns integer
+ local integer this=si__LifeSteal___LifeSteal_F
     if (this!=0) then
-        set si__LifeSteal__LifeSteal_F=si__LifeSteal__LifeSteal_V[this]
+        set si__LifeSteal___LifeSteal_F=si__LifeSteal___LifeSteal_V[this]
     else
-        set si__LifeSteal__LifeSteal_I=si__LifeSteal__LifeSteal_I+1
-        set this=si__LifeSteal__LifeSteal_I
+        set si__LifeSteal___LifeSteal_I=si__LifeSteal___LifeSteal_I+1
+        set this=si__LifeSteal___LifeSteal_I
     endif
     if (this>8190) then
         return 0
     endif
 
-    set si__LifeSteal__LifeSteal_V[this]=-1
+    set si__LifeSteal___LifeSteal_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of LifeSteal__LifeSteal
-function s__LifeSteal__LifeSteal_deallocate takes integer this returns nothing
+//Generated destructor of LifeSteal___LifeSteal
+function s__LifeSteal___LifeSteal_deallocate takes integer this returns nothing
     if this==null then
         return
-    elseif (si__LifeSteal__LifeSteal_V[this]!=-1) then
+    elseif (si__LifeSteal___LifeSteal_V[this]!=-1) then
         return
     endif
-    set si__LifeSteal__LifeSteal_V[this]=si__LifeSteal__LifeSteal_F
-    set si__LifeSteal__LifeSteal_F=this
+    set si__LifeSteal___LifeSteal_V[this]=si__LifeSteal___LifeSteal_F
+    set si__LifeSteal___LifeSteal_F=this
 endfunction
 
 //Generated allocator of NewBonusUtils__NewBonusUtils
@@ -535,7 +537,7 @@ endfunction
 
             // You can comment the members you dont want to be cached
             // or set CACHE_EXTRA = false to not save them at all
-            if DamageInterface__CACHE_EXTRA then
+            if DamageInterface___CACHE_EXTRA then
                 set s__DamageI_sourcePlayer=GetOwningPlayer(s__DamageI_source)
                 set s__DamageI_targetPlayer=GetOwningPlayer(s__DamageI_target)
                 set s__DamageI_isEnemy=IsUnitEnemy(s__DamageI_target, s__DamageI_sourcePlayer)
@@ -998,82 +1000,82 @@ endfunction
             //--------------------------------------------------
     
     
-            function s__Evasion__Evasion_destroy takes integer this returns nothing
-                if s__Evasion__Evasion_didx == - 1 then
-                    call PauseTimer(s__Evasion__Evasion_t)
+            function s__Evasion___Evasion_destroy takes integer this returns nothing
+                if s__Evasion___Evasion_didx == - 1 then
+                    call PauseTimer(s__Evasion___Evasion_t)
                 endif
     
-                set s__Evasion__Evasion_u[this]=null
-                set s__Evasion__Evasion_ticks[this]=0
-                call s__Evasion__Evasion_deallocate(this)
+                set s__Evasion___Evasion_u[this]=null
+                set s__Evasion___Evasion_ticks[this]=0
+                call s__Evasion___Evasion_deallocate(this)
             endfunction
     
-            function s__Evasion__Evasion_GetEvasionChance takes unit u returns real
-                return s__Evasion__Evasion_EvasionChance[GetUnitUserData(u)]
+            function s__Evasion___Evasion_GetEvasionChance takes unit u returns real
+                return s__Evasion___Evasion_EvasionChance[GetUnitUserData(u)]
             endfunction
     
-            function s__Evasion__Evasion_GetMissChance takes unit u returns real
-                return s__Evasion__Evasion_MissChance[GetUnitUserData(u)]
+            function s__Evasion___Evasion_GetMissChance takes unit u returns real
+                return s__Evasion___Evasion_MissChance[GetUnitUserData(u)]
             endfunction
     
-            function s__Evasion__Evasion_SetEvasionChance takes unit u,real value returns nothing
-                set s__Evasion__Evasion_EvasionChance[GetUnitUserData(u)]=value
+            function s__Evasion___Evasion_SetEvasionChance takes unit u,real value returns nothing
+                set s__Evasion___Evasion_EvasionChance[GetUnitUserData(u)]=value
             endfunction
     
-            function s__Evasion__Evasion_SetMissChance takes unit u,real value returns nothing
-                set s__Evasion__Evasion_MissChance[GetUnitUserData(u)]=value
+            function s__Evasion___Evasion_SetMissChance takes unit u,real value returns nothing
+                set s__Evasion___Evasion_MissChance[GetUnitUserData(u)]=value
             endfunction
     
-            function s__Evasion__Evasion_OnPeriod takes nothing returns nothing
+            function s__Evasion___Evasion_OnPeriod takes nothing returns nothing
                 local integer i= 0
                 local integer this
                 
                 loop
-                    exitwhen i > s__Evasion__Evasion_didx
-                        set this=s__Evasion__Evasion_data[i]
-                        set s__Evasion__Evasion_ticks[this]=s__Evasion__Evasion_ticks[this] - 1
+                    exitwhen i > s__Evasion___Evasion_didx
+                        set this=s__Evasion___Evasion_data[i]
+                        set s__Evasion___Evasion_ticks[this]=s__Evasion___Evasion_ticks[this] - 1
     
-                        if s__Evasion__Evasion_ticks[this] <= 0 then
-                            if s__Evasion__Evasion_evasion[this] then
-                                set s__Evasion__Evasion_EvasionChance[GetUnitUserData((s__Evasion__Evasion_u[this] ))]=(( (s__Evasion__Evasion_EvasionChance[GetUnitUserData((s__Evasion__Evasion_u[this]))]) - s__Evasion__Evasion_amount[this])*1.0) // INLINED!!
+                        if s__Evasion___Evasion_ticks[this] <= 0 then
+                            if s__Evasion___Evasion_evasion[this] then
+                                set s__Evasion___Evasion_EvasionChance[GetUnitUserData((s__Evasion___Evasion_u[this] ))]=(( (s__Evasion___Evasion_EvasionChance[GetUnitUserData((s__Evasion___Evasion_u[this]))]) - s__Evasion___Evasion_amount[this])*1.0) // INLINED!!
                             else
-                                set s__Evasion__Evasion_MissChance[GetUnitUserData((s__Evasion__Evasion_u[this] ))]=(( (s__Evasion__Evasion_MissChance[GetUnitUserData((s__Evasion__Evasion_u[this]))]) - s__Evasion__Evasion_amount[this])*1.0) // INLINED!!
+                                set s__Evasion___Evasion_MissChance[GetUnitUserData((s__Evasion___Evasion_u[this] ))]=(( (s__Evasion___Evasion_MissChance[GetUnitUserData((s__Evasion___Evasion_u[this]))]) - s__Evasion___Evasion_amount[this])*1.0) // INLINED!!
                             endif
     
-                            set s__Evasion__Evasion_data[i]=s__Evasion__Evasion_data[s__Evasion__Evasion_didx]
-                            set s__Evasion__Evasion_didx=s__Evasion__Evasion_didx - 1
+                            set s__Evasion___Evasion_data[i]=s__Evasion___Evasion_data[s__Evasion___Evasion_didx]
+                            set s__Evasion___Evasion_didx=s__Evasion___Evasion_didx - 1
                             set i=i - 1
-                            call s__Evasion__Evasion_destroy(this)
+                            call s__Evasion___Evasion_destroy(this)
                         endif
                     set i=i + 1
                 endloop
             endfunction
     
-            function s__Evasion__Evasion_AddTimed takes unit u,real amount,real duration,boolean evasion returns nothing
-                local integer this= s__Evasion__Evasion__allocate()
+            function s__Evasion___Evasion_AddTimed takes unit u,real amount,real duration,boolean evasion returns nothing
+                local integer this= s__Evasion___Evasion__allocate()
     
-                set s__Evasion__Evasion_u[this]=u
-                set s__Evasion__Evasion_amount[this]=amount
-                set s__Evasion__Evasion_ticks[this]=duration / 0.03125000
-                set s__Evasion__Evasion_evasion[this]=evasion
-                set s__Evasion__Evasion_didx=s__Evasion__Evasion_didx + 1
-                set s__Evasion__Evasion_data[s__Evasion__Evasion_didx]=this
+                set s__Evasion___Evasion_u[this]=u
+                set s__Evasion___Evasion_amount[this]=amount
+                set s__Evasion___Evasion_ticks[this]=duration / 0.03125000
+                set s__Evasion___Evasion_evasion[this]=evasion
+                set s__Evasion___Evasion_didx=s__Evasion___Evasion_didx + 1
+                set s__Evasion___Evasion_data[s__Evasion___Evasion_didx]=this
     
                 if evasion then
-                    set s__Evasion__Evasion_EvasionChance[GetUnitUserData((u ))]=(( (s__Evasion__Evasion_EvasionChance[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+                    set s__Evasion___Evasion_EvasionChance[GetUnitUserData((u ))]=(( (s__Evasion___Evasion_EvasionChance[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
                 else
-                    set s__Evasion__Evasion_MissChance[GetUnitUserData((u ))]=(( (s__Evasion__Evasion_MissChance[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+                    set s__Evasion___Evasion_MissChance[GetUnitUserData((u ))]=(( (s__Evasion___Evasion_MissChance[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
                 endif
                 
-                if s__Evasion__Evasion_didx == 0 then
-                    call TimerStart(s__Evasion__Evasion_t, 0.03125000, true, function s__Evasion__Evasion_OnPeriod)
+                if s__Evasion___Evasion_didx == 0 then
+                    call TimerStart(s__Evasion___Evasion_t, 0.03125000, true, function s__Evasion___Evasion_OnPeriod)
                 endif
             endfunction
     
-            function s__Evasion__Evasion_EvasionText takes unit whichUnit,string text,real duration,integer red,integer green,integer blue,integer alpha returns nothing
+            function s__Evasion___Evasion_EvasionText takes unit whichUnit,string text,real duration,integer red,integer green,integer blue,integer alpha returns nothing
                 local texttag tx= CreateTextTag()
                 
-                call SetTextTagText(tx, text, s__Evasion__Evasion_text_size)
+                call SetTextTagText(tx, text, s__Evasion___Evasion_text_size)
                 call SetTextTagPosUnit(tx, whichUnit, 0)
                 call SetTextTagColor(tx, red, green, blue, alpha)
                 call SetTextTagLifespan(tx, duration)
@@ -1083,7 +1085,7 @@ endfunction
                 set tx=null
             endfunction
     
-            function s__Evasion__Evasion_OnDamage takes nothing returns nothing
+            function s__Evasion___Evasion_OnDamage takes nothing returns nothing
                 local unit src= GetEventDamageSource()
                 local unit tgt= BlzGetEventDamageTarget()
                 //----------------------------------------------
@@ -1093,32 +1095,32 @@ endfunction
                 local integer tIdx= GetUnitUserData(tgt)
                 //----------------------------------------------
 
-                if damage > 0 and not ( s__Evasion__Evasion_NeverMiss[sIdx] > 0 ) then
-                    set evade=GetRandomReal(0, 100) <= s__Evasion__Evasion_EvasionChance[tIdx] or GetRandomReal(0, 100) <= s__Evasion__Evasion_MissChance[sIdx]
+                if damage > 0 and not ( s__Evasion___Evasion_NeverMiss[sIdx] > 0 ) then
+                    set evade=GetRandomReal(0, 100) <= s__Evasion___Evasion_EvasionChance[tIdx] or GetRandomReal(0, 100) <= s__Evasion___Evasion_MissChance[sIdx]
 
                     if evade then
-                        set s__Evasion__Evasion_EvasionSource=src
-                        set s__Evasion__Evasion_EvasionTarget=tgt
-                        set s__Evasion__Evasion_EvadedDamage=damage
+                        set s__Evasion___Evasion_EvasionSource=src
+                        set s__Evasion___Evasion_EvasionTarget=tgt
+                        set s__Evasion___Evasion_EvadedDamage=damage
     
-                        call TriggerEvaluate(s__Evasion__Evasion_Evasion__Evasion)
+                        call TriggerEvaluate(s__Evasion___Evasion_Evasion___Evasion)
                         call BlzSetEventWeaponType(WEAPON_TYPE_WHOKNOWS)
                         call BlzSetEventDamage(0)
-                        call s__Evasion__Evasion_EvasionText(src , "miss" , 1.5 , 255 , 0 , 0 , 255)
+                        call s__Evasion___Evasion_EvasionText(src , "miss" , 1.5 , 255 , 0 , 0 , 255)
     
-                        set s__Evasion__Evasion_EvasionSource=null
-                        set s__Evasion__Evasion_EvasionTarget=null
-                        set s__Evasion__Evasion_EvadedDamage=0.0
+                        set s__Evasion___Evasion_EvasionSource=null
+                        set s__Evasion___Evasion_EvasionTarget=null
+                        set s__Evasion___Evasion_EvadedDamage=0.0
                     endif
                 endif
             endfunction
     
-            function s__Evasion__Evasion_Register takes code c returns nothing
-                call TriggerAddCondition(s__Evasion__Evasion_Evasion__Evasion, Filter(c))
+            function s__Evasion___Evasion_Register takes code c returns nothing
+                call TriggerAddCondition(s__Evasion___Evasion_Evasion___Evasion, Filter(c))
             endfunction
     
-            function s__Evasion__Evasion_onInit takes nothing returns nothing
-                call s__DamageI_RegisterAttackDamage((function s__Evasion__Evasion_OnDamage) , false) // INLINED!!
+            function s__Evasion___Evasion_onInit takes nothing returns nothing
+                call s__DamageI_RegisterAttackDamage((function s__Evasion___Evasion_OnDamage) , false) // INLINED!!
             endfunction
     
         
@@ -1126,63 +1128,63 @@ endfunction
         
     
         function RegisterEvasionEvent takes code c returns nothing
-            call TriggerAddCondition(s__Evasion__Evasion_Evasion__Evasion, Filter((c))) // INLINED!!
+            call TriggerAddCondition(s__Evasion___Evasion_Evasion___Evasion, Filter((c))) // INLINED!!
         endfunction
     
         function GetMissingUnit takes nothing returns unit
-            return s__Evasion__Evasion_EvasionSource
+            return s__Evasion___Evasion_EvasionSource
         endfunction
     
         function GetEvadingUnit takes nothing returns unit
-            return s__Evasion__Evasion_EvasionTarget
+            return s__Evasion___Evasion_EvasionTarget
         endfunction
     
         function GetEvadedDamage takes nothing returns real
-            return s__Evasion__Evasion_EvadedDamage
+            return s__Evasion___Evasion_EvadedDamage
         endfunction
     
         function GetUnitEvasionChance takes unit u returns real
-            return (s__Evasion__Evasion_EvasionChance[GetUnitUserData((u))]) // INLINED!!
+            return (s__Evasion___Evasion_EvasionChance[GetUnitUserData((u))]) // INLINED!!
         endfunction
     
         function GetUnitMissChance takes unit u returns real
-            return (s__Evasion__Evasion_MissChance[GetUnitUserData((u))]) // INLINED!!
+            return (s__Evasion___Evasion_MissChance[GetUnitUserData((u))]) // INLINED!!
         endfunction
     
         function SetUnitEvasionChance takes unit u,real chance returns nothing
-            set s__Evasion__Evasion_EvasionChance[GetUnitUserData((u ))]=(( chance)*1.0) // INLINED!!
+            set s__Evasion___Evasion_EvasionChance[GetUnitUserData((u ))]=(( chance)*1.0) // INLINED!!
         endfunction
     
         function SetUnitMissChance takes unit u,real chance returns nothing
-            set s__Evasion__Evasion_MissChance[GetUnitUserData((u ))]=(( chance)*1.0) // INLINED!!
+            set s__Evasion___Evasion_MissChance[GetUnitUserData((u ))]=(( chance)*1.0) // INLINED!!
         endfunction
     
         function UnitAddEvasionChance takes unit u,real chance returns nothing
-            set s__Evasion__Evasion_EvasionChance[GetUnitUserData((u ))]=(( (s__Evasion__Evasion_EvasionChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
+            set s__Evasion___Evasion_EvasionChance[GetUnitUserData((u ))]=(( (s__Evasion___Evasion_EvasionChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
         endfunction
     
         function UnitAddMissChance takes unit u,real chance returns nothing
-            set s__Evasion__Evasion_MissChance[GetUnitUserData((u ))]=(( (s__Evasion__Evasion_MissChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
+            set s__Evasion___Evasion_MissChance[GetUnitUserData((u ))]=(( (s__Evasion___Evasion_MissChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
         endfunction
     
         function UnitAddEvasionChanceTimed takes unit u,real amount,real duration returns nothing
-            call s__Evasion__Evasion_AddTimed(u , amount , duration , true)
+            call s__Evasion___Evasion_AddTimed(u , amount , duration , true)
         endfunction
     
         function UnitAddMissChanceTimed takes unit u,real amount,real duration returns nothing
-            call s__Evasion__Evasion_AddTimed(u , amount , duration , false)
+            call s__Evasion___Evasion_AddTimed(u , amount , duration , false)
         endfunction
     
         function MakeUnitNeverMiss takes unit u,boolean flag returns nothing
             if flag then
-                set s__Evasion__Evasion_NeverMiss[GetUnitUserData(u)]=s__Evasion__Evasion_NeverMiss[GetUnitUserData(u)] + 1
+                set s__Evasion___Evasion_NeverMiss[GetUnitUserData(u)]=s__Evasion___Evasion_NeverMiss[GetUnitUserData(u)] + 1
             else
-                set s__Evasion__Evasion_NeverMiss[GetUnitUserData(u)]=s__Evasion__Evasion_NeverMiss[GetUnitUserData(u)] - 1
+                set s__Evasion___Evasion_NeverMiss[GetUnitUserData(u)]=s__Evasion___Evasion_NeverMiss[GetUnitUserData(u)] - 1
             endif
         endfunction
     
         function DoUnitNeverMiss takes unit u returns boolean
-            return s__Evasion__Evasion_NeverMiss[GetUnitUserData(u)] > 0
+            return s__Evasion___Evasion_NeverMiss[GetUnitUserData(u)] > 0
         endfunction
 
 //library Evasion ends
@@ -1195,63 +1197,63 @@ endfunction
 	//--------------------------------------------------
 
 
-        function s__LifeSteal__LifeSteal_destroy takes integer this returns nothing
-            if s__LifeSteal__LifeSteal_didx == - 1 then
-                call PauseTimer(s__LifeSteal__LifeSteal_t)
+        function s__LifeSteal___LifeSteal_destroy takes integer this returns nothing
+            if s__LifeSteal___LifeSteal_didx == - 1 then
+                call PauseTimer(s__LifeSteal___LifeSteal_t)
             endif
 
-            set s__LifeSteal__LifeSteal_u[this]=null
-            set s__LifeSteal__LifeSteal_ticks[this]=0
-            call s__LifeSteal__LifeSteal_deallocate(this)
+            set s__LifeSteal___LifeSteal_u[this]=null
+            set s__LifeSteal___LifeSteal_ticks[this]=0
+            call s__LifeSteal___LifeSteal_deallocate(this)
         endfunction
 
-        function s__LifeSteal__LifeSteal_Get takes unit u returns real
-            return s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData(u)]
+        function s__LifeSteal___LifeSteal_Get takes unit u returns real
+            return s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData(u)]
         endfunction
 
-        function s__LifeSteal__LifeSteal_Set takes unit u,real value returns nothing
-            set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData(u)]=value
+        function s__LifeSteal___LifeSteal_Set takes unit u,real value returns nothing
+            set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData(u)]=value
         endfunction
 
-        function s__LifeSteal__LifeSteal_OnPeriod takes nothing returns nothing
+        function s__LifeSteal___LifeSteal_OnPeriod takes nothing returns nothing
             local integer i= 0
             local integer this
             
             loop
-                exitwhen i > s__LifeSteal__LifeSteal_didx
-                    set this=s__LifeSteal__LifeSteal_data[i]
-                    set s__LifeSteal__LifeSteal_ticks[this]=s__LifeSteal__LifeSteal_ticks[this] - 1
+                exitwhen i > s__LifeSteal___LifeSteal_didx
+                    set this=s__LifeSteal___LifeSteal_data[i]
+                    set s__LifeSteal___LifeSteal_ticks[this]=s__LifeSteal___LifeSteal_ticks[this] - 1
 
-                    if s__LifeSteal__LifeSteal_ticks[this] <= 0 then
-                        set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((s__LifeSteal__LifeSteal_u[this] ))]=(( (s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((s__LifeSteal__LifeSteal_u[this]))]) - s__LifeSteal__LifeSteal_amount[this])*1.0) // INLINED!!
+                    if s__LifeSteal___LifeSteal_ticks[this] <= 0 then
+                        set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((s__LifeSteal___LifeSteal_u[this] ))]=(( (s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((s__LifeSteal___LifeSteal_u[this]))]) - s__LifeSteal___LifeSteal_amount[this])*1.0) // INLINED!!
 
-                        set s__LifeSteal__LifeSteal_data[i]=s__LifeSteal__LifeSteal_data[s__LifeSteal__LifeSteal_didx]
-                        set s__LifeSteal__LifeSteal_didx=s__LifeSteal__LifeSteal_didx - 1
+                        set s__LifeSteal___LifeSteal_data[i]=s__LifeSteal___LifeSteal_data[s__LifeSteal___LifeSteal_didx]
+                        set s__LifeSteal___LifeSteal_didx=s__LifeSteal___LifeSteal_didx - 1
                         set i=i - 1
-                        call s__LifeSteal__LifeSteal_destroy(this)
+                        call s__LifeSteal___LifeSteal_destroy(this)
                     endif
                 set i=i + 1
             endloop
         endfunction
 
-        function s__LifeSteal__LifeSteal_AddTimed takes unit u,real amount,real duration returns nothing
-            local integer this= s__LifeSteal__LifeSteal__allocate()
+        function s__LifeSteal___LifeSteal_AddTimed takes unit u,real amount,real duration returns nothing
+            local integer this= s__LifeSteal___LifeSteal__allocate()
 
-            set s__LifeSteal__LifeSteal_u[this]=u
-            set s__LifeSteal__LifeSteal_amount[this]=amount
-            set s__LifeSteal__LifeSteal_ticks[this]=duration / 0.03125000
-            set s__LifeSteal__LifeSteal_didx=s__LifeSteal__LifeSteal_didx + 1
-            set s__LifeSteal__LifeSteal_data[s__LifeSteal__LifeSteal_didx]=this
+            set s__LifeSteal___LifeSteal_u[this]=u
+            set s__LifeSteal___LifeSteal_amount[this]=amount
+            set s__LifeSteal___LifeSteal_ticks[this]=duration / 0.03125000
+            set s__LifeSteal___LifeSteal_didx=s__LifeSteal___LifeSteal_didx + 1
+            set s__LifeSteal___LifeSteal_data[s__LifeSteal___LifeSteal_didx]=this
 
             
-            set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u ))]=(( (s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+            set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u ))]=(( (s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
             
-            if s__LifeSteal__LifeSteal_didx == 0 then
-                call TimerStart(s__LifeSteal__LifeSteal_t, 0.03125000, true, function s__LifeSteal__LifeSteal_OnPeriod)
+            if s__LifeSteal___LifeSteal_didx == 0 then
+                call TimerStart(s__LifeSteal___LifeSteal_t, 0.03125000, true, function s__LifeSteal___LifeSteal_OnPeriod)
             endif
         endfunction
 
-        function s__LifeSteal__LifeSteal_OnDamage takes nothing returns nothing
+        function s__LifeSteal___LifeSteal_OnDamage takes nothing returns nothing
             local unit src= GetEventDamageSource()
             local unit tgt= BlzGetEventDamageTarget()
             //----------------------------------------------
@@ -1260,20 +1262,20 @@ endfunction
             local integer idx= GetUnitUserData(src)
             //----------------------------------------------
             local boolean notStructure= not IsUnitType(tgt, UNIT_TYPE_STRUCTURE)
-            local boolean process= dmg > 0 and s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[idx] > 0 and notStructure
+            local boolean process= dmg > 0 and s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[idx] > 0 and notStructure
             //----------------------------------------------
 
             if process then
-                call SetWidgetLife(src, ( GetWidgetLife(src) + ( dmg * s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[idx] ) ))
-                call DestroyEffect(AddSpecialEffectTarget(s__LifeSteal__LifeSteal_sfx, src, "origin"))
+                call SetWidgetLife(src, ( GetWidgetLife(src) + ( dmg * s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[idx] ) ))
+                call DestroyEffect(AddSpecialEffectTarget(s__LifeSteal___LifeSteal_sfx, src, "origin"))
             endif
 
             set src=null
             set tgt=null
         endfunction
 
-        function s__LifeSteal__LifeSteal_onInit takes nothing returns nothing
-            call s__DamageI_RegisterAttackDamage((function s__LifeSteal__LifeSteal_OnDamage) , true) // INLINED!!
+        function s__LifeSteal___LifeSteal_onInit takes nothing returns nothing
+            call s__DamageI_RegisterAttackDamage((function s__LifeSteal___LifeSteal_OnDamage) , true) // INLINED!!
         endfunction   
 
     
@@ -1281,19 +1283,19 @@ endfunction
     
 
     function SetUnitLifeSteal takes unit u,real amount returns nothing
-        set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u ))]=(( amount)*1.0) // INLINED!!
+        set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u ))]=(( amount)*1.0) // INLINED!!
     endfunction
 
     function GetUnitLifeSteal takes unit u returns real
-        return (s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u))]) // INLINED!!
+        return (s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u))]) // INLINED!!
     endfunction
 
     function UnitAddLifeSteal takes unit u,real amount returns nothing
-        set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u ))]=(( (s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+        set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u ))]=(( (s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
     endfunction
 
     function UnitAddLifeStealTimed takes unit u,real amount,real duration returns nothing
-        call s__LifeSteal__LifeSteal_AddTimed(u , amount , duration)
+        call s__LifeSteal___LifeSteal_AddTimed(u , amount , duration)
     endfunction
 
 //library LifeSteal ends
@@ -1305,79 +1307,79 @@ endfunction
         //--------------------------------------------------
 
 
-        function s__SpellPower__SpellPower_destroy takes integer this returns nothing
-            if s__SpellPower__SpellPower_didx == - 1 then
-                call PauseTimer(s__SpellPower__SpellPower_t)
+        function s__SpellPower___SpellPower_destroy takes integer this returns nothing
+            if s__SpellPower___SpellPower_didx == - 1 then
+                call PauseTimer(s__SpellPower___SpellPower_t)
             endif
 
-            set s__SpellPower__SpellPower_u[this]=null
-            set s__SpellPower__SpellPower_ticks[this]=0
-            call s__SpellPower__SpellPower_deallocate(this)
+            set s__SpellPower___SpellPower_u[this]=null
+            set s__SpellPower___SpellPower_ticks[this]=0
+            call s__SpellPower___SpellPower_deallocate(this)
         endfunction
 
-        function s__SpellPower__SpellPower_GetFlat takes unit u returns real
-            return s__SpellPower__SpellPower_Flat[GetUnitUserData(u)]
+        function s__SpellPower___SpellPower_GetFlat takes unit u returns real
+            return s__SpellPower___SpellPower_Flat[GetUnitUserData(u)]
         endfunction
 
-        function s__SpellPower__SpellPower_GetPercent takes unit u returns real
-            return s__SpellPower__SpellPower_Percent[GetUnitUserData(u)]
+        function s__SpellPower___SpellPower_GetPercent takes unit u returns real
+            return s__SpellPower___SpellPower_Percent[GetUnitUserData(u)]
         endfunction
 
-        function s__SpellPower__SpellPower_SetFlat takes unit u,real value returns nothing
-            set s__SpellPower__SpellPower_Flat[GetUnitUserData(u)]=value
+        function s__SpellPower___SpellPower_SetFlat takes unit u,real value returns nothing
+            set s__SpellPower___SpellPower_Flat[GetUnitUserData(u)]=value
         endfunction
 
-        function s__SpellPower__SpellPower_SetPercent takes unit u,real value returns nothing
-            set s__SpellPower__SpellPower_Percent[GetUnitUserData(u)]=value
+        function s__SpellPower___SpellPower_SetPercent takes unit u,real value returns nothing
+            set s__SpellPower___SpellPower_Percent[GetUnitUserData(u)]=value
         endfunction
 
-        function s__SpellPower__SpellPower_OnPeriod takes nothing returns nothing
+        function s__SpellPower___SpellPower_OnPeriod takes nothing returns nothing
             local integer i= 0
             local integer this
             
             loop
-                exitwhen i > s__SpellPower__SpellPower_didx
-                    set this=s__SpellPower__SpellPower_data[i]
-                    set s__SpellPower__SpellPower_ticks[this]=s__SpellPower__SpellPower_ticks[this] - 1
+                exitwhen i > s__SpellPower___SpellPower_didx
+                    set this=s__SpellPower___SpellPower_data[i]
+                    set s__SpellPower___SpellPower_ticks[this]=s__SpellPower___SpellPower_ticks[this] - 1
 
-                    if s__SpellPower__SpellPower_ticks[this] <= 0 then
-                        if s__SpellPower__SpellPower_flat[this] then
-                            set s__SpellPower__SpellPower_Flat[GetUnitUserData((s__SpellPower__SpellPower_u[this] ))]=(( (s__SpellPower__SpellPower_Flat[GetUnitUserData((s__SpellPower__SpellPower_u[this]))]) - s__SpellPower__SpellPower_amount[this])*1.0) // INLINED!!
+                    if s__SpellPower___SpellPower_ticks[this] <= 0 then
+                        if s__SpellPower___SpellPower_flat[this] then
+                            set s__SpellPower___SpellPower_Flat[GetUnitUserData((s__SpellPower___SpellPower_u[this] ))]=(( (s__SpellPower___SpellPower_Flat[GetUnitUserData((s__SpellPower___SpellPower_u[this]))]) - s__SpellPower___SpellPower_amount[this])*1.0) // INLINED!!
                         else
-                            set s__SpellPower__SpellPower_Percent[GetUnitUserData((s__SpellPower__SpellPower_u[this] ))]=(( (s__SpellPower__SpellPower_Percent[GetUnitUserData((s__SpellPower__SpellPower_u[this]))]) - s__SpellPower__SpellPower_amount[this])*1.0) // INLINED!!
+                            set s__SpellPower___SpellPower_Percent[GetUnitUserData((s__SpellPower___SpellPower_u[this] ))]=(( (s__SpellPower___SpellPower_Percent[GetUnitUserData((s__SpellPower___SpellPower_u[this]))]) - s__SpellPower___SpellPower_amount[this])*1.0) // INLINED!!
                         endif
 
-                        set s__SpellPower__SpellPower_data[i]=s__SpellPower__SpellPower_data[s__SpellPower__SpellPower_didx]
-                        set s__SpellPower__SpellPower_didx=s__SpellPower__SpellPower_didx - 1
+                        set s__SpellPower___SpellPower_data[i]=s__SpellPower___SpellPower_data[s__SpellPower___SpellPower_didx]
+                        set s__SpellPower___SpellPower_didx=s__SpellPower___SpellPower_didx - 1
                         set i=i - 1
-                        call s__SpellPower__SpellPower_destroy(this)
+                        call s__SpellPower___SpellPower_destroy(this)
                     endif
                 set i=i + 1
             endloop
         endfunction
 
-        function s__SpellPower__SpellPower_AddTimed takes unit u,real amount,real duration,boolean flat returns nothing
-            local integer this= s__SpellPower__SpellPower__allocate()
+        function s__SpellPower___SpellPower_AddTimed takes unit u,real amount,real duration,boolean flat returns nothing
+            local integer this= s__SpellPower___SpellPower__allocate()
 
-            set s__SpellPower__SpellPower_u[this]=u
-            set s__SpellPower__SpellPower_amount[this]=amount
-            set s__SpellPower__SpellPower_ticks[this]=duration / 0.03125000
-            set s__SpellPower__SpellPower_flat[this]=flat
-            set s__SpellPower__SpellPower_didx=s__SpellPower__SpellPower_didx + 1
-            set s__SpellPower__SpellPower_data[s__SpellPower__SpellPower_didx]=this
+            set s__SpellPower___SpellPower_u[this]=u
+            set s__SpellPower___SpellPower_amount[this]=amount
+            set s__SpellPower___SpellPower_ticks[this]=duration / 0.03125000
+            set s__SpellPower___SpellPower_flat[this]=flat
+            set s__SpellPower___SpellPower_didx=s__SpellPower___SpellPower_didx + 1
+            set s__SpellPower___SpellPower_data[s__SpellPower___SpellPower_didx]=this
 
             if flat then
-                set s__SpellPower__SpellPower_Flat[GetUnitUserData((u ))]=(( (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+                set s__SpellPower___SpellPower_Flat[GetUnitUserData((u ))]=(( (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
             else
-                set s__SpellPower__SpellPower_Percent[GetUnitUserData((u ))]=(( (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+                set s__SpellPower___SpellPower_Percent[GetUnitUserData((u ))]=(( (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
             endif
             
-            if s__SpellPower__SpellPower_didx == 0 then
-                call TimerStart(s__SpellPower__SpellPower_t, 0.03125000, true, function s__SpellPower__SpellPower_OnPeriod)
+            if s__SpellPower___SpellPower_didx == 0 then
+                call TimerStart(s__SpellPower___SpellPower_t, 0.03125000, true, function s__SpellPower___SpellPower_OnPeriod)
             endif
         endfunction
 
-        function s__SpellPower__SpellPower_OnDamage takes nothing returns nothing
+        function s__SpellPower___SpellPower_OnDamage takes nothing returns nothing
             local unit src= GetEventDamageSource()
             //----------------------------------------------
             local real damage= GetEventDamage()
@@ -1386,14 +1388,14 @@ endfunction
             //----------------------------------------------
 
             if damage > 0 then
-                call BlzSetEventDamage(( damage + s__SpellPower__SpellPower_Flat[idx] ) * ( 1 + s__SpellPower__SpellPower_Percent[idx] ))
+                call BlzSetEventDamage(( damage + s__SpellPower___SpellPower_Flat[idx] ) * ( 1 + s__SpellPower___SpellPower_Percent[idx] ))
             endif
 
             set src=null
         endfunction
 
-        function s__SpellPower__SpellPower_onInit takes nothing returns nothing
-            call s__DamageI_RegisterSpellDamage((function s__SpellPower__SpellPower_OnDamage) , true) // INLINED!!
+        function s__SpellPower___SpellPower_onInit takes nothing returns nothing
+            call s__DamageI_RegisterSpellDamage((function s__SpellPower___SpellPower_OnDamage) , true) // INLINED!!
         endfunction
 
     
@@ -1401,50 +1403,50 @@ endfunction
     
 
     function GetUnitSpellPowerFlat takes unit u returns real
-        return (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) // INLINED!!
+        return (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) // INLINED!!
     endfunction
 
     function GetUnitSpellPowerPercent takes unit u returns real
-        return (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) // INLINED!!
+        return (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) // INLINED!!
     endfunction
 
     function SetUnitSpellPowerFlat takes unit u,real value returns nothing
-        set s__SpellPower__SpellPower_Flat[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
+        set s__SpellPower___SpellPower_Flat[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
     endfunction
 
     function SetUnitSpellPowerPercent takes unit u,real value returns nothing
-        set s__SpellPower__SpellPower_Percent[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
+        set s__SpellPower___SpellPower_Percent[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
     endfunction
 
     function UnitAddSpellPowerFlat takes unit u,real amount returns nothing
-        set s__SpellPower__SpellPower_Flat[GetUnitUserData((u ))]=(( (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+        set s__SpellPower___SpellPower_Flat[GetUnitUserData((u ))]=(( (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
     endfunction
 
     function UnitAddSpellPowerPercent takes unit u,real amount returns nothing
-        set s__SpellPower__SpellPower_Percent[GetUnitUserData((u ))]=(( (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+        set s__SpellPower___SpellPower_Percent[GetUnitUserData((u ))]=(( (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
     endfunction
 
     function UnitAddSpellPowerFlatTimed takes unit u,real amount,real duration returns nothing
-        call s__SpellPower__SpellPower_AddTimed(u , amount , duration , true)
+        call s__SpellPower___SpellPower_AddTimed(u , amount , duration , true)
     endfunction
 
     function UnitAddSpellPowerPercentTimed takes unit u,real amount,real duration returns nothing
-        call s__SpellPower__SpellPower_AddTimed(u , amount , duration , false)
+        call s__SpellPower___SpellPower_AddTimed(u , amount , duration , false)
     endfunction
 
     // The Following functions exists to facilitate the preview of spell damage dealt given an amount.
     // Usefull when combining with string modification of a spell description or prediction of damage.
     
     function GetSpellDamage takes real amount,unit u returns real
-        return ( ( amount + (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) ) ) // INLINED!!
+        return ( ( amount + (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) ) ) // INLINED!!
     endfunction
 
     function AbilitySpellDamage takes unit u,integer abilityId,abilityreallevelfield field returns string
-        return I2S(R2I(( BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, abilityId), field, GetUnitAbilityLevel(u, abilityId) - 1) + (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) ))) // INLINED!!
+        return I2S(R2I(( BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, abilityId), field, GetUnitAbilityLevel(u, abilityId) - 1) + (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) ))) // INLINED!!
     endfunction
 
     function AbilitySpellDamageEx takes real amount,unit u returns string
-        return I2S(R2I(( amount + (s__SpellPower__SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower__SpellPower_Percent[GetUnitUserData((u))]) ))) // INLINED!!
+        return I2S(R2I(( amount + (s__SpellPower___SpellPower_Flat[GetUnitUserData((u))]) ) * ( 1 + (s__SpellPower___SpellPower_Percent[GetUnitUserData((u))]) ))) // INLINED!!
     endfunction
 
 
@@ -1457,70 +1459,70 @@ endfunction
         //--------------------------------------------------
 
 
-        function s__SpellVamp__SpellVamp_destroy takes integer this returns nothing
-            if s__SpellVamp__SpellVamp_didx == - 1 then
-                call PauseTimer(s__SpellVamp__SpellVamp_t)
+        function s__SpellVamp___SpellVamp_destroy takes integer this returns nothing
+            if s__SpellVamp___SpellVamp_didx == - 1 then
+                call PauseTimer(s__SpellVamp___SpellVamp_t)
             endif
 
-            set s__SpellVamp__SpellVamp_u[this]=null
-            set s__SpellVamp__SpellVamp_ticks[this]=0
-            call s__SpellVamp__SpellVamp_deallocate(this)
+            set s__SpellVamp___SpellVamp_u[this]=null
+            set s__SpellVamp___SpellVamp_ticks[this]=0
+            call s__SpellVamp___SpellVamp_deallocate(this)
         endfunction
 
-        function s__SpellVamp__SpellVamp_Get takes unit u returns real
-            return s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData(u)]
+        function s__SpellVamp___SpellVamp_Get takes unit u returns real
+            return s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData(u)]
         endfunction
 
-        function s__SpellVamp__SpellVamp_Set takes unit u,real value returns nothing
-            set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData(u)]=value
+        function s__SpellVamp___SpellVamp_Set takes unit u,real value returns nothing
+            set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData(u)]=value
         endfunction
 
-        function s__SpellVamp__SpellVamp_OnPeriod takes nothing returns nothing
+        function s__SpellVamp___SpellVamp_OnPeriod takes nothing returns nothing
             local integer i= 0
             local integer this
             
             loop
-                exitwhen i > s__SpellVamp__SpellVamp_didx
-                    set this=s__SpellVamp__SpellVamp_data[i]
-                    set s__SpellVamp__SpellVamp_ticks[this]=s__SpellVamp__SpellVamp_ticks[this] - 1
+                exitwhen i > s__SpellVamp___SpellVamp_didx
+                    set this=s__SpellVamp___SpellVamp_data[i]
+                    set s__SpellVamp___SpellVamp_ticks[this]=s__SpellVamp___SpellVamp_ticks[this] - 1
 
-                    if s__SpellVamp__SpellVamp_ticks[this] <= 0 then
-                        set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((s__SpellVamp__SpellVamp_u[this] ))]=(( (s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((s__SpellVamp__SpellVamp_u[this]))]) - s__SpellVamp__SpellVamp_amount[this])*1.0) // INLINED!!
+                    if s__SpellVamp___SpellVamp_ticks[this] <= 0 then
+                        set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((s__SpellVamp___SpellVamp_u[this] ))]=(( (s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((s__SpellVamp___SpellVamp_u[this]))]) - s__SpellVamp___SpellVamp_amount[this])*1.0) // INLINED!!
 
-                        set s__SpellVamp__SpellVamp_data[i]=s__SpellVamp__SpellVamp_data[s__SpellVamp__SpellVamp_didx]
-                        set s__SpellVamp__SpellVamp_didx=s__SpellVamp__SpellVamp_didx - 1
+                        set s__SpellVamp___SpellVamp_data[i]=s__SpellVamp___SpellVamp_data[s__SpellVamp___SpellVamp_didx]
+                        set s__SpellVamp___SpellVamp_didx=s__SpellVamp___SpellVamp_didx - 1
                         set i=i - 1
-                        call s__SpellVamp__SpellVamp_destroy(this)
+                        call s__SpellVamp___SpellVamp_destroy(this)
                     endif
                 set i=i + 1
             endloop
         endfunction
 
-        function s__SpellVamp__SpellVamp_AddTimed takes unit u,real amount,real duration returns nothing
-            local integer this= s__SpellVamp__SpellVamp__allocate()
+        function s__SpellVamp___SpellVamp_AddTimed takes unit u,real amount,real duration returns nothing
+            local integer this= s__SpellVamp___SpellVamp__allocate()
 
-            set s__SpellVamp__SpellVamp_u[this]=u
-            set s__SpellVamp__SpellVamp_amount[this]=amount
-            set s__SpellVamp__SpellVamp_ticks[this]=duration / 0.03125000
-            set s__SpellVamp__SpellVamp_didx=s__SpellVamp__SpellVamp_didx + 1
-            set s__SpellVamp__SpellVamp_data[s__SpellVamp__SpellVamp_didx]=this
+            set s__SpellVamp___SpellVamp_u[this]=u
+            set s__SpellVamp___SpellVamp_amount[this]=amount
+            set s__SpellVamp___SpellVamp_ticks[this]=duration / 0.03125000
+            set s__SpellVamp___SpellVamp_didx=s__SpellVamp___SpellVamp_didx + 1
+            set s__SpellVamp___SpellVamp_data[s__SpellVamp___SpellVamp_didx]=this
 
             
-            set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u ))]=(( (s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+            set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u ))]=(( (s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
             
-            if s__SpellVamp__SpellVamp_didx == 0 then
-                call TimerStart(s__SpellVamp__SpellVamp_t, 0.03125000, true, function s__SpellVamp__SpellVamp_OnPeriod)
+            if s__SpellVamp___SpellVamp_didx == 0 then
+                call TimerStart(s__SpellVamp___SpellVamp_t, 0.03125000, true, function s__SpellVamp___SpellVamp_OnPeriod)
             endif
         endfunction  
 
-        function s__SpellVamp__SpellVamp_OnDamage takes nothing returns nothing
+        function s__SpellVamp___SpellVamp_OnDamage takes nothing returns nothing
             local unit src= GetEventDamageSource()
             local unit tgt= BlzGetEventDamageTarget()
             //----------------------------------------------
             local integer idx= GetUnitUserData(src)
             //----------------------------------------------
             local real dmg= GetEventDamage()
-            local real sp= s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[idx]
+            local real sp= s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[idx]
             //----------------------------------------------
             local boolean notStructure= not IsUnitType(tgt, UNIT_TYPE_STRUCTURE)
             local boolean process= dmg > 0 and sp > 0 and notStructure
@@ -1534,8 +1536,8 @@ endfunction
             set tgt=null
         endfunction
 
-        function s__SpellVamp__SpellVamp_onInit takes nothing returns nothing
-            call s__DamageI_RegisterSpellDamage((function s__SpellVamp__SpellVamp_OnDamage) , true) // INLINED!!
+        function s__SpellVamp___SpellVamp_onInit takes nothing returns nothing
+            call s__DamageI_RegisterSpellDamage((function s__SpellVamp___SpellVamp_OnDamage) , true) // INLINED!!
         endfunction 
 
     
@@ -1543,19 +1545,19 @@ endfunction
     
 
     function SetUnitSpellVamp takes unit u,real amount returns nothing
-        set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u ))]=(( amount)*1.0) // INLINED!!
+        set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u ))]=(( amount)*1.0) // INLINED!!
     endfunction
 
     function GetUnitSpellVamp takes unit u returns real
-        return (s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u))]) // INLINED!!
+        return (s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u))]) // INLINED!!
     endfunction
 
     function UnitAddSpellVamp takes unit u,real amount returns nothing
-        set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u ))]=(( (s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
+        set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u ))]=(( (s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData((u))]) + amount)*1.0) // INLINED!!
     endfunction
 
     function UnitAddSpellVampTimed takes unit u,real amount,real duration returns nothing
-        call s__SpellVamp__SpellVamp_AddTimed(u , amount , duration)
+        call s__SpellVamp___SpellVamp_AddTimed(u , amount , duration)
     endfunction
 
 //library SpellVamp ends
@@ -1743,26 +1745,26 @@ function UpdateTasButtonListDefaultObject takes nothing returns nothing
     local integer lumber
     local item tempItem
  
-    call BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON), BlzGetAbilityIcon(data), 0, false)
-    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT), GetObjectName(data))
+    call BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON), BlzGetAbilityIcon(data), 0, false)
+    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT), GetObjectName(data))
 
-    call BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_ICON), BlzGetAbilityIcon(data), 0, false)
-    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_NAME), GetObjectName(data))
-    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_TEXT), BlzGetAbilityExtendedTooltip(data, 0))
+    call BlzFrameSetTexture(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_ICON), BlzGetAbilityIcon(data), 0, false)
+    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_NAME), GetObjectName(data))
+    call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_TEXT), BlzGetAbilityExtendedTooltip(data, 0))
 
     set tempItem=CreateItem(data, 0, 0)
     set gold=GetItemLevel(tempItem) / 10000
     set lumber=GetItemLevel(tempItem) - ( GetItemLevel(tempItem) / 10000 ) * 10000
     call RemoveItem(tempItem)
     if GetPlayerState(GetLocalPlayer(), PLAYER_STATE_RESOURCE_GOLD) >= gold then
-        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_GOLD), I2S(gold))
+        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_GOLD), I2S(gold))
     else
-        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_GOLD), "|cffff2010" + I2S(gold))
+        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_GOLD), "|cffff2010" + I2S(gold))
     endif
     if GetPlayerState(GetLocalPlayer(), PLAYER_STATE_RESOURCE_LUMBER) >= lumber then
-        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_LUMBER), I2S(lumber))
+        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_LUMBER), I2S(lumber))
     else
-        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_LUMBER), "|cffff2010" + I2S(lumber))
+        call BlzFrameSetText(LoadFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_LUMBER), "|cffff2010" + I2S(lumber))
     endif
 endfunction
 
@@ -1776,52 +1778,52 @@ endfunction
 
 function InitTasButtonListObject takes framehandle parent,code buttonAction,code updateAction,code searchAction,code filterAction returns integer
     local framehandle frame
-    set TasButtonList__Counter=TasButtonList__Counter + 1
+    set TasButtonList___Counter=TasButtonList___Counter + 1
     // the locations are created to have an unique slot in the hash which are used as something like a Lua table.
-    set TasButtonListDataList[TasButtonList__Counter]=Location(0, 0) // 
-    set TasButtonListDataListFiltered[TasButtonList__Counter]=Location(0, 0) //
-    set TasButtonListFrameList[TasButtonList__Counter]=Location(0, 0) //
-    set TasButtonListParent[TasButtonList__Counter]=parent
-    set TasButtonListViewPoint[TasButtonList__Counter]=0
+    set TasButtonListDataList[TasButtonList___Counter]=Location(0, 0) // 
+    set TasButtonListDataListFiltered[TasButtonList___Counter]=Location(0, 0) //
+    set TasButtonListFrameList[TasButtonList___Counter]=Location(0, 0) //
+    set TasButtonListParent[TasButtonList___Counter]=parent
+    set TasButtonListViewPoint[TasButtonList___Counter]=0
 
-    set TasButtonListButtonAction[TasButtonList__Counter]=CreateTrigger() //call this inside the SyncAction after a button is clicked
-    set TasButtonListUpdateAction[TasButtonList__Counter]=CreateTrigger() //function defining how to display stuff (async)
-    set TasButtonListFilterAction[TasButtonList__Counter]=CreateTrigger() //function to return the searched Text (async)
-    set TasButtonListSearchAction[TasButtonList__Counter]=CreateTrigger()
-    call TriggerAddAction(TasButtonListButtonAction[TasButtonList__Counter], buttonAction)
+    set TasButtonListButtonAction[TasButtonList___Counter]=CreateTrigger() //call this inside the SyncAction after a button is clicked
+    set TasButtonListUpdateAction[TasButtonList___Counter]=CreateTrigger() //function defining how to display stuff (async)
+    set TasButtonListFilterAction[TasButtonList___Counter]=CreateTrigger() //function to return the searched Text (async)
+    set TasButtonListSearchAction[TasButtonList___Counter]=CreateTrigger()
+    call TriggerAddAction(TasButtonListButtonAction[TasButtonList___Counter], buttonAction)
     
     // update is a condition with it can be run with TriggerEvaluate in localPlayer code. TriggerExecute would desync
     if updateAction == null then
-        call TriggerAddCondition(TasButtonListUpdateAction[TasButtonList__Counter], Filter(function UpdateTasButtonListDefaultObject))
+        call TriggerAddCondition(TasButtonListUpdateAction[TasButtonList___Counter], Filter(function UpdateTasButtonListDefaultObject))
     else
-        call TriggerAddCondition(TasButtonListUpdateAction[TasButtonList__Counter], Filter(updateAction))
+        call TriggerAddCondition(TasButtonListUpdateAction[TasButtonList___Counter], Filter(updateAction))
     endif
 
     if searchAction == null then
-        call TriggerAddCondition(TasButtonListSearchAction[TasButtonList__Counter], Filter(function SearchTasButtonListDefaultObject))
+        call TriggerAddCondition(TasButtonListSearchAction[TasButtonList___Counter], Filter(function SearchTasButtonListDefaultObject))
     else
-        call TriggerAddCondition(TasButtonListSearchAction[TasButtonList__Counter], Filter(searchAction))
+        call TriggerAddCondition(TasButtonListSearchAction[TasButtonList___Counter], Filter(searchAction))
     endif
     if filterAction != null then
-        call TriggerAddCondition(TasButtonListFilterAction[TasButtonList__Counter], Filter(filterAction))
+        call TriggerAddCondition(TasButtonListFilterAction[TasButtonList___Counter], Filter(filterAction))
     endif
     
     set frame=BlzCreateFrameByType("SLIDER", "", parent, "", 0)
-    set TasButtonListSyncFrame[TasButtonList__Counter]=frame
+    set TasButtonListSyncFrame[TasButtonList___Counter]=frame
     call BlzFrameSetMinMaxValue(frame, 0, 9999999)
     call BlzFrameSetStepSize(frame, 1.0)
-    call BlzTriggerRegisterFrameEvent(TasButtonList__SyncTrigger, frame, FRAMEEVENT_SLIDER_VALUE_CHANGED)
+    call BlzTriggerRegisterFrameEvent(TasButtonList___SyncTrigger, frame, FRAMEEVENT_SLIDER_VALUE_CHANGED)
     call BlzFrameSetVisible(frame, false)
-    call SaveInteger(TasButtonList_Hash, GetHandleId(frame), 0, TasButtonList__Counter)
+    call SaveInteger(TasButtonList_Hash, GetHandleId(frame), 0, TasButtonList___Counter)
 
     set frame=BlzCreateFrame("TasEditBox", parent, 0, 0)
-    set TasButtonListInputFrame[TasButtonList__Counter]=frame
-    call BlzTriggerRegisterFrameEvent(TasButtonList__SearchTrigger, frame, FRAMEEVENT_EDITBOX_TEXT_CHANGED)
+    set TasButtonListInputFrame[TasButtonList___Counter]=frame
+    call BlzTriggerRegisterFrameEvent(TasButtonList___SearchTrigger, frame, FRAMEEVENT_EDITBOX_TEXT_CHANGED)
     call BlzFrameSetPoint(frame, FRAMEPOINT_TOPRIGHT, parent, FRAMEPOINT_TOPRIGHT, 0, 0)
-    call SaveInteger(TasButtonList_Hash, GetHandleId(frame), 0, TasButtonList__Counter)
+    call SaveInteger(TasButtonList_Hash, GetHandleId(frame), 0, TasButtonList___Counter)
 
     set frame=null
-    return TasButtonList__Counter
+    return TasButtonList___Counter
 endfunction
 
 function InitTasButtonListSlider takes integer listIndex,integer stepSize,integer rowCount returns nothing
@@ -1837,8 +1839,8 @@ function InitTasButtonListSlider takes integer listIndex,integer stepSize,intege
     call BlzFrameSetMinMaxValue(frame, 0, 0)
     call BlzFrameSetPoint(frame, FRAMEPOINT_TOPLEFT, buttonFrame, FRAMEPOINT_TOPRIGHT, 0, 0)
     call BlzFrameSetSize(frame, 0.012, BlzFrameGetHeight(buttonFrame) * rowCount)
-    call BlzTriggerRegisterFrameEvent(TasButtonList__SliderTrigger, frame, FRAMEEVENT_SLIDER_VALUE_CHANGED)
-    call BlzTriggerRegisterFrameEvent(TasButtonList__SliderTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
+    call BlzTriggerRegisterFrameEvent(TasButtonList___SliderTrigger, frame, FRAMEEVENT_SLIDER_VALUE_CHANGED)
+    call BlzTriggerRegisterFrameEvent(TasButtonList___SliderTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
 endfunction
 
 function CreateTasButtonList takes integer buttonCount,framehandle parent,code buttonAction,code updateAction,code searchAction,code filterAction returns integer
@@ -1858,24 +1860,24 @@ function CreateTasButtonList takes integer buttonCount,framehandle parent,code b
         call SaveFrameHandle(TasButtonList_Hash, frameListHash, i, frame)
         call SaveInteger(TasButtonList_Hash, frameHandle, 0, listIndex) // the button knows the TasButtonListIndex
         call SaveInteger(TasButtonList_Hash, frameHandle, 1, i) // the button knows its index in the frameList
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
         set frameButton=frame
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON, BlzGetFrameByName("TasButtonIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT, BlzGetFrameByName("TasButtonText", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_GOLD, BlzGetFrameByName("TasButtonIconGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonTextGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonIconLumber", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonTextLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON, BlzGetFrameByName("TasButtonIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT, BlzGetFrameByName("TasButtonText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_GOLD, BlzGetFrameByName("TasButtonIconGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonTextGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonIconLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonTextLumber", 0))
 
         set frame=BlzCreateFrame("TasButtonListTooltipBox", frameButton, 0, 0)
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP, frame)
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP, frame)
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
 
         call BlzFrameSetPoint(frame, FRAMEPOINT_TOPRIGHT, parent, FRAMEPOINT_TOPLEFT, - 0.001, 0)
         call BlzFrameSetTooltip(frameButton, frame)
@@ -1911,24 +1913,24 @@ function CreateTasButtonListV2 takes integer rowCount,framehandle parent,code bu
         call SaveFrameHandle(TasButtonList_Hash, frameListHash, i, frame)
         call SaveInteger(TasButtonList_Hash, frameHandle, 0, listIndex) // the button knows the TasButtonListIndex
         call SaveInteger(TasButtonList_Hash, frameHandle, 1, i) // the button knows its index in the frameList
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
         set frameButton=frame
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON, BlzGetFrameByName("TasButtonSmallIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT, BlzGetFrameByName("TasButtonSmallText", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_GOLD, BlzGetFrameByName("TasButtonSmallIconGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonSmallTextGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonSmallIconLumber", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonSmallTextLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON, BlzGetFrameByName("TasButtonSmallIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT, BlzGetFrameByName("TasButtonSmallText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_GOLD, BlzGetFrameByName("TasButtonSmallIconGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonSmallTextGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonSmallIconLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonSmallTextLumber", 0))
 
         set frame=BlzCreateFrame("TasButtonListTooltipBox", frameButton, 0, 0)
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP, frame)
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP, frame)
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
 
         call BlzFrameSetPoint(frame, FRAMEPOINT_TOPRIGHT, parent, FRAMEPOINT_TOPLEFT, - 0.001, 0)
         call BlzFrameSetTooltip(frameButton, frame)
@@ -1971,24 +1973,24 @@ function CreateTasButtonListV3 takes integer rowCount,framehandle parent,code bu
         call SaveFrameHandle(TasButtonList_Hash, frameListHash, i, frame)
         call SaveInteger(TasButtonList_Hash, frameHandle, 0, listIndex) // the button knows the TasButtonListIndex
         call SaveInteger(TasButtonList_Hash, frameHandle, 1, i) // the button knows its index in the frameList
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
-        call BlzTriggerRegisterFrameEvent(TasButtonList__ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonTrigger, frame, FRAMEEVENT_CONTROL_CLICK)
+        call BlzTriggerRegisterFrameEvent(TasButtonList___ButtonScrollTrigger, frame, FRAMEEVENT_MOUSE_WHEEL)
         set frameButton=frame
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON, BlzGetFrameByName("TasButtonGridIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT, BlzGetFrameByName("TasButtonGridText", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_GOLD, BlzGetFrameByName("TasButtonGridIconGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonGridTextGold", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonGridIconLumber", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonGridTextLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON, BlzGetFrameByName("TasButtonGridIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT, BlzGetFrameByName("TasButtonGridText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_GOLD, BlzGetFrameByName("TasButtonGridIconGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_GOLD, BlzGetFrameByName("TasButtonGridTextGold", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_ICON_LUMBER, BlzGetFrameByName("TasButtonGridIconLumber", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TEXT_LUMBER, BlzGetFrameByName("TasButtonGridTextLumber", 0))
 
         set frame=BlzCreateFrame("TasButtonListTooltipBox", frameButton, 0, 0)
 
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP, frame)
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
-        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList__HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP, frame)
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_ICON, BlzGetFrameByName("TasButtonListTooltipIcon", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_NAME, BlzGetFrameByName("TasButtonListTooltipName", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_SEP, BlzGetFrameByName("TasButtonListTooltipSeperator", 0))
+        call SaveFrameHandle(TasButtonList_Hash, frameHandle, TasButtonList___HASH_TOOL_TIP_TEXT, BlzGetFrameByName("TasButtonListTooltipText", 0))
 
         call BlzFrameSetPoint(frame, FRAMEPOINT_TOPRIGHT, parent, FRAMEPOINT_TOPLEFT, - 0.001, 0)
         call BlzFrameSetTooltip(frameButton, frame)
@@ -2067,13 +2069,13 @@ function TasButtonListClearData takes integer listIndex returns nothing
     call BlzFrameSetMinMaxValue(TasButtonListSlider[listIndex], 0, 0)
 endfunction
 
- function TasButtonList__Init takes nothing returns nothing
+ function TasButtonList___Init takes nothing returns nothing
     call BlzLoadTOCFile("war3mapimported\\TasButtonList.toc")
-    call TriggerAddAction(TasButtonList__SyncTrigger, function TasButtonListTriggerActionSync)
-    call TriggerAddAction(TasButtonList__ButtonTrigger, function TasButtonListTriggerActionButton)
-    call TriggerAddAction(TasButtonList__SearchTrigger, function TasButtonListTriggerActionSearch)
-    call TriggerAddAction(TasButtonList__ButtonScrollTrigger, function TasButtonListTriggerActionButtonScroll)
-    call TriggerAddAction(TasButtonList__SliderTrigger, function TasButtonListTriggerActionSlider)
+    call TriggerAddAction(TasButtonList___SyncTrigger, function TasButtonListTriggerActionSync)
+    call TriggerAddAction(TasButtonList___ButtonTrigger, function TasButtonListTriggerActionButton)
+    call TriggerAddAction(TasButtonList___SearchTrigger, function TasButtonListTriggerActionSearch)
+    call TriggerAddAction(TasButtonList___ButtonScrollTrigger, function TasButtonListTriggerActionButtonScroll)
+    call TriggerAddAction(TasButtonList___SliderTrigger, function TasButtonListTriggerActionSlider)
     
 
 
@@ -2090,92 +2092,92 @@ endfunction
             //--------------------------------------------------
     
     
-            function s__CriticalStrike__CriticalStrike_destroy takes integer this returns nothing
-                if s__CriticalStrike__CriticalStrike_didx == - 1 then
-                    call PauseTimer(s__CriticalStrike__CriticalStrike_t)
+            function s__CriticalStrike___CriticalStrike_destroy takes integer this returns nothing
+                if s__CriticalStrike___CriticalStrike_didx == - 1 then
+                    call PauseTimer(s__CriticalStrike___CriticalStrike_t)
                 endif
     
-                set s__CriticalStrike__CriticalStrike_u[this]=null
-                set s__CriticalStrike__CriticalStrike_ticks[this]=0
-                call s__CriticalStrike__CriticalStrike_deallocate(this)
+                set s__CriticalStrike___CriticalStrike_u[this]=null
+                set s__CriticalStrike___CriticalStrike_ticks[this]=0
+                call s__CriticalStrike___CriticalStrike_deallocate(this)
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_GetChance takes unit u returns real
-                return s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData(u)]
+            function s__CriticalStrike___CriticalStrike_GetChance takes unit u returns real
+                return s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData(u)]
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_GetMultiplier takes unit u returns real
-                return s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData(u)]
+            function s__CriticalStrike___CriticalStrike_GetMultiplier takes unit u returns real
+                return s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData(u)]
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_SetChance takes unit u,real value returns nothing
-                set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData(u)]=value
+            function s__CriticalStrike___CriticalStrike_SetChance takes unit u,real value returns nothing
+                set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData(u)]=value
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_SetMultiplier takes unit u,real value returns nothing
-                set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData(u)]=value
+            function s__CriticalStrike___CriticalStrike_SetMultiplier takes unit u,real value returns nothing
+                set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData(u)]=value
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_AddCritical takes unit u,real chance,real multuplier returns nothing
-                set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( (s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
-                set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( (s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) + multuplier)*1.0) // INLINED!!
+            function s__CriticalStrike___CriticalStrike_AddCritical takes unit u,real chance,real multuplier returns nothing
+                set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( (s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
+                set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( (s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) + multuplier)*1.0) // INLINED!!
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_OnPeriod takes nothing returns nothing
+            function s__CriticalStrike___CriticalStrike_OnPeriod takes nothing returns nothing
                 local integer i= 0
                 local integer this
                 
                 loop
-                    exitwhen i > s__CriticalStrike__CriticalStrike_didx
-                        set this=s__CriticalStrike__CriticalStrike_data[i]
-                        set s__CriticalStrike__CriticalStrike_ticks[this]=s__CriticalStrike__CriticalStrike_ticks[this] - 1
+                    exitwhen i > s__CriticalStrike___CriticalStrike_didx
+                        set this=s__CriticalStrike___CriticalStrike_data[i]
+                        set s__CriticalStrike___CriticalStrike_ticks[this]=s__CriticalStrike___CriticalStrike_ticks[this] - 1
     
-                        if s__CriticalStrike__CriticalStrike_ticks[this] <= 0 then
-                            if s__CriticalStrike__CriticalStrike_types[this] == 0 then
-                                call s__CriticalStrike__CriticalStrike_AddCritical(s__CriticalStrike__CriticalStrike_u[this] , - s__CriticalStrike__CriticalStrike_chance[this] , - s__CriticalStrike__CriticalStrike_multiplier[this])
-                            elseif s__CriticalStrike__CriticalStrike_types[this] == 1 then
-                                set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((s__CriticalStrike__CriticalStrike_u[this] ))]=(( (s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((s__CriticalStrike__CriticalStrike_u[this]))]) - s__CriticalStrike__CriticalStrike_chance[this])*1.0) // INLINED!!
+                        if s__CriticalStrike___CriticalStrike_ticks[this] <= 0 then
+                            if s__CriticalStrike___CriticalStrike_types[this] == 0 then
+                                call s__CriticalStrike___CriticalStrike_AddCritical(s__CriticalStrike___CriticalStrike_u[this] , - s__CriticalStrike___CriticalStrike_chance[this] , - s__CriticalStrike___CriticalStrike_multiplier[this])
+                            elseif s__CriticalStrike___CriticalStrike_types[this] == 1 then
+                                set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((s__CriticalStrike___CriticalStrike_u[this] ))]=(( (s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((s__CriticalStrike___CriticalStrike_u[this]))]) - s__CriticalStrike___CriticalStrike_chance[this])*1.0) // INLINED!!
                             else
-                                set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((s__CriticalStrike__CriticalStrike_u[this] ))]=(( (s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((s__CriticalStrike__CriticalStrike_u[this]))]) - s__CriticalStrike__CriticalStrike_multiplier[this])*1.0) // INLINED!!
+                                set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((s__CriticalStrike___CriticalStrike_u[this] ))]=(( (s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((s__CriticalStrike___CriticalStrike_u[this]))]) - s__CriticalStrike___CriticalStrike_multiplier[this])*1.0) // INLINED!!
                             endif
     
-                            set s__CriticalStrike__CriticalStrike_data[i]=s__CriticalStrike__CriticalStrike_data[s__CriticalStrike__CriticalStrike_didx]
-                            set s__CriticalStrike__CriticalStrike_didx=s__CriticalStrike__CriticalStrike_didx - 1
+                            set s__CriticalStrike___CriticalStrike_data[i]=s__CriticalStrike___CriticalStrike_data[s__CriticalStrike___CriticalStrike_didx]
+                            set s__CriticalStrike___CriticalStrike_didx=s__CriticalStrike___CriticalStrike_didx - 1
                             set i=i - 1
-                            call s__CriticalStrike__CriticalStrike_destroy(this)
+                            call s__CriticalStrike___CriticalStrike_destroy(this)
                         endif
                     set i=i + 1
                 endloop
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_AddTimed takes unit u,real chance,real multiplier,real duration,integer types returns nothing
-                local integer this= s__CriticalStrike__CriticalStrike__allocate()
+            function s__CriticalStrike___CriticalStrike_AddTimed takes unit u,real chance,real multiplier,real duration,integer types returns nothing
+                local integer this= s__CriticalStrike___CriticalStrike__allocate()
     
-                set s__CriticalStrike__CriticalStrike_u[this]=u
-                set s__CriticalStrike__CriticalStrike_chance[this]=chance
-                set s__CriticalStrike__CriticalStrike_multiplier[this]=multiplier
-                set s__CriticalStrike__CriticalStrike_ticks[this]=duration / 0.03125000
-                set s__CriticalStrike__CriticalStrike_types[this]=types
-                set s__CriticalStrike__CriticalStrike_didx=s__CriticalStrike__CriticalStrike_didx + 1
-                set s__CriticalStrike__CriticalStrike_data[s__CriticalStrike__CriticalStrike_didx]=this
+                set s__CriticalStrike___CriticalStrike_u[this]=u
+                set s__CriticalStrike___CriticalStrike_chance[this]=chance
+                set s__CriticalStrike___CriticalStrike_multiplier[this]=multiplier
+                set s__CriticalStrike___CriticalStrike_ticks[this]=duration / 0.03125000
+                set s__CriticalStrike___CriticalStrike_types[this]=types
+                set s__CriticalStrike___CriticalStrike_didx=s__CriticalStrike___CriticalStrike_didx + 1
+                set s__CriticalStrike___CriticalStrike_data[s__CriticalStrike___CriticalStrike_didx]=this
     
                 if types == 0 then
-                    call s__CriticalStrike__CriticalStrike_AddCritical(u , chance , multiplier)
+                    call s__CriticalStrike___CriticalStrike_AddCritical(u , chance , multiplier)
                 elseif types == 1 then
-                    set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( (s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
+                    set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( (s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u))]) + chance)*1.0) // INLINED!!
                 else
-                    set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( (s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) + multiplier)*1.0) // INLINED!!
+                    set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( (s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) + multiplier)*1.0) // INLINED!!
                 endif
                 
-                if s__CriticalStrike__CriticalStrike_didx == 0 then
-                    call TimerStart(s__CriticalStrike__CriticalStrike_t, 0.03125000, true, function s__CriticalStrike__CriticalStrike_OnPeriod)
+                if s__CriticalStrike___CriticalStrike_didx == 0 then
+                    call TimerStart(s__CriticalStrike___CriticalStrike_t, 0.03125000, true, function s__CriticalStrike___CriticalStrike_OnPeriod)
                 endif
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_CriticalText takes unit whichUnit,string text,real duration,integer red,integer green,integer blue,integer alpha returns nothing
+            function s__CriticalStrike___CriticalStrike_CriticalText takes unit whichUnit,string text,real duration,integer red,integer green,integer blue,integer alpha returns nothing
                 local texttag tx= CreateTextTag()
                 
-                call SetTextTagText(tx, text, s__CriticalStrike__CriticalStrike_text_size)
+                call SetTextTagText(tx, text, s__CriticalStrike___CriticalStrike_text_size)
                 call SetTextTagPosUnit(tx, whichUnit, 0)
                 call SetTextTagColor(tx, red, green, blue, alpha)
                 call SetTextTagLifespan(tx, duration)
@@ -2185,7 +2187,7 @@ endfunction
                 set tx=null
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_OnDamage takes nothing returns nothing
+            function s__CriticalStrike___CriticalStrike_OnDamage takes nothing returns nothing
                 local unit src= GetEventDamageSource()
                 local unit tgt= BlzGetEventDamageTarget()
                 //----------------------------------------------
@@ -2195,36 +2197,36 @@ endfunction
                 //----------------------------------------------
                 local boolean isEnemy= IsUnitEnemy(tgt, GetOwningPlayer(src))
                 local boolean notStructure= not IsUnitType(tgt, UNIT_TYPE_STRUCTURE)
-                local boolean criticalHit= ( GetRandomReal(0, 100) <= s__CriticalStrike__CriticalStrike_CriticalChance[idx] )
-                local boolean process= damage > 0 and criticalHit and isEnemy and notStructure and s__CriticalStrike__CriticalStrike_CriticalMultiplier[idx] > 0
+                local boolean criticalHit= ( GetRandomReal(0, 100) <= s__CriticalStrike___CriticalStrike_CriticalChance[idx] )
+                local boolean process= damage > 0 and criticalHit and isEnemy and notStructure and s__CriticalStrike___CriticalStrike_CriticalMultiplier[idx] > 0
                 //----------------------------------------------
     
                 if process then
-                    set s__CriticalStrike__CriticalStrike_CriticalSource=src
-                    set s__CriticalStrike__CriticalStrike_CriticalTarget=tgt
-                    set s__CriticalStrike__CriticalStrike_CriticalDamage=damage * ( 1 + s__CriticalStrike__CriticalStrike_CriticalMultiplier[idx] )
+                    set s__CriticalStrike___CriticalStrike_CriticalSource=src
+                    set s__CriticalStrike___CriticalStrike_CriticalTarget=tgt
+                    set s__CriticalStrike___CriticalStrike_CriticalDamage=damage * ( 1 + s__CriticalStrike___CriticalStrike_CriticalMultiplier[idx] )
     
-                    call TriggerEvaluate(s__CriticalStrike__CriticalStrike_Critical)
+                    call TriggerEvaluate(s__CriticalStrike___CriticalStrike_Critical)
     
                     //in case of damage modification 
-                    call BlzSetEventDamage(s__CriticalStrike__CriticalStrike_CriticalDamage)
+                    call BlzSetEventDamage(s__CriticalStrike___CriticalStrike_CriticalDamage)
     
-                    if s__CriticalStrike__CriticalStrike_CriticalDamage > 0 then
-                        call s__CriticalStrike__CriticalStrike_CriticalText(tgt , ( I2S(R2I(s__CriticalStrike__CriticalStrike_CriticalDamage)) + "!" ) , 1.5 , 255 , 0 , 0 , 255)
+                    if s__CriticalStrike___CriticalStrike_CriticalDamage > 0 then
+                        call s__CriticalStrike___CriticalStrike_CriticalText(tgt , ( I2S(R2I(s__CriticalStrike___CriticalStrike_CriticalDamage)) + "!" ) , 1.5 , 255 , 0 , 0 , 255)
                     endif
     
-                    set s__CriticalStrike__CriticalStrike_CriticalSource=null
-                    set s__CriticalStrike__CriticalStrike_CriticalTarget=null
-                    set s__CriticalStrike__CriticalStrike_CriticalDamage=0.0
+                    set s__CriticalStrike___CriticalStrike_CriticalSource=null
+                    set s__CriticalStrike___CriticalStrike_CriticalTarget=null
+                    set s__CriticalStrike___CriticalStrike_CriticalDamage=0.0
                 endif
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_Register takes code c returns nothing
-                call TriggerAddCondition(s__CriticalStrike__CriticalStrike_Critical, Filter(c))
+            function s__CriticalStrike___CriticalStrike_Register takes code c returns nothing
+                call TriggerAddCondition(s__CriticalStrike___CriticalStrike_Critical, Filter(c))
             endfunction
     
-            function s__CriticalStrike__CriticalStrike_onInit takes nothing returns nothing
-                call s__DamageI_RegisterAttackDamage((function s__CriticalStrike__CriticalStrike_OnDamage) , true) // INLINED!!
+            function s__CriticalStrike___CriticalStrike_onInit takes nothing returns nothing
+                call s__DamageI_RegisterAttackDamage((function s__CriticalStrike___CriticalStrike_OnDamage) , true) // INLINED!!
             endfunction
     
         
@@ -2232,55 +2234,55 @@ endfunction
         
     
         function RegisterCriticalStrikeEvent takes code c returns nothing
-            call TriggerAddCondition(s__CriticalStrike__CriticalStrike_Critical, Filter((c))) // INLINED!!
+            call TriggerAddCondition(s__CriticalStrike___CriticalStrike_Critical, Filter((c))) // INLINED!!
         endfunction
     
         function GetCriticalSource takes nothing returns unit
-            return s__CriticalStrike__CriticalStrike_CriticalSource
+            return s__CriticalStrike___CriticalStrike_CriticalSource
         endfunction
     
         function GetCriticalTarget takes nothing returns unit
-            return s__CriticalStrike__CriticalStrike_CriticalTarget
+            return s__CriticalStrike___CriticalStrike_CriticalTarget
         endfunction
     
         function GetCriticalDamage takes nothing returns real
-            return s__CriticalStrike__CriticalStrike_CriticalDamage
+            return s__CriticalStrike___CriticalStrike_CriticalDamage
         endfunction
     
         function GetUnitCriticalChance takes unit u returns real
-            return (s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u))]) // INLINED!!
+            return (s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u))]) // INLINED!!
         endfunction
     
         function GetUnitCriticalMultiplier takes unit u returns real
-            return (s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) // INLINED!!
+            return (s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u))]) // INLINED!!
         endfunction
     
         function SetUnitCriticalChance takes unit u,real value returns nothing
-            set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
+            set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
         endfunction
     
         function SetUnitCriticalMultiplier takes unit u,real value returns nothing
-            set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
+            set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData((u ))]=(( value)*1.0) // INLINED!!
         endfunction
     
         function SetCriticalEventDamage takes real newValue returns nothing
-            set s__CriticalStrike__CriticalStrike_CriticalDamage=newValue
+            set s__CriticalStrike___CriticalStrike_CriticalDamage=newValue
         endfunction
     
         function UnitAddCriticalStrike takes unit u,real chance,real multiplier returns nothing
-            call s__CriticalStrike__CriticalStrike_AddCritical(u , chance , multiplier)
+            call s__CriticalStrike___CriticalStrike_AddCritical(u , chance , multiplier)
         endfunction
     
         function UnitAddCriticalStrikeTimed takes unit u,real chance,real multiplier,real duration returns nothing
-            call s__CriticalStrike__CriticalStrike_AddTimed(u , chance , multiplier , duration , 0)
+            call s__CriticalStrike___CriticalStrike_AddTimed(u , chance , multiplier , duration , 0)
         endfunction
     
         function UnitAddCriticalChanceTimed takes unit u,real chance,real duration returns nothing
-            call s__CriticalStrike__CriticalStrike_AddTimed(u , chance , 0 , duration , 1)
+            call s__CriticalStrike___CriticalStrike_AddTimed(u , chance , 0 , duration , 1)
         endfunction
     
         function UnitAddCriticalMultiplierTimed takes unit u,real multiplier,real duration returns nothing
-            call s__CriticalStrike__CriticalStrike_AddTimed(u , 0 , multiplier , duration , 2)
+            call s__CriticalStrike___CriticalStrike_AddTimed(u , 0 , multiplier , duration , 2)
         endfunction
 
 //library CriticalStrike ends
@@ -2409,21 +2411,21 @@ endfunction
                 elseif bonus_type == BONUS_MAGIC_RESISTANCE then
                     return BlzGetAbilityRealLevelField(BlzGetUnitAbility(u, NewBonus__MAGIC_RESISTANCE_ABILITY), NewBonus__MAGIC_RESISTANCE_FIELD, 0)
                 elseif bonus_type == BONUS_EVASION_CHANCE then
-                    return (s__Evasion__Evasion_EvasionChance[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__Evasion___Evasion_EvasionChance[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_MISS_CHANCE then
-                    return (s__Evasion__Evasion_MissChance[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__Evasion___Evasion_MissChance[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_CRITICAL_CHANCE then
-                    return (s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_CRITICAL_DAMAGE then
-                    return (s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_POWER_FLAT then
-                    return (s__SpellPower__SpellPower_Flat[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__SpellPower___SpellPower_Flat[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_POWER_PERCENT then
-                    return (s__SpellPower__SpellPower_Percent[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__SpellPower___SpellPower_Percent[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_LIFE_STEAL then
-                    return (s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData(((u)))]) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_VAMP then
-                    return (s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData(((u)))]) // INLINED!!
+                    return (s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData(((u)))]) // INLINED!!
                 //elseif bonus_type == BONUS_COOLDOWN_REDUCTION then
                 //    return GetUnitCooldownReduction(u)
                 //elseif bonus_type == BONUS_COOLDOWN_REDUCTION_FLAT then
@@ -2447,21 +2449,21 @@ endfunction
                 elseif bonus_type == BONUS_MAGIC_RESISTANCE then
                     call s__NewBonus_SetUnitAbilityBonusR(u , NewBonus__MAGIC_RESISTANCE_ABILITY , NewBonus__MAGIC_RESISTANCE_FIELD , amount)
                 elseif bonus_type == BONUS_EVASION_CHANCE then
-                    set s__Evasion__Evasion_EvasionChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__Evasion___Evasion_EvasionChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_MISS_CHANCE then
-                    set s__Evasion__Evasion_MissChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__Evasion___Evasion_MissChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_CRITICAL_CHANCE then
-                    set s__CriticalStrike__CriticalStrike_CriticalChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__CriticalStrike___CriticalStrike_CriticalChance[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_CRITICAL_DAMAGE then
-                    set s__CriticalStrike__CriticalStrike_CriticalMultiplier[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__CriticalStrike___CriticalStrike_CriticalMultiplier[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_POWER_FLAT then
-                    set s__SpellPower__SpellPower_Flat[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__SpellPower___SpellPower_Flat[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_POWER_PERCENT then
-                    set s__SpellPower__SpellPower_Percent[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__SpellPower___SpellPower_Percent[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_LIFE_STEAL then
-                    set s__LifeSteal__LifeSteal_LifeSteal__LifeSteal[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__LifeSteal___LifeSteal_LifeSteal___LifeSteal[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_VAMP then
-                    set s__SpellVamp__SpellVamp_SpellVamp__SpellVamp[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
+                    set s__SpellVamp___SpellVamp_SpellVamp___SpellVamp[GetUnitUserData(((u ) ))]=(( (( amount)*1.0))*1.0) // INLINED!!
                 //elseif bonus_type == BONUS_COOLDOWN_REDUCTION then
                 //    call SetUnitCooldownReduction(u, amount)
                 //elseif bonus_type == BONUS_COOLDOWN_REDUCTION_FLAT then
@@ -2487,9 +2489,9 @@ endfunction
                 elseif bonus_type == BONUS_MISS_CHANCE then
                     call UnitAddMissChance(u , amount)
                 elseif bonus_type == BONUS_CRITICAL_CHANCE then
-                    call s__CriticalStrike__CriticalStrike_AddCritical((u ) , (( amount )*1.0) , (( 0)*1.0)) // INLINED!!
+                    call s__CriticalStrike___CriticalStrike_AddCritical((u ) , (( amount )*1.0) , (( 0)*1.0)) // INLINED!!
                 elseif bonus_type == BONUS_CRITICAL_DAMAGE then
-                    call s__CriticalStrike__CriticalStrike_AddCritical((u ) , (( 0 )*1.0) , (( amount)*1.0)) // INLINED!!
+                    call s__CriticalStrike___CriticalStrike_AddCritical((u ) , (( 0 )*1.0) , (( amount)*1.0)) // INLINED!!
                 elseif bonus_type == BONUS_SPELL_POWER_FLAT then
                     call UnitAddSpellPowerFlat(u , amount)
                 elseif bonus_type == BONUS_SPELL_POWER_PERCENT then
@@ -2815,6 +2817,7 @@ function CreateNeutralPassiveBuildings takes nothing returns nothing
     local real life
 
     set u=BlzCreateUnitWithSkin(p, 'ncp3', 2048.0, - 5952.0, 270.000, 'ncp3')
+    set u=BlzCreateUnitWithSkin(p, 'ncp3', 2048.0, 0.0, 270.000, 'ncp3')
 endfunction
 
 //===========================================================================
@@ -2828,8 +2831,8 @@ function CreateNeutralPassive takes nothing returns nothing
     set u=BlzCreateUnitWithSkin(p, 'zmar', 1530.5, - 6958.8, 329.622, 'zmar')
     set u=BlzCreateUnitWithSkin(p, 'zmar', 2047.2, - 6962.6, 160.131, 'zmar')
     set u=BlzCreateUnitWithSkin(p, 'zmar', 2563.4, - 6962.6, 164.459, 'zmar')
-    set u=BlzCreateUnitWithSkin(p, 'zmar', 1101.2, - 6522.7, 329.622, 'zmar')
-    set u=BlzCreateUnitWithSkin(p, 'zmar', 2986.5, - 6536.1, 329.622, 'zmar')
+    set u=BlzCreateUnitWithSkin(p, 'zmar', 1080.3, - 6405.1, 329.622, 'zmar')
+    set u=BlzCreateUnitWithSkin(p, 'zmar', 3005.3, - 6402.9, 329.622, 'zmar')
 endfunction
 
 //===========================================================================
@@ -2857,11 +2860,13 @@ endfunction
 function CreateRegions takes nothing returns nothing
     local weathereffect we
 
-    set gg_rct_Region_000=Rect(1344.0, - 7008.0, 1728.0, - 6688.0)
-    set gg_rct_Region_000_Copy=Rect(1856.0, - 7008.0, 2240.0, - 6688.0)
-    set gg_rct_Region_000_Copy_2=Rect(2368.0, - 7008.0, 2752.0, - 6688.0)
-    set gg_rct_Region_000_Copy_3=Rect(2720.0, - 6592.0, 3040.0, - 6208.0)
-    set gg_rct_Region_000_Copy_4=Rect(1056.0, - 6592.0, 1376.0, - 6208.0)
+    set gg_rct_WeaponsShop=Rect(1344.0, - 7008.0, 1728.0, - 6688.0)
+    set gg_rct_MagicShop=Rect(1856.0, - 7008.0, 2240.0, - 6688.0)
+    set gg_rct_DefenseShop=Rect(2368.0, - 7008.0, 2752.0, - 6688.0)
+    set gg_rct_GeneralShop=Rect(2720.0, - 6592.0, 3040.0, - 6208.0)
+    set gg_rct_RecipesShop=Rect(1056.0, - 6592.0, 1376.0, - 6208.0)
+    set gg_rct_LeaveShop=Rect(1984.0, - 6016.0, 2112.0, - 5888.0)
+    set gg_rct_AttackPoint=Rect(1920.0, - 128.0, 2176.0, 128.0)
 endfunction
 
 //***************************************************************************
@@ -3053,9 +3058,9 @@ function main takes nothing returns nothing
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs482570968")
+call ExecuteFunc("jasshelper__initstructs27001468")
 call ExecuteFunc("String___Init")
-call ExecuteFunc("TasButtonList__Init")
+call ExecuteFunc("TasButtonList___Init")
 
     call InitGlobals()
 
@@ -3104,7 +3109,7 @@ endfunction
 
 //Struct method generated initializers/callers:
 
-function jasshelper__initstructs482570968 takes nothing returns nothing
+function jasshelper__initstructs27001468 takes nothing returns nothing
     set st__NewBonus_onDestroy[7]=null
     set st__NewBonus_onDestroy[8]=null
 
@@ -3117,11 +3122,11 @@ function jasshelper__initstructs482570968 takes nothing returns nothing
 
 
     call ExecuteFunc("s__DamageI_onInit")
-    call ExecuteFunc("s__Evasion__Evasion_onInit")
-    call ExecuteFunc("s__LifeSteal__LifeSteal_onInit")
-    call ExecuteFunc("s__SpellPower__SpellPower_onInit")
-    call ExecuteFunc("s__SpellVamp__SpellVamp_onInit")
-    call ExecuteFunc("s__CriticalStrike__CriticalStrike_onInit")
+    call ExecuteFunc("s__Evasion___Evasion_onInit")
+    call ExecuteFunc("s__LifeSteal___LifeSteal_onInit")
+    call ExecuteFunc("s__SpellPower___SpellPower_onInit")
+    call ExecuteFunc("s__SpellVamp___SpellVamp_onInit")
+    call ExecuteFunc("s__CriticalStrike___CriticalStrike_onInit")
     call ExecuteFunc("s__NewBonusUtils__NewBonusUtils_onInit")
 endfunction
 

@@ -23,7 +23,10 @@
 - Tier 2 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier2sword.233577)
 - Tier 3 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier3sword.233578)
 - Tier 4 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier4sword.233579)
+- Tier 6 Sword ─ [Novart](https://www.hiveworkshop.com/threads/btntier6swordd.233737)
 - Mercurial Scimitar ─ [Novart](https://www.hiveworkshop.com/threads/btnmercurialscimtar)
+- Sword ─ [Novart](https://www.hiveworkshop.com/threads/sword.318344)
+- Three tier alchemy potions─ [GooS](https://www.hiveworkshop.com/threads/three-tier-alchemy-potions.116902)
 
 ### Models:
 

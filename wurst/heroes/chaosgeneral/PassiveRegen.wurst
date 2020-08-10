@@ -1,0 +1,60 @@
+package PassiveRegen
+
+import AbilityTooltipGenerator
+import ClosureTimers
+import Constants
+import OnUnitEnterLeave
+import HashMap
+import HashList
+
+// Internals
+HashMap<unit, int> cooldowns = new HashMap<unit, int>
+HashList<unit> units = new HashList<unit>
+
+// Stats
+@configurable constant MAX_HP_REGEN = .1
+@configurable constant COOLDOWN = 6.
+
+@compiletime function generateAbilitySanctumAura()
+    let tgen = new AbilityTooltipGenerator("Restores life to surrounding allied units periodically.")
+    tgen.addConstantProperty("Hitpoints restored", (MAX_HP_REGEN*100).toInt().toString())
+    tgen.addConstantProperty("Cooldown", COOLDOWN.toInt().toString() + " seconds")
+    
+    new AbilityDefinitionHardenedSkin(ABILITY_PASSIVEREGEN_ID)
+        ..registerTooltipGenerator(tgen)
+        ..presetChancetoReduceDamage(lvl -> 0) // Disable hardened skin
+        ..setRequirements("") // Disable hardened skin
+        ..presetButtonPosNormal(1, 1)
+        ..tooltipStartListen()
+        ..setLevels(1)
+        ..setName("Passive regen")
+        ..tooltipStopListen()
+        ..presetIcon("ReplaceableTextures\\PassiveButtons\\PASHolyRestorationAura.blp")
+        ..setLevelSkipRequirement(1)
+
+init
+    // Unit registration
+    onEnter() ->
+        let u = getEnterLeaveUnit()
+        if /*u.getTypeId() == HERO_LIGHTBRINGER_ID and*/ not units.has(u) // TODO: Check correct unit type
+            units.add(u)
+            cooldowns.put(u, 0)
+    onLeave() ->
+        let u = getEnterLeaveUnit()
+        units.remove(u)
+        cooldowns.remove(u)
+
+    // Ability effect
+    doPeriodically(1) (CallbackPeriodic cb) ->
+        for u in units
+            if u.hasAbility(ABILITY_PASSIVEREGEN_ID) and u.isAlive()
+                let cd = cooldowns.get(u)
+                if cd == 0
+                    u.addHP(u.getMaxHP() * MAX_HP_REGEN)
+                else
+                    cooldowns.put(u, cd - 1)
+    
+    RegisterDamageEvent() ->
+        let u = s__DamageI_target
+        if units.has(u) and s__DamageI_isEnemy
+            cooldowns.put(u, COOLDOWN.toInt())

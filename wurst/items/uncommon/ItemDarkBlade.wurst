@@ -6,15 +6,15 @@ import ObjectIdGenerator
 import ObjectIds
 import AbilityObjEditing
 import ItemTooltipGenerator
+import ClosureEvents
 
 // Internals
-constant HELPER_ABILITY_EXTRADAMAGE_ID = compiletime(ABIL_ID_GEN.next())
 constant HELPER_ABILITY_ANIMATEDEAD_ID = compiletime(ABIL_ID_GEN.next())
 
 @configurable constant GOLD_COST = 120
 @configurable constant LUMBER_COST = 5
 @configurable constant CURSED = false
-@configurable constant EXTRA_DAMAGE = 24
+@configurable constant EXTRA_DAMAGE = 24.
 @configurable constant RAISED_UNITS = 2
 @configurable constant DURATION = 10.
 @configurable constant COOLDOWN = 20.
@@ -23,12 +23,12 @@ constant HELPER_ABILITY_ANIMATEDEAD_ID = compiletime(ABIL_ID_GEN.next())
 
 @compiletime function generateItemDarkBlade()
     let tgen = new ItemTooltipGenerator("Dark blade", RARITY)
-        ..addItemProperty("+" + EXTRA_DAMAGE.toString() + " attack damage")
+        ..addItemProperty("+" + EXTRA_DAMAGE.toInt().toString() + " attack damage")
         ..addItemProperty("Active effect: ", "Raises " + RAISED_UNITS.toString() +
-            " nearby corpses that are invulnerable that fight for you for " + DURATION.toInt().toString() + " seconds.")
+            " nearby corpses that are invulnerable to fight for you for " + DURATION.toInt().toString() + " seconds.")
         ..setShortDescription("Used by necromantic warrior. Be careful.")
 
-    new ItemDefinition(ITEM_DARKBLADE_ID, AbilityIds.itemAnimateDead)
+    new ItemDefinition(ITEM_DARKBLADE_ID, 'afac')
         ..setName(tgen.generateItemName())
         ..setActivelyUsed(true)
         ..setTooltipExtended(tgen.generateItemDescription())
@@ -38,12 +38,8 @@ constant HELPER_ABILITY_ANIMATEDEAD_ID = compiletime(ABIL_ID_GEN.next())
         ..setGoldCost(GOLD_COST)
         ..setLumberCost(LUMBER_COST)
         ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
-        ..setAbilities(commaList(HELPER_ABILITY_EXTRADAMAGE_ID, HELPER_ABILITY_ANIMATEDEAD_ID))
-        ..setCooldownGroup(AbilityIds.animateDead.toString()) // TODO: Cooldown not showing
-
-@compiletime function helperAbilityExtraDamage()
-    new AbilityDefinitionAttackBonusPlus1(HELPER_ABILITY_EXTRADAMAGE_ID)
-        ..setAttackBonus(1, EXTRA_DAMAGE)
+        ..setAbilities(commaList(HELPER_ABILITY_ANIMATEDEAD_ID))
+        ..setCooldownGroup(AbilityIds.animateDead.toString())
 
 @compiletime function helperAbilityAnimateDead()
     new AbilityDefinitionAnimateDead(HELPER_ABILITY_ANIMATEDEAD_ID)
@@ -52,3 +48,10 @@ constant HELPER_ABILITY_ANIMATEDEAD_ID = compiletime(ABIL_ID_GEN.next())
         ..setDurationNormal(1, DURATION)
         ..setManaCost(1, MANA_COST)
         ..setCooldown(1, COOLDOWN)
+
+init
+    EventListener.add(EVENT_PLAYER_UNIT_PICKUP_ITEM) ->
+        let u = GetManipulatingUnit()
+        let i = GetManipulatedItem()
+        if i.getTypeId() == ITEM_DARKBLADE_ID
+            LinkBonusToItem(u, BONUS_DAMAGE, EXTRA_DAMAGE, i)

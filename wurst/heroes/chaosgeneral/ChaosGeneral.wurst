@@ -17,7 +17,7 @@ import Constants
 @configurable constant LEVEL_AGI = .5
 @configurable constant LEVEL_INT = 2.5
 @configurable constant LEVEL_STR = 10.
-@configurable constant BASE_SPEED = 215
+@configurable constant BASE_SPEED = 260
 
 class HeroChaosGeneral extends HeroDefinition
 	construct()
@@ -27,7 +27,7 @@ class HeroChaosGeneral extends HeroDefinition
 		this.setModelFile("Heroes\\FelOrcGeneral.mdx")
 		this.setCollisionSize(10)
 		this.setNormalAbilities(commaList(/*GHOST_VIS_ID,*/ AbilityIds.inventory, ABILITY_GETMAPPOS_ID))
-		this.setHeroAbilities(commaList(ABILITY_ENRAGE_ID))
+		this.setHeroAbilities(commaList(ABILITY_PASSIVEREGEN_ID, ABILITY_ENRAGE_ID))
 		this.setHotkey("")
 		this.setProperNames(commaList("Mike", "Jason", "Rocky", "Herold", "Arthur", "Chev")) // TODO: Set names
 		this.setProperNamesUsed(6)

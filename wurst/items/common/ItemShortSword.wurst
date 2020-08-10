@@ -1,4 +1,4 @@
-package ItemTrainingSword
+package ItemShortSword
 
 import Constants
 import ItemObjEditing
@@ -8,23 +8,25 @@ import AbilityObjEditing
 import ItemTooltipGenerator
 import ClosureEvents
 
-@configurable constant GOLD_COST = 15
+@configurable constant GOLD_COST = 20
 @configurable constant LUMBER_COST = 0
 @configurable constant CURSED = false
-@configurable constant EXTRA_DAMAGE = 8.
+@configurable constant EXTRA_DAMAGE = 5.
+@configurable constant EXTRA_AS = .1
 @configurable constant RARITY = Rarity.COMMON
 
-@compiletime function generateItemTrainingSword()
-    let tgen = new ItemTooltipGenerator("Training sword", RARITY)
+@compiletime function generateItemShortSword()
+    let tgen = new ItemTooltipGenerator("Short sword", RARITY)
         ..addItemProperty("+" + EXTRA_DAMAGE.toInt().toString() + " attack damage")
+        ..addItemProperty("+" + (EXTRA_AS*100).toInt().toString() + "% attack speed")
         ..setShortDescription("A simple weapon.|nIt will have to do.")
 
-    new ItemDefinition(ITEM_TRAININGSWORD_ID, 'afac')
+    new ItemDefinition(ITEM_SHORTSWORD_ID, 'afac')
         ..setName(tgen.generateItemName())
         ..setTooltipExtended(tgen.generateItemDescription())
         ..setTooltipBasic(tgen.generateItemName())
         ..setDescription(tgen.generateItemDescription())
-        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNTier1Sword.blp")
+        ..setInterfaceIcon("ReplaceableTextures\\CommandButtons\\BTNSword1.blp")
         ..setGoldCost(GOLD_COST)
         ..setLumberCost(LUMBER_COST)
         ..setLevel(GOLD_COST*GOLD_SHOP_OFFSET + LUMBER_COST)
@@ -33,5 +35,6 @@ init
     EventListener.add(EVENT_PLAYER_UNIT_PICKUP_ITEM) ->
         let u = GetManipulatingUnit()
         let i = GetManipulatedItem()
-        if i.getTypeId() == ITEM_TRAININGSWORD_ID
+        if i.getTypeId() == ITEM_SHORTSWORD_ID
             LinkBonusToItem(u, BONUS_DAMAGE, EXTRA_DAMAGE, i)
+            LinkBonusToItem(u, BONUS_ATTACK_SPEED, EXTRA_AS, i)

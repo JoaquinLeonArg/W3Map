@@ -1,0 +1,29 @@
+package MiscShop
+
+import PlayerHeroes
+import Shop
+import Constants
+import Util
+import ClosureEvents
+import Unit
+
+function onClick()
+    let pl = GetTriggerPlayer()
+    let itemId = TasButtonListData
+    let ite = CreateItem(itemId, 0, 0)
+    let goldCost = ite.getGoldCost()
+    let lumberCost = ite.getLumberCost()
+    RemoveItem(ite)
+    let hero = PlayerHeroes.getHeroFromPlayer(pl)
+    if hero != null and not hero.isInventoryFull() and pl.getGold() >= goldCost and pl.getLumber() >= lumberCost
+        hero.addItemById(itemId)
+        pl.setGold(pl.getGold() - goldCost)
+        pl.setLumber(pl.getLumber() - lumberCost)
+
+public class MiscShop extends Shop
+    construct()
+        super(function onClick)
+
+    override function addListData()
+        TasButtonListAddData(this.tasObjectIndex, ITEM_MINORHEALTHVIAL_ID)
+        TasButtonListAddData(this.tasObjectIndex, ITEM_MINORMANAVIAL_ID)
